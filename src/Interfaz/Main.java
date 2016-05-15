@@ -92,7 +92,7 @@ public class Main {
                     break;
                 default:
                     System.out.println("\n" + ANSI_RED + "El valor ingresado no es correcto. "
-                            + "Debe ingresar una opción válida (entero de 0 a 4) :" + ANSI_RESET + "\n \n");
+                            + "Debe ingresar una opción válida (entero de 1 a 4) :" + ANSI_RESET + "\n \n");
                     break;
             }
         }

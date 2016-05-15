@@ -20,7 +20,7 @@ public class Partida {
         this.cantidadFichas = 0;
     }
 
-    public Partida(int[] configuracion) { // constructor vacio
+    public Partida(int[] configuracion) { // constructor con configuracion 
         Jugador aux = new Jugador();
         Tablero tab = new Tablero(configuracion[0], configuracion[1]);
         Jugador aux2 = new Jugador();

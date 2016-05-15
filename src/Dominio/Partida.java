@@ -72,21 +72,15 @@ public class Partida {
         return this.cantidadFichas;
     }
 
+    public int getDeshacerMovPosHueco() {
+        return this.deshacerMovPosHueco;
+    }
+
+    public void setDeshacerMovPosHueco(int miDeshacerMovPosHueco) {
+        this.deshacerMovPosHueco = miDeshacerMovPosHueco;
+    }
+
     public boolean isEmpty() {
         return this.getPosicionHuecoActual() == -1;
-    }
-
-    /**
-     * @return the deshacerMovPosHueco
-     */
-    public int getDeshacerMovPosHueco() {
-        return deshacerMovPosHueco;
-    }
-
-    /**
-     * @param deshacerMovPosHueco the deshacerMovPosHueco to set
-     */
-    public void setDeshacerMovPosHueco(int deshacerMovPosHueco) {
-        this.deshacerMovPosHueco = deshacerMovPosHueco;
     }
 }

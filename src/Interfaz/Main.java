@@ -125,7 +125,9 @@ public class Main {
                         System.out.println(ANSI_RED + "Debe ingresar un alias correctamente."
                                 + "Vuelva a intentarlo: " + ANSI_RESET + "\n");
                     }
-                } else {
+                }
+             
+                else {
                     correcto = true;
                 }
 
@@ -576,7 +578,7 @@ public class Main {
                         opcionValida = true;
 
                     } else {
-                        System.out.println(ANSI_RED + "Opción de subtablero incorrecta. Ingrese número válido (entero entre 1 y " + numeroDeSub + "):" + ANSI_RESET);
+                        System.out.println(ANSI_RED + "Opción incorrecta. Ingrese número válido (entero entre 1 y " + numeroDeSub + ", asegurese de no deshacer ningun movimiento anterior):" + ANSI_RESET);
                     }
                 } catch (InputMismatchException e) {
                     in.next();
@@ -856,10 +858,5 @@ public class Main {
            fila = 4;
        }
        return fila;
-   }
-    
-
-    
-    
-    
+   }  
 }

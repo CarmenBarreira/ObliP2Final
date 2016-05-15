@@ -108,7 +108,17 @@ public class Tablero {
     }
 
     public char encontroGanador() {
+        /*Retorna E -> si no hay ganador
+        Retorna A -> si ganaron los 2
+        Retorna B -> Si gano jugador blanco
+        Retorna N -> si gano el jugador negro
+        */
+        
+        int pos =0;
+        char[] ganadores= {'E', 'E'};
+        
         char siHayGanador = 'E';
+        
         for (int i = 0; i < this.getTablero().length - 1; i++) {
             for (int j = 0; j < this.getTablero()[0].length - 1; j++) {
                 if (this.getTablero()[i][j] == this.getTablero()[i][j + 1]
@@ -117,10 +127,19 @@ public class Tablero {
                         && this.getTablero()[i][j] != ' ' && this.getTablero()[i][j] != 'X') {
 
                     siHayGanador = this.getTablero()[i][j];
-
+                    if(siHayGanador=='B'){
+                        ganadores[0]='B';
+                    }
+                    if(siHayGanador=='N'){
+                        ganadores[1]='N';
+                    }
                 }
             }
         }
+        if((ganadores[0]=='B') && (ganadores[1]=='N')){
+            siHayGanador='A';
+        }
+        
         return siHayGanador;
     }
 
@@ -167,6 +186,8 @@ public class Tablero {
     }
 
     public boolean posicionValidaTablero(char fila, char columna, int tamanioTablero) {
+        //valida que la posicion de ingreso de la ficha sea valida
+        
         boolean esValida = false;
         int auxFila, auxColumna;
         auxFila = (int) fila;
@@ -198,7 +219,7 @@ public class Tablero {
     }
 
     public void moverHueco(int[] coordSubtablero) {
-
+        //mueve el hueco
         char[][] aux = this.getSubtablero(coordSubtablero).clone();
 
         this.setSubtablero(coordSubtablero, hueco);

@@ -92,7 +92,7 @@ public class Jugador implements Comparable<Jugador> {
     //toString
     @Override
     public String toString() {
-        return "JUGADOR: " + this.getAlias() + "\n      Nombre=" + this.getNombre()
+        return "ALIAS: " + this.getAlias() + "\n      Nombre=" + this.getNombre()
                 + "\n      Edad=" + this.getEdad() + "\n"
                 + "      Cantidad partidas ganadas: " + this.getCantidadPartidasGanadas()
                 + "\n      Cantidad partidas perdidas: " + this.getCantidadPartidasPerdidas()

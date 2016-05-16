@@ -696,7 +696,6 @@ public class Main {
             // Si Abandono entonces determino ganador a Jugador Negro
             }
             if (p.getTablero().encontroGanador() == 'E' && !abandono) {//no gano con el movimiento o salio
-                imprimirTablero(p.getTablero());
                 System.out.println("\n");
                 posHuecoNuevo = obtenerPosHueco(p.getTablero(), 2, posHuecoAnt, 
                         p.getDeshacerMovPosHueco());

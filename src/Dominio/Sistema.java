@@ -34,32 +34,24 @@ public class Sistema {
         this.partidaActual = laPartidaActual;
     }
 
+    public int[] getConfPartida() {
+        return this.confPartida;
+    }
+    
+    public void setConfPartida(int[] miConfPartida) {
+        this.confPartida = miConfPartida;
+    }
+    
     public void agregarJugador(Jugador miJugador){
         /*agrega el jugador en la lista de jugadores */
         listaJugadores.add(miJugador);     
     }
     
     public ArrayList<Jugador> ordenarCrecienteJugador(){  
-        // Para el Ranking
+        /*Para el Ranking, ordena los jugadores de manera creciente según 
+        la cantidad de partidas de ganadas*/
          Collections.sort(this.getListaJugadores());
          return this.getListaJugadores();
     }    
 
-    /**
-     * @return the confPartida
-     */
-    public int[] getConfPartida() {
-        return confPartida;
-    }
-
-    /**
-     * @param confPartida the confPartida to set
-     */
-    public void setConfPartida(int[] confPartida) {
-        this.confPartida = confPartida;
-    }
-
-
-    
-    
 }

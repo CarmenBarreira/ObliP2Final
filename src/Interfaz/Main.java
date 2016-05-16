@@ -695,7 +695,8 @@ public class Main {
                 hayGanador = determinarGanador('N', miSistema.getPartidaActual()); 
             // Si Abandono entonces determino ganador a Jugador Negro
             }
-            if (p.getTablero().encontroGanador() == 'E' && !abandono) {//no gano con el movimiento o salio
+            if (p.getTablero().encontroGanador() == 'E' && !abandono) {
+        //no gano con el movimiento o salio
                 System.out.println("\n");
                 posHuecoNuevo = obtenerPosHueco(p.getTablero(), 2, posHuecoAnt, 
                         p.getDeshacerMovPosHueco());
@@ -731,9 +732,10 @@ public class Main {
             }
         }
         determinarGanador(p.getTablero().encontroGanador(), p);
-        if((cantFichasTotal==0 && p.getTablero().encontroGanador()=='E') || (p.getTablero().encontroGanador()=='A')){ 
+        if((cantFichasTotal==0 && p.getTablero().encontroGanador()=='E') || 
+                (p.getTablero().encontroGanador()=='A')){ 
             // Empate porque se terminaron las fichas ó encuentra a los 2 jugadores ganadores
-                System.out.println("\n \n EMPATE!!! \n");
+                System.out.println("\n \n" + ANSI_BLUE + " EMPATE!!!" + ANSI_RESET + " \n");
                 p.getJugadorBlanco().setCantidadPartidasEmpatadas
                     (p.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
                 p.getJugadorNegro().setCantidadPartidasEmpatadas
@@ -876,7 +878,7 @@ public class Main {
                 break;
             case 4: //tablero 8*8
                 horizontal = 4;
-                vertical = 12;
+                vertical = 16;
                 break;
         }
         

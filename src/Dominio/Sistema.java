@@ -8,7 +8,7 @@ public class Sistema {
     //atributos
     private ArrayList<Jugador> listaJugadores;
     private Partida partidaActual;
-    private int[] confPartida = {1,5};
+    private int[] confPartida = {1,5}; // CONFIGURACION POR DEFECTO, PRIMER NUMERO ES OPCIOND E TABLERO, SEGUNDO ES OPCION DE HUECO
 
     //Constructor
     public Sistema() {

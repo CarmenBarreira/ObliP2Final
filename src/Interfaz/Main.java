@@ -731,7 +731,7 @@ public class Main {
             }
         }
         determinarGanador(p.getTablero().encontroGanador(), p);
-        if(cantFichasTotal==0 || (p.getTablero().encontroGanador()=='A')){ 
+        if((cantFichasTotal==0 && p.getTablero().encontroGanador()=='E') || (p.getTablero().encontroGanador()=='A')){ 
             // Empate porque se terminaron las fichas ó encuentra a los 2 jugadores ganadores
                 System.out.println("\n \n EMPATE!!! \n");
                 p.getJugadorBlanco().setCantidadPartidasEmpatadas

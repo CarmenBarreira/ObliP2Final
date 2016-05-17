@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
         Sistema miSistema = new Sistema();
         int[] config = new int[2];
-        
+
         //Scanner para leer datos ingresados por el usuario
         Scanner in = new Scanner(System.in);
 
@@ -91,7 +91,7 @@ public class Main {
                     }
                     break;
                 case 0:
-                    System.out.println(ANSI_GREEN + "Gracias por utilizar 4enCuadrado!" + ANSI_RESET);
+                    System.out.println(ANSI_GREEN + "Gracias por jugar 4enCuadrado!" + ANSI_RESET);
                     break;
                 default:
                     System.out.println("\n" + ANSI_RED + "El valor ingresado no es correcto. "
@@ -128,9 +128,7 @@ public class Main {
                         System.out.println(ANSI_RED + "Debe ingresar un alias correctamente."
                                 + "Vuelva a intentarlo: " + ANSI_RESET + "\n");
                     }
-                }
-             
-                else {
+                } else {
                     correcto = true;
                 }
 
@@ -151,7 +149,6 @@ public class Main {
 
     public static void imprimirTablero(Tablero tab) {
         System.out.print("   ");
-        boolean stop = false;
         //IMPRIMO LOS NUMEROS DE LAS CELDAS, CADA DOS LUGARES, K y K+1
         for (int k = 1; k <= tab.getTablero()[0].length; k = k + 2) {
             System.out.print(" " + k + "   " + (k + 1) + "  ");
@@ -221,7 +218,6 @@ public class Main {
 
     public static void imprimirTableroHueco(Tablero tab) {
         System.out.print("   ");
-        boolean stop = false;
         int contadorSubtablero = 1;
         //IMPRIMO LOS NUMEROS DE LAS CELDAS, CADA DOS LUGARES, K y K+1
         for (int k = 1; k <= tab.getTablero()[0].length; k = k + 2) {
@@ -299,7 +295,6 @@ public class Main {
 
     public static void imprimirTableroDeSubtableros(Tablero tab) {
         System.out.print("   ");
-        boolean stop = false;
         int contadorSubtablero = 1;
         //IMPRIMO LOS NUMEROS DE LAS CELDAS, CADA DOS LUGARES, K y K+1
         for (int k = 1; k <= tab.getTablero()[0].length; k = k + 2) {
@@ -379,7 +374,7 @@ public class Main {
     }
 
     public static void altaJugador(Sistema miSistema) {
-    /*Pide los datos del Jugador, los valida, y llama agregarJugador para dar
+        /*Pide los datos del Jugador, los valida, y llama agregarJugador para dar
         el alta del mismo, y agregarlo en la lista de Jugadores*/
 
         //Scanner para leer datos ingresados por el usuario
@@ -389,8 +384,6 @@ public class Main {
         String alias;
         String nombre;
         int edad;
-        boolean edadOk = false;
-
         System.out.println("\n \n \n"); //limpiar pantalla
         System.out.println(ANSI_CYAN + "*** ************ ***" + ANSI_RESET);
         System.out.println(ANSI_CYAN + "*** ALTA JUGADOR ***" + ANSI_RESET);
@@ -415,34 +408,32 @@ public class Main {
 
         if (miSistema.getListaJugadores().indexOf(aux) == -1) {//ingreso un alias correcto
             miSistema.agregarJugador(aux);
-            System.out.println("\n" + ANSI_BLUE + "Se dió de alta el/la Jugador/a: " 
+            System.out.println("\n" + ANSI_BLUE + "Se dió de alta el/la Jugador/a: "
                     + aux.getAlias() + " correctamente! \n" + ANSI_RESET);
         }
 
     }
 
-    public static void listarJugadores(ArrayList<Jugador> listaJugadores, String nombreLista, 
+    public static void listarJugadores(ArrayList<Jugador> listaJugadores, String nombreLista,
             String pronombreJugador) {
-    /*Lista todos los Jugadores que hayan hasta ahora en el Sistema, segun nombreLista, siendo
+        /*Lista todos los Jugadores que hayan hasta ahora en el Sistema, segun nombreLista, siendo
         NombreLista = a Ranking o Lista (informacion para mostrar).
         pronombreJugador es JUGADOR en caso de la lista y sera : PUESTO en caso de RANKING
-    */
-
+         */
         int contador = 0;
         if (listaJugadores.isEmpty()) {
-            System.out.println(ANSI_RED + "No existen jugadores ingresados!\n \n" 
+            System.out.println(ANSI_RED + "No existen jugadores ingresados!\n \n"
                     + ANSI_RESET);
         } else {
-            System.out.println(ANSI_GREEN + "*** " + nombreLista.toUpperCase() 
+            System.out.println(ANSI_GREEN + "*** " + nombreLista.toUpperCase()
                     + " DE JUGADORES ***" + ANSI_RESET + "\n");
             Iterator<Jugador> it = listaJugadores.iterator();
 
             while (it.hasNext()) {
                 Jugador aux = it.next();
-                System.out.println(ANSI_GREEN + pronombreJugador.toUpperCase() 
-                        + " " +(contador + 1) + " - " + ANSI_RESET + aux.toString());
-                
-                
+                System.out.println(ANSI_GREEN + pronombreJugador.toUpperCase()
+                        + " " + (contador + 1) + " - " + ANSI_RESET + aux.toString());
+
                 contador++;
             }
         }
@@ -577,12 +568,12 @@ public class Main {
 
                     } else {
                         System.out.println(ANSI_RED + "Opción de subtablero incorrecta. "
-                            + "Ingrese número válido (entero entre 1 y " + numeroDeSub + "):" + ANSI_RESET);
+                                + "Ingrese número válido (entero entre 1 y " + numeroDeSub + "):" + ANSI_RESET);
                     }
                 } catch (InputMismatchException e) {
                     in.next();
                     System.out.println(ANSI_RED + "Opción de subtablero incorrecta. "
-                        + "Ingrese número válido (entero entre 1 y " + numeroDeSub + "):" + ANSI_RESET);
+                            + "Ingrese número válido (entero entre 1 y " + numeroDeSub + "):" + ANSI_RESET);
                 }
 
             }
@@ -595,21 +586,21 @@ public class Main {
             while (!opcionValida) {
                 try {
                     posHuecoIngresada = in.nextInt();
-                    if ((posHuecoIngresada <= numeroDeSub && posHuecoIngresada > 0) 
-                            && (validarPosicionHueco(posHuecoAnt, posHuecoIngresada, 
+                    if ((posHuecoIngresada <= numeroDeSub && posHuecoIngresada > 0)
+                            && (validarPosicionHueco(posHuecoAnt, posHuecoIngresada,
                                     tab.getOpcionDeTablero(), posDeshacerMov))) {
                         opcionValida = true;
 
                     } else {
                         System.out.println(ANSI_RED + "Opción incorrecta! "
-                            + "Ingrese número válido, asegurese de "
-                            + "no deshacer ningun movimiento anterior):" + ANSI_RESET);
+                                + "Ingrese número válido, asegurese de "
+                                + "no deshacer ningun movimiento anterior):" + ANSI_RESET);
                     }
                 } catch (InputMismatchException e) {
                     in.next();
-                   System.out.println(ANSI_RED + "Opción incorrecta! "
-                        + "Ingrese número válido, asegurese de "
-                        + "no deshacer ningun movimiento anterior):" + ANSI_RESET);
+                    System.out.println(ANSI_RED + "Opción incorrecta! "
+                            + "Ingrese número válido, asegurese de "
+                            + "no deshacer ningun movimiento anterior):" + ANSI_RESET);
                 }
 
             }
@@ -631,6 +622,9 @@ public class Main {
         System.out.println("");
         Tablero tab = new Tablero(tamanioTablero, posHueco);
         imprimirTablero(tab);
+        System.out.println("\n \n ");
+        System.out.println(ANSI_GREEN + "PARTIDA CONFIGURADA CORRECTAMENTE " + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "SELECCIONE LA OPCION 3 PARA JUGAR CON ESTA CONFIGURACION " + ANSI_RESET);
         config[0] = tamanioTablero;
         config[1] = posHueco;
 
@@ -643,19 +637,19 @@ public class Main {
         // Y juega el juego
         Partida p = new Partida(miSistema.getConfPartida());
         miSistema.setPartidaActual(p);
-        int posHuecoAnt = miSistema.getPartidaActual().getPosicionHuecoActual();
+        int posHuecoAnt = p.getPosicionHuecoActual();
         boolean abandono = false;
         boolean hayGanador = false;
         int cantFichasTotal;
+        boolean confirmoSalida = false;
         int posHuecoNuevo;
         int posJugador1Elegido, posJugador2Elegido; //posiciones de los jugadores en la lista de jugadores
         Jugador j1, j2;
 
-
         System.out.println("\n" + "Seleccione el primer jugador para comenzar a jugar: ");
         posJugador1Elegido = obtenerJugadorElegidoDeLista(miSistema);
         j1 = miSistema.getListaJugadores().get(posJugador1Elegido - 1);
-        miSistema.getPartidaActual().setJugadorBlanco(j1);
+        p.setJugadorBlanco(j1);
         System.out.println("\nSeleccione el segundo jugador para comenzar a jugar: ");
         posJugador2Elegido = obtenerJugadorElegidoDeLista(miSistema);
         while (posJugador1Elegido == posJugador2Elegido) { // para que no se elija el mismo jugador 2 veces
@@ -664,66 +658,83 @@ public class Main {
             posJugador2Elegido = obtenerJugadorElegidoDeLista(miSistema);
         }
         j2 = miSistema.getListaJugadores().get(posJugador2Elegido - 1);
-        miSistema.getPartidaActual().setJugadorNegro(j2);
+        p.setJugadorNegro(j2);
 
         cantFichasTotal = (p.getTablero().getTablero().length) * (p.getTablero().getTablero()[0].length) - 4;
         System.out.println("\n \n");
         System.out.println(ANSI_BLUE + "*** La partida ha sido creada ***" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + "    " + p.getJugadorBlanco().getAlias() + 
-                " juega con fichas color BLANCO." + ANSI_RESET);
-        System.out.println(ANSI_GREEN + "    " + p.getJugadorNegro().getAlias() 
+        System.out.println(ANSI_GREEN + "    " + p.getJugadorBlanco().getAlias()
+                + " juega con fichas color BLANCO." + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "    " + p.getJugadorNegro().getAlias()
                 + " juega con fichas color NEGRO." + ANSI_RESET + "\n \n");
         System.out.println("El tablero para comenzar a jugar es el siguiente: \n");
         imprimirTablero(p.getTablero());
-        miSistema.getPartidaActual().getJugadorBlanco().setCantidadPartidasJugadas
-            (p.getJugadorBlanco().getCantidadPartidasJugadas() + 1);
-        miSistema.getPartidaActual().getJugadorNegro().setCantidadPartidasJugadas
-            (p.getJugadorNegro().getCantidadPartidasJugadas() + 1);
-       
-        while (miSistema.getPartidaActual().getTablero().encontroGanador() == 'E' 
-                && cantFichasTotal > 0 && !abandono) { 
+        p.getJugadorBlanco().setCantidadPartidasJugadas(p.getJugadorBlanco().getCantidadPartidasJugadas() + 1);
+        p.getJugadorNegro().setCantidadPartidasJugadas(p.getJugadorNegro().getCantidadPartidasJugadas() + 1);
+
+        while (p.getTablero().encontroGanador() == 'E'
+                && cantFichasTotal > 0 && !abandono) {
             //Mientras No encontro ganador, Hay fichas y no abandono nadie
-            System.out.println("\n\n" + ANSI_GREEN + "<--- Jugar Turno para " 
-                    + p.getJugadorBlanco().getAlias() 
+            System.out.println("\n\n" + ANSI_GREEN + "<--- Jugar Turno para "
+                    + p.getJugadorBlanco().getAlias()
                     + " con fichas BLANCAS: (para abandonar la partida debe "
                     + "ingresar 'X')---> " + ANSI_RESET + "\n");
-            abandono = pedirUbicacionFicha(miSistema.getPartidaActual(), 'B') 
-                    && seguroAbandonaPartida(); 
-                //Paso la partida y el color de ficha
+            abandono = pedirUbicacionFicha(p, 'B');
+
+            //Paso la partida y el color de ficha
             cantFichasTotal--;
-            if (abandono == true) {
-                hayGanador = determinarGanador('N', miSistema.getPartidaActual()); 
-            // Si Abandono entonces determino ganador a Jugador Negro
+            while (abandono == true && !confirmoSalida) {
+                if (seguroAbandonaPartida()) {
+                    confirmoSalida = true;
+                    hayGanador = determinarGanador('N', p);
+
+                } // Si Abandono entonces determino ganador a Jugador Negro
+                else {
+                    abandono = pedirUbicacionFicha(p, 'B');
+
+                }
             }
+
             if (p.getTablero().encontroGanador() == 'E' && !abandono) {
-        //no gano con el movimiento o salio
+                //no gano con el movimiento o salio
                 System.out.println("\n");
-                posHuecoNuevo = obtenerPosHueco(p.getTablero(), 2, posHuecoAnt, 
+                posHuecoNuevo = obtenerPosHueco(p.getTablero(), 2, posHuecoAnt,
                         p.getDeshacerMovPosHueco());
                 p.setDeshacerMovPosHueco(posHuecoAnt);
                 posHuecoAnt = posHuecoNuevo;
-                p.getTablero().moverHueco(p.getTablero().setNumeroSubtablero(posHuecoNuevo, 
+                p.getTablero().moverHueco(p.getTablero().setNumeroSubtablero(posHuecoNuevo,
                         p.getTablero().getOpcionDeTablero()));
                 imprimirTableroHueco(p.getTablero());
                 System.out.println("\n");
                 //imprimirTablero(p.getTablero());
                 if (p.getTablero().encontroGanador() == 'E') {//no hay ganador
                     //TURNO JUGADOR 2
-                    System.out.println("\n\n" + ANSI_GREEN + "<--- Jugar Turno para " 
-                            + p.getJugadorNegro().getAlias() 
+                    System.out.println("\n\n" + ANSI_GREEN + "<--- Jugar Turno para "
+                            + p.getJugadorNegro().getAlias()
                             + " con fichas NEGRAS: (para abandonar la partida "
                             + "debe ingresar 'X')--->" + ANSI_RESET + "\n");
-                    abandono = pedirUbicacionFicha(p, 'N') && seguroAbandonaPartida();
+
+                    abandono = pedirUbicacionFicha(p, 'N');
+
                     cantFichasTotal--;
-                    if (abandono == true) {
-                        hayGanador = determinarGanador('B', p);
+
+                    while (abandono == true && !confirmoSalida) {
+                        if (seguroAbandonaPartida()) {
+                            confirmoSalida = true;
+                            hayGanador = determinarGanador('B', p);
+
+                        } // Si Abandono entonces determino ganador a Jugador Blanco
+                        else {
+                            abandono = pedirUbicacionFicha(p, 'N');
+
+                        }
                     }
-                    if (p.getTablero().encontroGanador() == 'E' && !abandono ) {// si con el movimiento no hay ganador
+                    if (p.getTablero().encontroGanador() == 'E' && !abandono) {// si con el movimiento no hay ganador
                         //mueve el hueco
                         posHuecoNuevo = obtenerPosHueco(p.getTablero(), 2, posHuecoAnt, p.getDeshacerMovPosHueco());
                         p.setDeshacerMovPosHueco(posHuecoAnt);
                         posHuecoAnt = posHuecoNuevo;
-                        p.getTablero().moverHueco(p.getTablero().setNumeroSubtablero(posHuecoNuevo, 
+                        p.getTablero().moverHueco(p.getTablero().setNumeroSubtablero(posHuecoNuevo,
                                 p.getTablero().getOpcionDeTablero()));
                         System.out.println("\n");
                         imprimirTablero(p.getTablero());
@@ -732,29 +743,27 @@ public class Main {
             }
         }
         determinarGanador(p.getTablero().encontroGanador(), p);
-        if((cantFichasTotal==0 && p.getTablero().encontroGanador()=='E') || 
-                (p.getTablero().encontroGanador()=='A')){ 
+        if ((cantFichasTotal == 0 && p.getTablero().encontroGanador() == 'E')
+                || (p.getTablero().encontroGanador() == 'A')) {
             // Empate porque se terminaron las fichas ó encuentra a los 2 jugadores ganadores
-                System.out.println("\n \n" + ANSI_BLUE + " EMPATE!!!" + ANSI_RESET + " \n");
-                p.getJugadorBlanco().setCantidadPartidasEmpatadas
-                    (p.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
-                p.getJugadorNegro().setCantidadPartidasEmpatadas
-                    (p.getJugadorNegro().getCantidadPartidasEmpatadas() + 1);
+            System.out.println("\n \n" + ANSI_BLUE + " EMPATE!!!" + ANSI_RESET + " \n");
+            p.getJugadorBlanco().setCantidadPartidasEmpatadas(p.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
+            p.getJugadorNegro().setCantidadPartidasEmpatadas(p.getJugadorNegro().getCantidadPartidasEmpatadas() + 1);
         }
     }
 
     public static boolean determinarGanador(char jugador, Partida p) {
         boolean hayGanador = false;
         if (jugador == 'B') {
-            System.out.println("\n\n" + ANSI_BLUE + " FELICITACIONES " + 
-                    p.getJugadorBlanco().getAlias() + " GANASTE! " + ANSI_RESET + "\n\n");
+            System.out.println("\n\n" + ANSI_BLUE + " FELICITACIONES "
+                    + p.getJugadorBlanco().getAlias() + " GANASTE! " + ANSI_RESET + "\n\n");
             p.getJugadorBlanco().setCantidadPartidasGanadas(p.getJugadorBlanco().getCantidadPartidasGanadas() + 1);
             p.getJugadorNegro().setCantidadPartidasPerdidas(p.getJugadorNegro().getCantidadPartidasPerdidas() + 1);
             hayGanador = true;
         }
         if (jugador == 'N') {
-            System.out.println("\n\n" + ANSI_BLUE + " FELICITACIONES " +
-                    p.getJugadorNegro().getAlias() + " GANASTE! " + ANSI_RESET + "\n\n");
+            System.out.println("\n\n" + ANSI_BLUE + " FELICITACIONES "
+                    + p.getJugadorNegro().getAlias() + " GANASTE! " + ANSI_RESET + "\n\n");
             p.getJugadorNegro().setCantidadPartidasGanadas(p.getJugadorNegro().getCantidadPartidasGanadas() + 1);
             p.getJugadorBlanco().setCantidadPartidasPerdidas(p.getJugadorBlanco().getCantidadPartidasPerdidas() + 1);
             hayGanador = true;
@@ -785,12 +794,11 @@ public class Main {
                     System.out.println("\n" + ANSI_RED + "Debe ingresar una posición correcta! "
                             + "Vuelva a intentarlo: " + ANSI_RESET + "\n");
 
-                } else if (retorno.charAt(0) == 'x' || retorno.charAt(0) == 'X') { 
+                } else if (retorno.charAt(0) == 'x' || retorno.charAt(0) == 'X') {
                     //abandona partida
                     partidaAbandonada = true;
-                } else 
-                    if (p.getTablero().posicionValidaTablero(retorno.charAt(0), retorno.charAt(1),
-                            p.getTablero().getOpcionDeTablero())) {
+                } else if (p.getTablero().posicionValidaTablero(retorno.charAt(0), retorno.charAt(1),
+                        p.getTablero().getOpcionDeTablero())) {
                     ubicacion[0] = letraAnum(retorno); // en ubicacion de 0, pongo la fila 
                     ubicacion[1] = Character.getNumericValue(retorno.charAt(1)) - 1;
 
@@ -815,7 +823,7 @@ public class Main {
 
     public static int letraAnum(String letra) {
         //convierte la letra a numero, se utiliza para el ingreso de ubicación de la ficha.
-        
+
         letra = letra.toUpperCase();
         char let = letra.charAt(0);
         int coordRetorno = 0;
@@ -862,7 +870,6 @@ public class Main {
 
         boolean esValido = false;
         int horizontal = 0, vertical = 0;
-        
         switch (tamanioTablero) {
             case 1: //tablero 6*6
                 horizontal = 3;
@@ -881,87 +888,86 @@ public class Main {
                 vertical = 16;
                 break;
         }
-        
-        
+
         if ((((posHuecoAnt + 1 == posHuecoNueva) || (posHuecoAnt - 1 == posHuecoNueva))
-                && calculaFila(posHuecoAnt, horizontal)== calculaFila(posHuecoNueva, horizontal)) 
-                && (posHuecoNueva > 0) && (posHuecoAnt != posHuecoNueva) && 
-                (posDeshacerMov != posHuecoNueva)) {
+                && calculaFila(posHuecoAnt, horizontal) == calculaFila(posHuecoNueva, horizontal))
+                && (posHuecoNueva > 0) && (posHuecoAnt != posHuecoNueva)
+                && (posDeshacerMov != posHuecoNueva)) {
             esValido = true;
         }
 
-        if (((posHuecoAnt + horizontal == posHuecoNueva) || 
-                (posHuecoAnt - horizontal == posHuecoNueva)) && 
-                (posHuecoNueva <= vertical && posHuecoNueva > 0) && 
-                (posHuecoAnt != posHuecoNueva) && (posDeshacerMov != posHuecoNueva)) {
+        if (((posHuecoAnt + horizontal == posHuecoNueva)
+                || (posHuecoAnt - horizontal == posHuecoNueva))
+                && (posHuecoNueva <= vertical && posHuecoNueva > 0)
+                && (posHuecoAnt != posHuecoNueva) && (posDeshacerMov != posHuecoNueva)) {
             esValido = true;
         }
 
         return esValido;
 
     }
-       
+
     public static int calculaFila(int subTablero, int tamanio) {
-       //dada la posicion de subtablero que se pasa y el tamañio de tablero
+        //dada la posicion de subtablero que se pasa y el tamañio de tablero
         //retorna la fila en la que se encuentra el subtablero en el tablero.
         int fila = -1;
-       if (subTablero <= tamanio) { 
-           fila = 1;
-       }
+        if (subTablero <= tamanio) {
+            fila = 1;
+        }
 
-       if (subTablero > tamanio && subTablero <= tamanio * 2) { 
-           fila = 2;
-       }
+        if (subTablero > tamanio && subTablero <= tamanio * 2) {
+            fila = 2;
+        }
 
-       if (subTablero > tamanio * 2 && subTablero <= tamanio * 3) { 
-           fila = 3;
-       }
-       if (subTablero > tamanio * 3 && subTablero <= tamanio * 4) { 
-           fila = 4;
-       }
-       return fila;
-   } 
-    
-    public static boolean seguroAbandonaPartida(){
+        if (subTablero > tamanio * 2 && subTablero <= tamanio * 3) {
+            fila = 3;
+        }
+        if (subTablero > tamanio * 3 && subTablero <= tamanio * 4) {
+            fila = 4;
+        }
+        return fila;
+    }
+
+    public static boolean seguroAbandonaPartida() {
         boolean abandona = false;
         boolean correcto = false;
-        int opcion =0;
-        
+        int opcion = 0;
+
         //Scanner para leer datos ingresados por el usuario
         Scanner in = new Scanner(System.in);
-        
+
         System.out.println("\n");
         System.out.println(ANSI_GREEN + "¿Seguro desea abandonar la partida?" + ANSI_RESET);
         System.out.println(ANSI_GREEN + "    1 - SI  " + ANSI_RESET);
         System.out.println(ANSI_GREEN + "    2 - NO  " + ANSI_RESET);
-        
-        while (!correcto){
+
+        while (!correcto) {
             try {
-                opcion= in.nextInt();
-                if(opcion!=1 && opcion!=2){
+                opcion = in.nextInt();
+                if (opcion != 1 && opcion != 2) {
                     System.out.println("");
                     System.out.println(ANSI_RED + "La opción ingresada no es válida!"
                             + " Ingrese opción valida (entero 1 o 2):" + ANSI_RESET);
-                }
-                else
+                } else {
                     correcto = true;
-                
-            }catch (Exception e) {
+                }
+
+            } catch (Exception e) {
                 System.out.println("");
                 System.out.println(ANSI_RED + "La opción ingresada no es válida!"
-                       + " Ingrese opción valida (entero 1 o 2):" + ANSI_RESET);
+                        + " Ingrese opción valida (entero 1 o 2):" + ANSI_RESET);
                 in.next();
             }
         }
-        switch (opcion){
-            case 1: 
-                abandona= true;
+        switch (opcion) {
+            case 1:
+                abandona = true;
                 break;
-            case 2: 
+            case 2:
                 abandona = false;
                 break;
         }
-        
+
         return abandona;
     }
 }

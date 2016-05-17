@@ -9,6 +9,7 @@ public class Partida {
     private int posicionHuecoActual;
     private int cantidadFichas;
     private int deshacerMovPosHueco;
+    //Variable que guarda el anterior movimiento para no deshacer movimientos
 
     //constructor
     public Partida() { // constructor vacio

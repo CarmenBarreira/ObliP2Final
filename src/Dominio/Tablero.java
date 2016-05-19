@@ -250,4 +250,72 @@ public class Tablero {
         this.posHueco = coordSubtablero.clone();
     }
     
+    
+    
+    public boolean validarPosicionHueco(int posHuecoAnt,
+            int posHuecoNueva, int posDeshacerMov) {
+        /* posHuecoAnt = posicion donde se encuentra el hueco, 
+        antes de moverlo hacia posHuecoNueva */
+
+        boolean esValido = false;
+        int horizontal = 0, vertical = 0;
+        switch (opcionDeTablero) {
+            case 1: //tablero 6*6
+                horizontal = 3;
+                vertical = 9;
+                break;
+            case 2: //tablero 4*6
+                horizontal = 3;
+                vertical = 6;
+                break;
+            case 3: //tablero 6*4
+                horizontal = 2;
+                vertical = 6;
+                break;
+            case 4: //tablero 8*8
+                horizontal = 4;
+                vertical = 16;
+                break;
+        }
+
+        if ((((posHuecoAnt + 1 == posHuecoNueva) || (posHuecoAnt - 1 == posHuecoNueva))
+                && calculaFila(posHuecoAnt, horizontal) == calculaFila(posHuecoNueva, horizontal))
+                && (posHuecoNueva > 0) && (posHuecoAnt != posHuecoNueva)
+                && (posDeshacerMov != posHuecoNueva)) {
+            esValido = true;
+        }
+
+        if (((posHuecoAnt + horizontal == posHuecoNueva)
+                || (posHuecoAnt - horizontal == posHuecoNueva))
+                && (posHuecoNueva <= vertical && posHuecoNueva > 0)
+                && (posHuecoAnt != posHuecoNueva) && (posDeshacerMov != posHuecoNueva)) {
+            esValido = true;
+        }
+
+        return esValido;
+
+    }
+    
+    
+    
+    public static int calculaFila(int subTablero, int tamanio) {
+        //dada la posicion de subtablero que se pasa y el tamañio de tablero
+        //retorna la fila en la que se encuentra el subtablero en el tablero.
+        int fila = -1;
+        if (subTablero <= tamanio) {
+            fila = 1;
+        }
+
+        if (subTablero > tamanio && subTablero <= tamanio * 2) {
+            fila = 2;
+        }
+
+        if (subTablero > tamanio * 2 && subTablero <= tamanio * 3) {
+            fila = 3;
+        }
+        if (subTablero > tamanio * 3 && subTablero <= tamanio * 4) {
+            fila = 4;
+        }
+        return fila;
+    }
 }

@@ -1,48 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaz;
 
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- *
- * @author Juan
- */
 public class JugarPartida extends javax.swing.JFrame {
 
     private JButton[][] botones;
 
-    /**
-     * Creates new form menuPrincipal
-     */
     public JugarPartida() {
         initComponents();
         // crear botones y agregarlos al panel
 
         int dimensionF = 6;
         int dimensionC = 6;
-panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
+        panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
 
-botones = new JButton[dimensionF+2][dimensionC+2];
+        botones = new JButton[dimensionF+2][dimensionC+2];
 
-for (int i = 1; i <= dimensionF; i++) {
+        for (int i = 1; i <= dimensionF; i++) {
 
-for (int j = 1; j <= dimensionC; j++) {
+            for (int j = 1; j <= dimensionC; j++) {
 
-JButton jButton = new JButton();
+            JButton jButton = new JButton();
 
-jButton.addActionListener(new ListenerBoton(i, j));
+            jButton.addActionListener(new ListenerBoton(i, j));
 
-panelJuego.add(jButton);
+            panelJuego.add(jButton);
 
-}
+            }
 
-}
+        }
     }
 
     /**
@@ -217,27 +205,27 @@ panelJuego.add(jButton);
     
     private class ListenerBoton implements ActionListener {
 
-private int x;
+        private int x;
 
-private int y;
+        private int y;
 
-public ListenerBoton(int i, int j) {
+        public ListenerBoton(int i, int j) {
 
-// en el constructor se almacena la fila y columna que se presionó
+        // en el constructor se almacena la fila y columna que se presionó
 
-x = i;
+        x = i;
 
-}
+        }
 
-public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
 
-// cuando se presiona un botón, se ejecutará este método
+    // cuando se presiona un botón, se ejecutará este método
 
-clickBoton(x, y);
+    clickBoton(x, y);
 
-}
+    }
+    }
 
-}
 
 private void clickBoton(int fila, int columna) {
 

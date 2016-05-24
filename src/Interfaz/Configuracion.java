@@ -4,30 +4,35 @@ package Interfaz;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javafx.scene.paint.Color;
 import javax.swing.*;
 
 public class Configuracion extends javax.swing.JFrame {
     
     private JButton[][] botones;
-    
+    private int [] tamanioTab = new int[2];
     public Configuracion() {
         initComponents();
-        panelJuegoConfig.setVisible(false);
        
+       
+        String opcionTamTablero = (String) jcbTamTablero.getSelectedItem();
+        tamanioTab = convertirTamanioTableroInt(opcionTamTablero);
         
-        
-        int dimensionF = 6;
-        int dimensionC = 6;
+        int dimensionF = tamanioTab[0];
+        int dimensionC = tamanioTab[1];
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
 
         botones = new JButton[dimensionF+2][dimensionC+2];
-
+        int filas =0;
+        int col=0;
         for (int i = 1; i <= dimensionF; i++) {
-
+            
             for (int j = 1; j <= dimensionC; j++) {
-
+                      
             JButton jButton = new JButton();
-
+            
+            jButton.setBackground(java.awt.Color.GREEN);
+            
             jButton.addActionListener(new Configuracion.ListenerBoton(i, j));
 
             panelJuegoConfig.add(jButton);
@@ -62,11 +67,11 @@ public class Configuracion extends javax.swing.JFrame {
         panelJuegoConfig.setLayout(panelJuegoConfigLayout);
         panelJuegoConfigLayout.setHorizontalGroup(
             panelJuegoConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 354, Short.MAX_VALUE)
         );
         panelJuegoConfigLayout.setVerticalGroup(
             panelJuegoConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         btnGuardarConfig.setBackground(new java.awt.Color(204, 255, 204));
@@ -82,42 +87,42 @@ public class Configuracion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcbTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)))
+                        .addGap(35, 35, 35)))
                 .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jcbTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
                 .addComponent(btnGuardarConfig)
-                .addGap(47, 47, 47))
+                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelJuegoConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfigActionPerformed
-         String opcionTamTablero = (String) jcbTamTablero.getSelectedItem();
-         
+        
+        
          
         
 

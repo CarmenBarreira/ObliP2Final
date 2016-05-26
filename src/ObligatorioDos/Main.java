@@ -1,9 +1,11 @@
-package Interfaz;
+package ObligatorioDos;
 
 import Dominio.Jugador;
 import Dominio.Partida;
 import Dominio.Sistema;
 import Dominio.Tablero;
+import Interfaz.VentanaMenuPrincipal;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -26,7 +28,10 @@ public class Main {
     public static void main(String[] args) {
         Sistema miSistema = new Sistema();
         int[] config = new int[2];
-
+        VentanaMenuPrincipal menu = new VentanaMenuPrincipal(miSistema);
+        Rectangle rct = menu.getGraphicsConfiguration().getBounds();
+        menu.setLocation((rct.width - menu.getWidth()) / 2, (rct.height - menu.getHeight()) / 2);
+        menu.setVisible(true);
         //Scanner para leer datos ingresados por el usuario
         Scanner in = new Scanner(System.in);
 
@@ -35,117 +40,8 @@ public class Main {
         int opcion = -1;
         Partida partida = new Partida();
 
-        System.out.println("");
-        System.out.println(ANSI_CYAN + "***   ***   ***   ***   ***   ***   ***" + ANSI_RESET);
-        System.out.println(ANSI_GREEN + "***************************************" + ANSI_RESET);
-        System.out.println(ANSI_RED + "****** BIENVENID@ A 4enCuadrado *******" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "***************************************" + ANSI_RESET);
-        System.out.println(ANSI_PURPLE + "***   ***   ***   ***   ***   ***   ***" + ANSI_RESET);
-        System.out.println(ANSI_BLACK + "* Presione una tecla para continuar...*" + ANSI_RESET);
-
-        tecla = in.nextLine();
-
-        //para "limpiar" la pantalla 
-        System.out.println("\n \n");
-        System.out.println(ANSI_BLUE + "*** *** *** *** 4 en CUADRADO *** *** *** ***" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "---------------------------------------------" + ANSI_RESET);
-
-        while (opcion != 0) {
-            System.out.println("\n");
-            System.out.println(ANSI_BLUE + "*** ***   Seleccione lo que desea hacer :   **  ***" + ANSI_RESET);
-            System.out.println(ANSI_CYAN + "*** *** 1 - Registrar jugador               **  ***" + ANSI_RESET);
-            System.out.println(ANSI_BROWN + "*** *** 2 - Configurar Partida              **  ***" + ANSI_RESET);
-            System.out.println(ANSI_GREEN + "*** *** 3 - Jugar con última configuración  **  ***" + ANSI_RESET);
-            System.out.println(ANSI_PURPLE + "*** *** 4 - Ranking                         **  ***" + ANSI_RESET);
-            System.out.println(ANSI_BLACK + "*** *** 0 - Salir del Sistema               **  ***\n" + ANSI_RESET);
-
-            try {
-                opcion = in.nextInt();
-            } catch (InputMismatchException e) {
-                in.next();
-                opcion = -1;
-            }
-
-            switch (opcion) {
-                case 1: //altajugador 
-                    altaJugador(miSistema);
-                    break;
-                case 2: //Configurar partida
-                    miSistema.setConfPartida(configurarPartida());
-                    break;
-                case 3:  //jugar con última configuración guardada
-                    if (miSistema.getListaJugadores().size() >= 2) {
-                        jugarPartida(miSistema);
-                    } else {
-                        System.out.println("\n " + ANSI_RED + "Debe ingresar al menos "
-                                + "2 jugadores previamente (opción 1 del menú)" + ANSI_RESET);
-                    }
-                    break;
-                case 4:  //Ranking
-                    if (!miSistema.getListaJugadores().isEmpty()) {
-                        imprimirRankingJugadores(miSistema);
-                    } else {
-                        System.out.println("\n " + ANSI_RED + "No hay jugadores "
-                                + "ingresados en el sistema." + "(para ingresarlos "
-                                + "-> Opción 1 del menú)" + ANSI_RESET);
-                    }
-                    break;
-                case 0:
-                    System.out.println(ANSI_GREEN + "Gracias por jugar 4enCuadrado!" + ANSI_RESET);
-                    break;
-                default:
-                    System.out.println("\n" + ANSI_RED + "El valor ingresado no es correcto. "
-                            + "Debe ingresar una opción válida (entero de 1 a 4) :" + ANSI_RESET + "\n \n");
-                    break;
-            }
-        }
-
     }
 
-    public static String ingresoString(String tipo) {
-        /*Este método tomará el ingreso de un String, y validará no sea vacío. 
-        Ejemplos de su uso: Nombre, alias, etc  */
-
-        //Scanner para leer datos ingresados por el usuario
-        Scanner in = new Scanner(System.in);
-
-        //atributos
-        String retorno = "";
-        boolean correcto = false;
-        boolean espaciosVacios;
-
-        while (!correcto) {
-            try {
-                retorno = in.nextLine();
-                espaciosVacios = retorno.charAt(0) == ' '; //empieza con espacio
-                if (retorno.isEmpty() || espaciosVacios) {
-                    //el string esta vacio o empieza con espacio
-                    if (tipo.toUpperCase().equals("nombre".toUpperCase())) {
-                        //es el nombre
-                        System.out.println(ANSI_RED + "Debe ingresar un nombre correctamente."
-                                + "Vuelva a intentarlo." + ANSI_RESET + "\n");
-                    } else { // es alias
-                        System.out.println(ANSI_RED + "Debe ingresar un alias correctamente."
-                                + "Vuelva a intentarlo: " + ANSI_RESET + "\n");
-                    }
-                } else {
-                    correcto = true;
-                }
-
-            } catch (Exception e) {
-                if (tipo.toUpperCase().equals("nombre".toUpperCase())) {
-                    System.out.println(ANSI_RED + "Debe ingresar un nombre "
-                            + "correctamente (No puede ser vacio ni contener espacios)."
-                            + "Vuelva a intentarlo:" + ANSI_RESET + "\n");
-                } else { // es alias
-                    System.out.println(ANSI_RED + "Debe ingresar un alias "
-                            + "correctamente (No puede ser vacio ni contener espacios)."
-                            + "Vuelva a intentarlo:" + ANSI_RESET + "\n");
-                }
-            }
-        }
-        return retorno;
-    }
 
     public static void imprimirTablero(Tablero tab) {
         System.out.print("   ");
@@ -372,47 +268,47 @@ public class Main {
             System.out.print("  " + k + "   " + (k + 1) + " ");
         }
     }
-
-    public static void altaJugador(Sistema miSistema) {
-        /*Pide los datos del Jugador, los valida, y llama agregarJugador para dar
-        el alta del mismo, y agregarlo en la lista de Jugadores*/
-
-        //Scanner para leer datos ingresados por el usuario
-        Scanner in = new Scanner(System.in);
-
-        //atributos
-        String alias;
-        String nombre;
-        int edad;
-        System.out.println("\n \n \n"); //limpiar pantalla
-        System.out.println(ANSI_CYAN + "*** ************ ***" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "*** ALTA JUGADOR ***" + ANSI_RESET);
-        System.out.println(ANSI_CYAN + "*** ************ ***" + ANSI_RESET);
-
-        System.out.println("Ingrese el alias del Jugador/a:");
-        alias = ingresoString("alias");
-        System.out.println("Ingrese la nombre del Jugador/a:");
-        nombre = ingresoString("alias");
-        System.out.println("Ingrese la edad del Jugador/a:");
-        edad = ingresoDeIntValido("edad");
-
-        Jugador aux = new Jugador(alias, nombre, edad);
-
-        while (miSistema.getListaJugadores().indexOf(aux) != -1) {
-            System.out.println("\n" + ANSI_RED + "Ya existe un jugador/a con "
-                    + "el mismo alias!" + ANSI_RESET + "\n \n");
-            System.out.println("Ingrese el alias del Jugador/a:");
-            alias = ingresoString("alias");
-            aux.setAlias(alias);
-        }
-
-        if (miSistema.getListaJugadores().indexOf(aux) == -1) {//ingreso un alias correcto
-            miSistema.agregarJugador(aux);
-            System.out.println("\n" + ANSI_BLUE + "Se dió de alta el/la Jugador/a: "
-                    + aux.getAlias() + " correctamente! \n" + ANSI_RESET);
-        }
-
-    }
+//
+//    public static void altaJugador(Sistema miSistema) {
+//        /*Pide los datos del Jugador, los valida, y llama agregarJugador para dar
+//        el alta del mismo, y agregarlo en la lista de Jugadores*/
+//
+//        //Scanner para leer datos ingresados por el usuario
+//        Scanner in = new Scanner(System.in);
+//
+//        //atributos
+//        String alias;
+//        String nombre;
+//        int edad;
+//        System.out.println("\n \n \n"); //limpiar pantalla
+//        System.out.println(ANSI_CYAN + "*** ************ ***" + ANSI_RESET);
+//        System.out.println(ANSI_CYAN + "*** ALTA JUGADOR ***" + ANSI_RESET);
+//        System.out.println(ANSI_CYAN + "*** ************ ***" + ANSI_RESET);
+//
+//        System.out.println("Ingrese el alias del Jugador/a:");
+//        alias = ingresoString("alias");
+//        System.out.println("Ingrese la nombre del Jugador/a:");
+//        nombre = ingresoString("alias");
+//        System.out.println("Ingrese la edad del Jugador/a:");
+//        edad = ingresoDeIntValido("edad");
+//
+//        Jugador aux = new Jugador(alias, nombre, edad);
+//
+//        while (miSistema.getListaJugadores().indexOf(aux) != -1) {
+//            System.out.println("\n" + ANSI_RED + "Ya existe un jugador/a con "
+//                    + "el mismo alias!" + ANSI_RESET + "\n \n");
+//            System.out.println("Ingrese el alias del Jugador/a:");
+//            alias = ingresoString("alias");
+//            aux.setAlias(alias);
+//        }
+//
+//        if (miSistema.getListaJugadores().indexOf(aux) == -1) {//ingreso un alias correcto
+//            miSistema.agregarJugador(aux);
+//            System.out.println("\n" + ANSI_BLUE + "Se dió de alta el/la Jugador/a: "
+//                    + aux.getAlias() + " correctamente! \n" + ANSI_RESET);
+//        }
+//
+//    }
 
     public static void listarJugadores(ArrayList<Jugador> listaJugadores, String nombreLista,
             String pronombreJugador) {
@@ -861,7 +757,6 @@ public class Main {
         listaJugadores = miSistema.ordenarCrecienteJugador();
         listarJugadores(listaJugadores, "ranking", "puesto");
     }
-
 
     public static boolean seguroAbandonaPartida() {
         boolean abandona = false;

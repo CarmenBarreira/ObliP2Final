@@ -1,32 +1,33 @@
 package Interfaz;
 
+import Dominio.Sistema;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class JugarPartida extends javax.swing.JFrame {
+public class VentanaJugarPartida extends javax.swing.JFrame {
 
     private JButton[][] botones;
 
-    public JugarPartida() {
+    public VentanaJugarPartida(Sistema elSis) {
         initComponents();
         // crear botones y agregarlos al panel
-
+        sis = elSis;
         int dimensionF = 6;
         int dimensionC = 6;
         panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
 
-        botones = new JButton[dimensionF+2][dimensionC+2];
+        botones = new JButton[dimensionF + 2][dimensionC + 2];
 
         for (int i = 1; i <= dimensionF; i++) {
 
             for (int j = 1; j <= dimensionC; j++) {
 
-            JButton jButton = new JButton();
+                JButton jButton = new JButton();
 
-            jButton.addActionListener(new ListenerBoton(i, j));
+                jButton.addActionListener(new ListenerBoton(i, j));
 
-            panelJuego.add(jButton);
+                panelJuego.add(jButton);
 
             }
 
@@ -62,7 +63,6 @@ public class JugarPartida extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(942, 658));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -181,28 +181,31 @@ public class JugarPartida extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaJugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaJugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaJugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaJugarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JugarPartida().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new VentanaJugarPartida().setVisible(true);
+//            }
+//        });
     }
-    
-    
+
     private class ListenerBoton implements ActionListener {
 
         private int x;
@@ -211,34 +214,28 @@ public class JugarPartida extends javax.swing.JFrame {
 
         public ListenerBoton(int i, int j) {
 
-        // en el constructor se almacena la fila y columna que se presionó
-
-        x = i;
+            // en el constructor se almacena la fila y columna que se presionó
+            x = i;
 
         }
 
-    public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
 
-    // cuando se presiona un botón, se ejecutará este método
+            // cuando se presiona un botón, se ejecutará este método
+            clickBoton(x, y);
 
-    clickBoton(x, y);
-
+        }
     }
-    }
 
-
-private void clickBoton(int fila, int columna) {
+    private void clickBoton(int fila, int columna) {
 
 // Método a completar!.
-
 // En fila y columna se reciben las coordenas donde presionó el usuario, relativas al comienzo de la grilla
-
 // fila 1 y columna 1 corresponden a la posición de arriba a la izquierda.
-
 // Debe indicarse cómo responder al click de ese botón.
+    }
 
-}
-
+    Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

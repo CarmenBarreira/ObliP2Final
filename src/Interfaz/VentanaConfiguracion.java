@@ -5,7 +5,6 @@ import Dominio.Sistema;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javafx.scene.paint.Color;
 import javax.swing.*;
 
 public class VentanaConfiguracion extends javax.swing.JFrame {
@@ -14,67 +13,47 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private int [] tamanioTab = new int[2];
     
     
+    
+    
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
-       sis= unSis;
+        sis= unSis;
+        panelJuegoConfig.setVisible(true);
+        
+        
+        mostrarTableroConSubTableros(3,3);
+        
+        
        
-        String opcionTamTablero = (String) jcbTamTablero.getSelectedItem();
-        tamanioTab = convertirTamanioTableroInt(opcionTamTablero);
-        
-        int dimensionF = tamanioTab[0];
-        int dimensionC = tamanioTab[1];
-        panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
-
-        botones = new JButton[dimensionF+2][dimensionC+2];
-        int filas =0;
-        int col=0;
-        for (int i = 1; i <= dimensionF; i++) {
-            
-            for (int j = 1; j <= dimensionC; j++) {
-                      
-            JButton jButton = new JButton();
-            
-            jButton.setBackground(java.awt.Color.GREEN);
-            
-            jButton.addActionListener(new VentanaConfiguracion.ListenerBoton(i, j));
-
-            panelJuegoConfig.add(jButton);
-
-            }
-
-        }
-        
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jcbTamTablero = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        bgroupTamTablero = new javax.swing.ButtonGroup();
         panelJuegoConfig = new javax.swing.JPanel();
         btnGuardarConfig = new javax.swing.JButton();
+        jPanelTamTablero = new javax.swing.JPanel();
+        rb6x6 = new javax.swing.JRadioButton();
+        rb4x6 = new javax.swing.JRadioButton();
+        rb8x8 = new javax.swing.JRadioButton();
+        rb6x4 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(942, 658));
+        setPreferredSize(new java.awt.Dimension(702, 544));
         setResizable(false);
-        setSize(new java.awt.Dimension(942, 658));
-
-        jcbTamTablero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbTamTablero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "6*6", "4*6", "6*4", "8*8" }));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Elija el tamaño del tablero: ");
+        setSize(new java.awt.Dimension(900, 658));
 
         javax.swing.GroupLayout panelJuegoConfigLayout = new javax.swing.GroupLayout(panelJuegoConfig);
         panelJuegoConfig.setLayout(panelJuegoConfigLayout);
         panelJuegoConfigLayout.setHorizontalGroup(
             panelJuegoConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
         );
         panelJuegoConfigLayout.setVerticalGroup(
             panelJuegoConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+            .addGap(0, 342, Short.MAX_VALUE)
         );
 
         btnGuardarConfig.setBackground(new java.awt.Color(204, 255, 204));
@@ -85,39 +64,98 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             }
         });
 
+        jPanelTamTablero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanelTamTablero.setToolTipText("Tamaño tablero: ");
+
+        bgroupTamTablero.add(rb6x6);
+        rb6x6.setText(" 6*6");
+        rb6x6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb6x6ActionPerformed(evt);
+            }
+        });
+
+        bgroupTamTablero.add(rb4x6);
+        rb4x6.setText(" 4*6");
+        rb4x6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb4x6ActionPerformed(evt);
+            }
+        });
+
+        bgroupTamTablero.add(rb8x8);
+        rb8x8.setText("8*8");
+        rb8x8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb8x8ActionPerformed(evt);
+            }
+        });
+
+        bgroupTamTablero.add(rb6x4);
+        rb6x4.setText(" 6*4");
+        rb6x4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb6x4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTamTableroLayout = new javax.swing.GroupLayout(jPanelTamTablero);
+        jPanelTamTablero.setLayout(jPanelTamTableroLayout);
+        jPanelTamTableroLayout.setHorizontalGroup(
+            jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTamTableroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rb6x6)
+                    .addComponent(rb8x8))
+                .addGap(36, 36, 36)
+                .addGroup(jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rb6x4)
+                    .addComponent(rb4x6))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        jPanelTamTableroLayout.setVerticalGroup(
+            jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTamTableroLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb6x6)
+                    .addComponent(rb4x6))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelTamTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rb8x8)
+                    .addComponent(rb6x4))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcbTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 178, Short.MAX_VALUE)
-                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(399, 399, 399))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(241, 241, 241)
+                .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jcbTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(144, 144, 144)
                 .addComponent(btnGuardarConfig)
-                .addGap(28, 28, 28))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,11 +163,37 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
     private void btnGuardarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfigActionPerformed
         
-        
-         
-        
 
     }//GEN-LAST:event_btnGuardarConfigActionPerformed
+
+    private void rb6x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x6ActionPerformed
+        // TODO add your handling code here:
+       
+        tamanioTab[0]=6;
+        tamanioTab[1]=6;
+        
+        
+    }//GEN-LAST:event_rb6x6ActionPerformed
+
+    private void rb4x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb4x6ActionPerformed
+        // TODO add your handling code here:
+        mostrarTableroConSubTableros(4,6);
+        tamanioTab[0]=4;
+        tamanioTab[1]=6;
+    }//GEN-LAST:event_rb4x6ActionPerformed
+
+    private void rb6x4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x4ActionPerformed
+        mostrarTableroConSubTableros(6,4);
+        tamanioTab[0]=6;
+        tamanioTab[1]=4;
+    }//GEN-LAST:event_rb6x4ActionPerformed
+
+    private void rb8x8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb8x8ActionPerformed
+        // TODO add your handling code here:
+        mostrarTableroConSubTableros(8,8);
+        tamanioTab[0]=8;
+        tamanioTab[1]=8;
+    }//GEN-LAST:event_rb8x8ActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -197,38 +261,38 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 // Debe indicarse cómo responder al click de ese botón.
 
 }
-    
-    public int [] convertirTamanioTableroInt(String datoIngresado){
-        /*Este metodo recibe el valor seleccionado del combo box, 
-        lo convierte en un int [] en posicion 0 estaran las filas del tablero
-        y en posicion 1 estaran la cantidad de columnas.*/
+     public void mostrarTableroConSubTableros (int dimensionF, int dimensionC){
         
-        int [] tamanio = new int[2];
-        if(datoIngresado.equalsIgnoreCase("6*6")){ //tablero 6*6
-            tamanio[0]=6;
-            tamanio[1]=6;
-        }else{
-            if(datoIngresado.equalsIgnoreCase("4*6")){ //tablero 4*6
-                tamanio[0]=4;
-                tamanio[1]=6;
-            }else{
-                if(datoIngresado.equalsIgnoreCase("6*4")){ //tablero 6*4
-                    tamanio[0]=6;
-                    tamanio[1]=4;
-                }
-                else{ //tablero 8*8
-                    tamanio[0]=8;
-                    tamanio[1]=8;
-                }
+        panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
+
+        botones = new JButton[dimensionF+2][dimensionC+2];
+
+        for (int i = 1; i <= dimensionF; i++) {
+
+            for (int j = 1; j <= dimensionC; j++) {
+
+            JButton jButton = new JButton();
+
+            jButton.addActionListener(new ListenerBoton(i, j));
+
+            panelJuegoConfig.add(jButton);
+
             }
+
         }
-        return tamanio;
+        
+        
     }
-    Sistema sis =  new Sistema();
+        
+     Sistema sis =  new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgroupTamTablero;
     private javax.swing.JButton btnGuardarConfig;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JComboBox jcbTamTablero;
+    private javax.swing.JPanel jPanelTamTablero;
     private javax.swing.JPanel panelJuegoConfig;
+    private javax.swing.JRadioButton rb4x6;
+    private javax.swing.JRadioButton rb6x4;
+    private javax.swing.JRadioButton rb6x6;
+    private javax.swing.JRadioButton rb8x8;
     // End of variables declaration//GEN-END:variables
 }

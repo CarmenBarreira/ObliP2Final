@@ -47,6 +47,30 @@ public class Sistema {
         listaJugadores.add(miJugador);     
     }
     
+    public void eliminarJugador(int posicion){
+    /*Elimina de la lista de jugadores, el jugador cuya posicion en la lista 
+        se pasa por parametros */
+        
+        listaJugadores.remove(posicion);   
+    }
+    
+    public void modificaJugador (int posicion, String alias, 
+            String nombre, int edad){
+    /*Modifica de la lista de jugadores, el jugador cuya posición en la lista 
+        se pasa por parámetros */
+        
+        Jugador miJugador = getListaJugadores().get(posicion);
+        if (!(alias.equalsIgnoreCase(""))){
+            miJugador.setAlias(alias);
+        }
+        if(!(nombre.equalsIgnoreCase(""))){
+            miJugador.setNombre(nombre);
+        }
+        if(edad !=0){
+            miJugador.setEdad(edad);
+        }
+    }
+    
     public ArrayList<Jugador> ordenarCrecienteJugador(){  
         /*Para el Ranking, ordena los jugadores de manera creciente según 
         la cantidad de partidas de ganadas*/

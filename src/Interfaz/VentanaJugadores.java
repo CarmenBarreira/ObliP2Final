@@ -2,9 +2,13 @@ package Interfaz;
 
 import Dominio.Jugador;
 import Dominio.Sistema;
-import java.util.Iterator;
+import java.awt.Image;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +23,16 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         miSistema = sis;
         miSistema.addObserver(this);
         update(null, null);
+//        ImageIcon fot = new ImageIcon("/imagenes/corona.png");
+//        Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblCoronaImg.getWidth(), lblCoronaImg.getHeight(), Image.SCALE_DEFAULT));
+//        lblCoronaImg.setIcon(icono);
+//        //this.repaint();
+        String path = "/imagenes/corona.png";  
+        URL url = this.getClass().getResource(path);  
+        ImageIcon icon = new ImageIcon(url);  
+        Icon icono = new ImageIcon(icon.getImage().getScaledInstance(lblCoronaImg.getWidth(), lblCoronaImg.getHeight(), Image.SCALE_DEFAULT));
+
+        lblCoronaImg.setIcon(icon); 
     }
 
     public void cargarLista() {
@@ -56,8 +70,9 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         jPanelRanking = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaJugadores = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblRanking = new javax.swing.JLabel();
         jBtnMusic = new javax.swing.JButton();
+        lblCoronaImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -125,8 +140,9 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
                 .addGap(0, 155, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("RANKING");
+        lblRanking.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblRanking.setForeground(new java.awt.Color(0, 204, 102));
+        lblRanking.setText("RANKING");
 
         jBtnMusic.setLabel("Music");
         jBtnMusic.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +150,14 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
                 jBtnMusicActionPerformed(evt);
             }
         });
+
+        lblCoronaImg.setBackground(new java.awt.Color(255, 255, 255));
+        lblCoronaImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCoronaImg.setFocusable(false);
+        lblCoronaImg.setMaximumSize(new java.awt.Dimension(279, 181));
+        lblCoronaImg.setMinimumSize(new java.awt.Dimension(279, 181));
+        lblCoronaImg.setPreferredSize(new java.awt.Dimension(279, 181));
+        lblCoronaImg.setVerifyInputWhenFocusTarget(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,7 +176,9 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCoronaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(lblRanking, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(320, 320, 320))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -163,9 +189,11 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRanking, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCoronaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelRanking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,9 +259,10 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton jBtnAgregarJugador;
     private javax.swing.JButton jBtnBorrar;
     private javax.swing.JButton jBtnMusic;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelRanking;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCoronaImg;
+    private javax.swing.JLabel lblRanking;
     private javax.swing.JTable tablaJugadores;
     // End of variables declaration//GEN-END:variables
 

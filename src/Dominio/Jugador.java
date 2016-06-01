@@ -32,6 +32,16 @@ public class Jugador implements Comparable<Jugador> {
         this.cantidadPartidasPerdidas = 0;
     }
 
+    public Jugador(String elAlias, String elNombre, int laEdad, int pPer, int pGan, int pEmpa) {
+        this.alias = elAlias;
+        this.nombre = elNombre;
+        this.edad = laEdad;
+        this.cantidadPartidasGanadas = pGan;
+        this.cantidadPartidasEmpatadas = pEmpa;
+        this.cantidadPartidasJugadas = pGan + pEmpa + pPer;
+        this.cantidadPartidasPerdidas = pPer;
+    }
+
     // get's y set's    
     public String getAlias() {
         return this.alias;

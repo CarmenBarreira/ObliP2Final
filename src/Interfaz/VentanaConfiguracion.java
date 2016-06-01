@@ -1,4 +1,3 @@
-
 package Interfaz;
 
 import Dominio.Sistema;
@@ -8,25 +7,19 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class VentanaConfiguracion extends javax.swing.JFrame {
-    
+
     private JButton[][] botones;
-    private int [] tamanioTab = new int[2];
-    
-    
-    
-    
+    private int[] tamanioTab = new int[2];
+
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
-        sis= unSis;
+        sis = unSis;
         panelJuegoConfig.setVisible(true);
-        
-        
-        mostrarTableroConSubTableros(3,3);
-        
-        
-       
+
+        mostrarTableroConSubTableros(3, 3);
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,37 +183,37 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfigActionPerformed
-        
+
 
     }//GEN-LAST:event_btnGuardarConfigActionPerformed
 
     private void rb6x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x6ActionPerformed
         // TODO add your handling code here:
-       
-        tamanioTab[0]=6;
-        tamanioTab[1]=6;
-        
-        
+
+        tamanioTab[0] = 6;
+        tamanioTab[1] = 6;
+
+
     }//GEN-LAST:event_rb6x6ActionPerformed
 
     private void rb4x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb4x6ActionPerformed
         // TODO add your handling code here:
-        mostrarTableroConSubTableros(4,6);
-        tamanioTab[0]=4;
-        tamanioTab[1]=6;
+        mostrarTableroConSubTableros(4, 6);
+        tamanioTab[0] = 4;
+        tamanioTab[1] = 6;
     }//GEN-LAST:event_rb4x6ActionPerformed
 
     private void rb6x4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x4ActionPerformed
-        mostrarTableroConSubTableros(6,4);
-        tamanioTab[0]=6;
-        tamanioTab[1]=4;
+        mostrarTableroConSubTableros(6, 4);
+        tamanioTab[0] = 6;
+        tamanioTab[1] = 4;
     }//GEN-LAST:event_rb6x4ActionPerformed
 
     private void rb8x8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb8x8ActionPerformed
         // TODO add your handling code here:
-        mostrarTableroConSubTableros(8,8);
-        tamanioTab[0]=8;
-        tamanioTab[1]=8;
+        mostrarTableroConSubTableros(8, 8);
+        tamanioTab[0] = 8;
+        tamanioTab[1] = 8;
     }//GEN-LAST:event_rb8x8ActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -263,56 +256,50 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
         public ListenerBoton(int i, int j) {
 
-        // en el constructor se almacena la fila y columna que se presionó
-
-        x = i;
+            // en el constructor se almacena la fila y columna que se presionó
+            x = i;
 
         }
 
-    public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
 
-    // cuando se presiona un botón, se ejecutará este método
+            // cuando se presiona un botón, se ejecutará este método
+            clickBoton(x, y);
 
-    clickBoton(x, y);
-
+        }
     }
-    }
-    
+
     private void clickBoton(int fila, int columna) {
 
 // Método a completar!.
-
 // En fila y columna se reciben las coordenas donde presionó el usuario, relativas al comienzo de la grilla
-
 // fila 1 y columna 1 corresponden a la posición de arriba a la izquierda.
-
 // Debe indicarse cómo responder al click de ese botón.
+    }
 
-}
-     public void mostrarTableroConSubTableros (int dimensionF, int dimensionC){
-        
+    public void mostrarTableroConSubTableros(int dimensionF, int dimensionC) {
+
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
 
-        botones = new JButton[dimensionF+2][dimensionC+2];
+        botones = new JButton[dimensionF + 2][dimensionC + 2];
 
         for (int i = 1; i <= dimensionF; i++) {
 
             for (int j = 1; j <= dimensionC; j++) {
 
-            JButton jButton = new JButton();
+                JButton jButton = new JButton();
 
-            jButton.addActionListener(new ListenerBoton(i, j));
+                jButton.addActionListener(new ListenerBoton(i, j));
 
-            panelJuegoConfig.add(jButton);
+                panelJuegoConfig.add(jButton);
 
             }
 
         }
-        
-        
+
     }
-        
-     Sistema sis =  new Sistema();
+
+    Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgroupTamTablero;
     private javax.swing.JButton btnGuardarConfig;

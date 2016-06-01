@@ -8,17 +8,23 @@ import javax.swing.*;
 public class VentanaJugarPartida extends javax.swing.JFrame {
 
     private JButton[][] botones;
+    
+   
+   
+    
 
     public VentanaJugarPartida(Sistema elSis) {
-        
-        //deshabilito los botones de mover hueco
-//        panelMoverHueco.setEnabled(false);
         
         initComponents();
         // crear botones y agregarlos al panel
         sis = elSis;
         int dimensionF = 6;
         int dimensionC = 6;
+        
+        //hago invisible la parte de mover hueco hasta que no ingrese ficha
+        panelMoverHueco.setVisible(false);
+        lblMoverHueco.setVisible(false);
+        
         panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
 
         botones = new JButton[dimensionF + 2][dimensionC + 2];
@@ -52,7 +58,7 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         btnMoverHuecoArriba = new javax.swing.JButton();
         btnMoverHuecoAbajo = new javax.swing.JButton();
         btnRendirse = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblMoverHueco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -142,11 +148,11 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(btnRendirse);
         btnRendirse.setBounds(10, 540, 110, 30);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 204, 102));
-        jLabel1.setText("MOVER SUBTABLERO");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(80, 50, 360, 70);
+        lblMoverHueco.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblMoverHueco.setForeground(new java.awt.Color(0, 204, 102));
+        lblMoverHueco.setText("MOVER SUBTABLERO");
+        getContentPane().add(lblMoverHueco);
+        lblMoverHueco.setBounds(80, 50, 360, 70);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("TURNO DE JUGADOR CACHO");
@@ -265,13 +271,13 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
     private javax.swing.JButton btnMoverHuecoIzquierda;
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblMoverHueco;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelMoverHueco;
     private java.awt.TextArea textArea1;

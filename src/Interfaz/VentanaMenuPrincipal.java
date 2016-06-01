@@ -38,9 +38,10 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(942, 658));
+        setIconImages(null);
+        setPreferredSize(new java.awt.Dimension(592, 388));
         setResizable(false);
-        setSize(new java.awt.Dimension(942, 658));
+        setSize(new java.awt.Dimension(592, 388));
 
         lblBienvenida.setBackground(new java.awt.Color(255, 255, 255));
         lblBienvenida.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -78,7 +79,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMPJugar1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMPConfiguraciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

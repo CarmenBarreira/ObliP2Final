@@ -41,7 +41,7 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnAgregarJugador.setText("Agregar Jugador");
         btnAgregarJugador.addActionListener(new java.awt.event.ActionListener() {

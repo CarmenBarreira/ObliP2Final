@@ -42,7 +42,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         panelCargarArchivo = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(702, 544));
         setResizable(false);
         setSize(new java.awt.Dimension(900, 658));

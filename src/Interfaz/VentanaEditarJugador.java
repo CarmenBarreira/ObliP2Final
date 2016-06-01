@@ -14,14 +14,28 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  *
  * @author Juan
  */
-public class VentanaAgregarJugador extends javax.swing.JFrame {
+public class VentanaEditarJugador extends javax.swing.JFrame {
+    
+    boolean esNuevo = true;
+    Jugador j;
 
     /**
      * Creates new form VentanaAgregarJugador
      */
-    public VentanaAgregarJugador(Sistema unSis) {
+    public VentanaEditarJugador(Sistema unSis) {
         initComponents();
         sis = unSis;
+        
+    }
+    
+    public VentanaEditarJugador(Sistema unSis, Jugador juga) {
+        initComponents();
+        sis = unSis;
+        jTxtAlias.setText(juga.getAlias());
+        jTxtNombre.setText(juga.getAlias());
+        jTxtEdad.setText("" + juga.getEdad());
+        esNuevo = false;
+        j = juga;
     }
 
     /**
@@ -41,7 +55,7 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnAgregarJugador.setText("Agregar Jugador");
         btnAgregarJugador.addActionListener(new java.awt.event.ActionListener() {
@@ -109,12 +123,22 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
             jTxtEdad.selectAll();
             jTxtEdad.requestFocusInWindow();
         }
-
+        
         if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 80))) {
-
-            Jugador tempJug = new Jugador(alias, nombre, edad);
-            sis.agregarJugador(tempJug);
-            JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+            if (esNuevo) {
+                Jugador tempJug = new Jugador(alias, nombre, edad);
+                sis.agregarJugador(tempJug);
+                JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                Jugador tempJug = new Jugador(alias, nombre, edad, j.getCantidadPartidasPerdidas(), j.getCantidadPartidasGanadas(), j.getCantidadPartidasEmpatadas());
+                sis.getListaJugadores().add(tempJug);
+                sis.eliminarJugador(j);
+                JOptionPane.showMessageDialog(this, "Jugador editado correctamente", "Jugador editado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                
+            }
+            
         }
         if (!(stringCorrecto(alias, "alias"))) {
             JOptionPane.showMessageDialog(this, "El Alias es Incorrecto", "Alias Incorrecto", ERROR_MESSAGE);
@@ -163,7 +187,7 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
 //            }
 //        });
     }
-
+    
     public boolean stringCorrecto(String s, String tipo) {
         /*Esta funcion valida si el string que se pasa por parametro segun el tipo
         es o no valido. Y retorna un booleano segun sea o no valido*/
@@ -172,7 +196,7 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
         if (!s.isEmpty()) {
             if (s.charAt(0) == ' ' || s.isEmpty()) {
                 espaciosVacios = true;
-
+                
             }
             if (s.equals("") || espaciosVacios) {
                 //el string esta vacio o empieza con espacio
@@ -183,9 +207,9 @@ public class VentanaAgregarJugador extends javax.swing.JFrame {
             } else {
                 esCorrecto = true;
             }
-
+            
         }
-
+        
         return esCorrecto;
     }
     Sistema sis = new Sistema();

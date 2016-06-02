@@ -86,6 +86,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
             }
         });
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editIcono.png"))); // NOI18N
         btnEditar.setText("Editar Jugador");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Juan
  */
 public class VentanaPreJugar extends javax.swing.JFrame {
-
+    
     JFileChooser fc;
     Jugador jBlanco = new Jugador();
     Jugador jNegro = new Jugador();
@@ -40,9 +40,9 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     ImageIcon cargarFicha = new ImageIcon("\\images\\cargarFicha.png");
     boolean hayJNegro = false;
     boolean hayJBlanco = false;
-
+    
     public VentanaPreJugar(Sistema unSis) {
-
+        
         miSistema = unSis;
         Tablero tab = new Tablero(miSistema.getConfPartida()[0], miSistema.getConfPartida()[1]);
         initComponents();
@@ -50,11 +50,11 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         mostrarTableroConSubTableros(tab.getTablero().length, tab.getTablero()[0].length, tab);
         cargarLista();
         jButtonFichaBlanca.setIcon(cargarFicha);
-
+        
         panelJuegoConfig.setVisible(true);
-
+        
     }
-
+    
     public void cargarLista() {
         borrarCacheTabla();
         DefaultTableModel modelo = (DefaultTableModel) tablaJugadores.getModel();
@@ -65,9 +65,9 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             tablaJugadores.setValueAt(jug.getAlias(), i, 1);
             tablaJugadores.setValueAt(jug.getEdad(), i, 2);
         }
-
+        
     }
-
+    
     private void borrarCacheTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tablaJugadores.getModel();
         int filas = tablaJugadores.getRowCount();
@@ -248,7 +248,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     private void jButtonJugadorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugadorBlancoActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
         if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-
+            
             if (!jNegro.equals(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()))) {
                 jBlanco = miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow());
 //            model.removeRow(tabla.getSelectedRow());
@@ -257,7 +257,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo jugador.", "Error de jugadores", ERROR_MESSAGE);
             }
-
+            
         }
         if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
@@ -267,17 +267,17 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     private void jButtonJugadorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugadorNegroActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
         if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-
+            
             if (!jBlanco.equals(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()))) {
                 jNegro = miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow());
 //            model.removeRow(tabla.getSelectedRow());
                 jlabelNombreJNegro.setText("" + jNegro.getAlias());
                 hayJNegro = true;
-
+                
             } else {
                 JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo jugador.", "Error de jugadores", ERROR_MESSAGE);
             }
-
+            
         }
         if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
@@ -292,37 +292,37 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
         } else {
-
+            
             JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);
         }
         {
-
+            
         }
 
     }//GEN-LAST:event_jButtonJugarActionPerformed
-
+    
     public void mostrarTableroConSubTableros(int dimensionF, int dimensionC, Tablero tab) {
-
+        
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
-
+        
         botones = new JButton[dimensionF + 2][dimensionC + 2];
-
+        
         for (int i = 1; i <= dimensionF; i++) {
-
+            
             for (int j = 1; j <= dimensionC; j++) {
-
+                
                 JButton jButton = new JButton();
                 panelJuegoConfig.add(jButton);
                 botones[i][j] = jButton;
                 jButton.setEnabled(false);
                 if (tab.getTablero()[i - 1][j - 1] == 'X') {
                     botones[i][j].setBackground(Color.PINK);
-
+                    botones[i][j].setText("X");
                 }
             }
-
+            
         }
-
+        
     }
 
     /**

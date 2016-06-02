@@ -8,7 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
+
 
 public class VentanaConfiguracion extends javax.swing.JFrame {
 

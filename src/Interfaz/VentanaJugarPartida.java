@@ -1,52 +1,52 @@
 package Interfaz;
 
 import Dominio.Jugador;
+import Dominio.Partida;
 import Dominio.Sistema;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
 public class VentanaJugarPartida extends javax.swing.JFrame {
-
+    
     private JButton[][] botones;
     
-   
-   
-    
-
-    public VentanaJugarPartida(Sistema elSis) {
+    public VentanaJugarPartida(Sistema elSis, Partida p) {
         
         initComponents();
         // crear botones y agregarlos al panel
         sis = elSis;
-        int dimensionF = 6;
-        int dimensionC = 6;
-        
+        int dimensionF = p.getTablero().getTablero().length;
+        int dimensionC = p.getTablero().getTablero()[0].length;
+
         //hago invisible la parte de mover hueco hasta que no ingrese ficha
-        panelMoverHueco.setVisible(false);
         lblMoverHueco.setVisible(false);
         
         panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
-
+        
         botones = new JButton[dimensionF + 2][dimensionC + 2];
-
+        
         for (int i = 1; i <= dimensionF; i++) {
-
+            
             for (int j = 1; j <= dimensionC; j++) {
-
+                
                 JButton jButton = new JButton();
-
+                
                 jButton.addActionListener(new ListenerBoton(i, j));
-
+                
                 panelJuego.add(jButton);
-
+                botones[i][j] = jButton;
+                if (p.getTablero().getTablero()[i - 1][j - 1] == 'X') {
+                    botones[i][j].setBackground(Color.PINK);
+                    botones[i][j].setEnabled(false);
+                    
+                }
             }
-
+            
         }
         
-               
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,11 +55,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         panelJuego = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         textArea1 = new java.awt.TextArea();
-        panelMoverHueco = new javax.swing.JPanel();
-        btnMoverHuecoIzquierda = new javax.swing.JButton();
-        btnMoverHuecoDerecha = new javax.swing.JButton();
-        btnMoverHuecoArriba = new javax.swing.JButton();
-        btnMoverHuecoAbajo = new javax.swing.JButton();
         btnRendirse = new javax.swing.JButton();
         lblMoverHueco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -71,6 +66,7 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("4enCuadrado - Partida en Curso");
         setPreferredSize(new java.awt.Dimension(942, 658));
         setResizable(false);
         setSize(new java.awt.Dimension(942, 658));
@@ -95,52 +91,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         jButton1.setBounds(480, 510, 440, 60);
         getContentPane().add(textArea1);
         textArea1.setBounds(30, 320, 420, 160);
-
-        btnMoverHuecoIzquierda.setText("Izquierda");
-
-        btnMoverHuecoDerecha.setText("Derecha");
-
-        btnMoverHuecoArriba.setText("Arriba");
-
-        btnMoverHuecoAbajo.setText("Abajo");
-
-        javax.swing.GroupLayout panelMoverHuecoLayout = new javax.swing.GroupLayout(panelMoverHueco);
-        panelMoverHueco.setLayout(panelMoverHuecoLayout);
-        panelMoverHuecoLayout.setHorizontalGroup(
-            panelMoverHuecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMoverHuecoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelMoverHuecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMoverHuecoLayout.createSequentialGroup()
-                        .addComponent(btnMoverHuecoIzquierda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(btnMoverHuecoDerecha))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMoverHuecoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelMoverHuecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMoverHuecoLayout.createSequentialGroup()
-                                .addComponent(btnMoverHuecoArriba)
-                                .addGap(59, 59, 59))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMoverHuecoLayout.createSequentialGroup()
-                                .addComponent(btnMoverHuecoAbajo)
-                                .addGap(60, 60, 60))))))
-        );
-        panelMoverHuecoLayout.setVerticalGroup(
-            panelMoverHuecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMoverHuecoLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(btnMoverHuecoArriba)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelMoverHuecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMoverHuecoIzquierda)
-                    .addComponent(btnMoverHuecoDerecha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMoverHuecoAbajo)
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelMoverHueco);
-        panelMoverHueco.setBounds(40, 110, 200, 180);
 
         btnRendirse.setText("Rendirse");
         btnRendirse.addActionListener(new java.awt.event.ActionListener() {
@@ -190,10 +140,10 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         0 - selecciono SI
         1 - selecciono NO
         2- selecciono Cancelar
-        */
-        if (resp == 0){ //abandona la partida
+         */
+        if (resp == 0) { //abandona la partida
         }
-        
+
     }//GEN-LAST:event_btnRendirseActionPerformed
 
     /**
@@ -237,28 +187,28 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
 //            }
 //        });
     }
-
+    
     private class ListenerBoton implements ActionListener {
-
+        
         private int x;
-
+        
         private int y;
-
+        
         public ListenerBoton(int i, int j) {
 
             // en el constructor se almacena la fila y columna que se presionó
             x = i;
-
+            
         }
-
+        
         public void actionPerformed(ActionEvent e) {
 
             // cuando se presiona un botón, se ejecutará este método
             clickBoton(x, y);
-
+            
         }
     }
-
+    
     private void clickBoton(int fila, int columna) {
 
 // Método a completar!.
@@ -266,13 +216,9 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
 // fila 1 y columna 1 corresponden a la posición de arriba a la izquierda.
 // Debe indicarse cómo responder al click de ese botón.
     }
-
+    
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMoverHuecoAbajo;
-    private javax.swing.JButton btnMoverHuecoArriba;
-    private javax.swing.JButton btnMoverHuecoDerecha;
-    private javax.swing.JButton btnMoverHuecoIzquierda;
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
@@ -283,7 +229,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblMoverHueco;
     private javax.swing.JPanel panelJuego;
-    private javax.swing.JPanel panelMoverHueco;
     private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

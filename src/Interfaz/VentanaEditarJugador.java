@@ -7,6 +7,10 @@ package Interfaz;
 
 import Dominio.Jugador;
 import Dominio.Sistema;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -29,13 +33,18 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
     }
 
     public VentanaEditarJugador(Sistema unSis, Jugador juga) {
+
         initComponents();
         sis = unSis;
+
         jTxtAlias.setText(juga.getAlias());
         jTxtNombre.setText(juga.getAlias());
         jTxtEdad.setText("" + juga.getEdad());
         esNuevo = false;
         j = juga;
+        lblTexto.setText("Edicion de Jugador");
+        btnAgregarJugador.setText("Editar Jugador");
+     this.setTitle("4enCuadrado - Edicion de Jugador");
     }
 
     /**
@@ -51,12 +60,16 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         jTxtAlias = new javax.swing.JTextField();
         jTxtEdad = new javax.swing.JTextField();
         btnAgregarJugador = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblAlias = new javax.swing.JLabel();
+        lblEdad = new javax.swing.JLabel();
+        lblTexto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("4enCuadrado - Agregar Jugador");
+        setResizable(false);
 
+        btnAgregarJugador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add_contact_act.png"))); // NOI18N
         btnAgregarJugador.setText("Agregar Jugador");
         btnAgregarJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,48 +77,65 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nombre");
+        lblNombre.setText("Nombre");
 
-        jLabel2.setText("Alias");
+        lblAlias.setText("Alias");
 
-        jLabel4.setText("Edad");
+        lblEdad.setText("Edad");
+
+        lblTexto.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblTexto.setText("Registro de Jugador");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTexto)
+                .addGap(126, 126, 126))
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarJugador)
-                    .addComponent(jTxtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(jTxtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAgregarJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblAlias)
+                                    .addComponent(lblNombre))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(lblEdad)))))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
+                .addComponent(lblTexto)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(lblNombre)
+                    .addComponent(jTxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAlias))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(58, 58, 58)
-                .addComponent(btnAgregarJugador)
-                .addContainerGap(82, Short.MAX_VALUE))
+                    .addComponent(lblEdad))
+                .addGap(38, 38, 38)
+                .addComponent(btnAgregarJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,8 +161,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             tempJugador = new Jugador(alias, nombre, edad, j.getCantidadPartidasPerdidas(), j.getCantidadPartidasGanadas(), j.getCantidadPartidasEmpatadas());
 
         }
-        
-        
+
         if (!(stringCorrecto(alias, "alias"))) {
             JOptionPane.showMessageDialog(this, "El Alias es Incorrecto", "Alias Incorrecto", ERROR_MESSAGE);
             jTxtAlias.selectAll();
@@ -148,7 +177,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
         }
-        
+
         if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 80)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
             if (esNuevo) {
                 sis.agregarJugador(tempJugador);
@@ -229,11 +258,12 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarJugador;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTxtAlias;
     private javax.swing.JTextField jTxtEdad;
     private javax.swing.JTextField jTxtNombre;
+    private javax.swing.JLabel lblAlias;
+    private javax.swing.JLabel lblEdad;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTexto;
     // End of variables declaration//GEN-END:variables
 }

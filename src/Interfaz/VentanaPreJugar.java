@@ -6,13 +6,20 @@
 package Interfaz;
 
 import Dominio.Jugador;
+import Dominio.Partida;
 import Dominio.Sistema;
+import Dominio.Tablero;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -23,25 +30,31 @@ import javax.swing.table.DefaultTableModel;
  * @author Juan
  */
 public class VentanaPreJugar extends javax.swing.JFrame {
-    
+
+    JFileChooser fc;
     Jugador jBlanco = new Jugador();
     Jugador jNegro = new Jugador();
     private JButton[][] botones;
     Sistema miSistema = new Sistema();
+    JButton cargar;
+    ImageIcon cargarFicha = new ImageIcon("\\images\\cargarFicha.png");
+    boolean hayJNegro = false;
+    boolean hayJBlanco = false;
 
-    /**
-     * Creates new form VentanaPreJugar
-     */
     public VentanaPreJugar(Sistema unSis) {
-        
+
         miSistema = unSis;
+        Tablero tab = new Tablero(miSistema.getConfPartida()[0], miSistema.getConfPartida()[1]);
         initComponents();
-        mostrarTableroConSubTableros(6, 6);
+        System.out.print(tab.getTablero().length);
+        mostrarTableroConSubTableros(tab.getTablero().length, tab.getTablero()[0].length, tab);
         cargarLista();
-        
+        jButtonFichaBlanca.setIcon(cargarFicha);
+
         panelJuegoConfig.setVisible(true);
+
     }
-    
+
     public void cargarLista() {
         borrarCacheTabla();
         DefaultTableModel modelo = (DefaultTableModel) tablaJugadores.getModel();
@@ -52,9 +65,9 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             tablaJugadores.setValueAt(jug.getAlias(), i, 1);
             tablaJugadores.setValueAt(jug.getEdad(), i, 2);
         }
-        
+
     }
-    
+
     private void borrarCacheTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tablaJugadores.getModel();
         int filas = tablaJugadores.getRowCount();
@@ -76,7 +89,6 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         tablaJugadores = new javax.swing.JTable();
         jButtonJugadorBlanco = new javax.swing.JButton();
         jButtonJugadorNegro = new javax.swing.JButton();
-        jNegrolbl = new javax.swing.JLabel();
         jBlancolbl = new javax.swing.JLabel();
         jlabelNombreJNegro = new javax.swing.JLabel();
         jNombreBLanco = new javax.swing.JLabel();
@@ -86,8 +98,10 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         jButtonJugar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         panelJuegoConfig = new javax.swing.JPanel();
+        jBlancolbl1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("4enCuadrado - Pre Jugada");
 
         tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,8 +127,6 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             }
         });
 
-        jNegrolbl.setText("Jugador Blanco");
-
         jBlancolbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBlancolbl.setText("Jugador Negro");
 
@@ -125,13 +137,23 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         jNombreBLanco.setForeground(new java.awt.Color(153, 153, 153));
         jNombreBLanco.setText("No seleccionado");
 
+        jButtonFichaBlanca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarFicha.png"))); // NOI18N
         jButtonFichaBlanca.setText("Cargar Imagen Ficha");
 
+        jButtonFichaNegra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarFicha.png"))); // NOI18N
         jButtonFichaNegra.setText("Cargar Imagen Ficha");
 
+        jCargarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inbox-upload-icon.png"))); // NOI18N
         jCargarPartida.setText("Cargar Partida");
 
-        jButtonJugar.setText("Jugar");
+        jButtonJugar.setFont(new java.awt.Font("Calibri", 3, 24)); // NOI18N
+        jButtonJugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoJuego.png"))); // NOI18N
+        jButtonJugar.setText("JUGAR");
+        jButtonJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonJugarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("La configuracion actual es:");
 
@@ -148,6 +170,9 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jBlancolbl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jBlancolbl1.setText("Jugador Blanco");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,63 +183,63 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBlancolbl)
-                            .addComponent(jNegrolbl)
-                            .addComponent(jButtonFichaBlanca)
-                            .addComponent(jButtonFichaNegra)
                             .addComponent(jLabel1)
                             .addComponent(jNombreBLanco, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlabelNombreJNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButtonFichaNegra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlabelNombreJNegro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonFichaBlanca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBlancolbl1)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jCargarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonJugadorBlanco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonJugadorNegro))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButtonJugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(66, 66, 66))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonJugadorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonJugadorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                        .addComponent(jButtonJugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCargarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jNegrolbl)
-                        .addGap(2, 2, 2)
+                        .addGap(33, 33, 33)
+                        .addComponent(jBlancolbl1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jNombreBLanco, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonFichaBlanca)
-                        .addGap(32, 32, 32)
+                        .addComponent(jButtonFichaBlanca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jBlancolbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlabelNombreJNegro)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonFichaNegra)
-                        .addGap(18, 18, 18)
+                        .addComponent(jButtonFichaNegra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(10, 10, 10)
                         .addComponent(jCargarPartida)
-                        .addGap(17, 17, 17)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonJugadorBlanco)
                             .addComponent(jButtonJugadorNegro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(jButtonJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -223,15 +248,16 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     private void jButtonJugadorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugadorBlancoActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
         if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            
+
             if (!jNegro.equals(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()))) {
                 jBlanco = miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow());
 //            model.removeRow(tabla.getSelectedRow());
                 jNombreBLanco.setText("" + jBlanco.getAlias());
+                hayJBlanco = true;
             } else {
                 JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo jugador.", "Error de jugadores", ERROR_MESSAGE);
             }
-            
+
         }
         if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
@@ -241,38 +267,62 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     private void jButtonJugadorNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugadorNegroActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
         if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            
+
             if (!jBlanco.equals(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()))) {
                 jNegro = miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow());
 //            model.removeRow(tabla.getSelectedRow());
                 jlabelNombreJNegro.setText("" + jNegro.getAlias());
+                hayJNegro = true;
+
             } else {
                 JOptionPane.showMessageDialog(this, "No se puede seleccionar el mismo jugador.", "Error de jugadores", ERROR_MESSAGE);
             }
-            
+
         }
         if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonJugadorNegroActionPerformed
-    
-    public void mostrarTableroConSubTableros(int dimensionF, int dimensionC) {
-        
+
+    private void jButtonJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugarActionPerformed
+        if (hayJBlanco && hayJNegro) {
+            Partida p = new Partida(miSistema.getConfPartida());
+            p.setJugadorBlanco(jBlanco);
+            p.setJugadorNegro(jNegro);
+            VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
+            nuevaVentana.setVisible(true);
+        } else {
+
+            JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);
+        }
+        {
+
+        }
+
+    }//GEN-LAST:event_jButtonJugarActionPerformed
+
+    public void mostrarTableroConSubTableros(int dimensionF, int dimensionC, Tablero tab) {
+
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
-        
+
         botones = new JButton[dimensionF + 2][dimensionC + 2];
-        
+
         for (int i = 1; i <= dimensionF; i++) {
-            
+
             for (int j = 1; j <= dimensionC; j++) {
-                
+
                 JButton jButton = new JButton();
                 panelJuegoConfig.add(jButton);
+                botones[i][j] = jButton;
                 jButton.setEnabled(false);
+                if (tab.getTablero()[i - 1][j - 1] == 'X') {
+                    botones[i][j].setBackground(Color.PINK);
+
+                }
             }
-            
+
         }
-        
+
     }
 
     /**
@@ -312,6 +362,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBlancolbl;
+    private javax.swing.JLabel jBlancolbl1;
     private javax.swing.JButton jButtonFichaBlanca;
     private javax.swing.JButton jButtonFichaNegra;
     private javax.swing.JButton jButtonJugadorBlanco;
@@ -319,7 +370,6 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     private javax.swing.JButton jButtonJugar;
     private javax.swing.JButton jCargarPartida;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jNegrolbl;
     private javax.swing.JLabel jNombreBLanco;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlabelNombreJNegro;

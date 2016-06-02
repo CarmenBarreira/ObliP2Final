@@ -15,6 +15,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public VentanaMenuPrincipal(Sistema sis) {
         initComponents();
         elSis = sis;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -26,13 +27,15 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         btnMPConfiguraciones = new javax.swing.JButton();
         btnMPJugarPartida = new javax.swing.JButton();
         btnMPJugadores2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("4enCuadrado - Menu Principal");
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImages(null);
-        setPreferredSize(new java.awt.Dimension(592, 388));
+        setPreferredSize(new java.awt.Dimension(594, 420));
         setResizable(false);
-        setSize(new java.awt.Dimension(592, 388));
+        setSize(new java.awt.Dimension(594, 420));
 
         lblBienvenida.setBackground(new java.awt.Color(255, 255, 255));
         lblBienvenida.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -66,26 +69,47 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addContainerGap(102, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
                 .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,7 +117,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,6 +148,8 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         Rectangle rct = vConfig.getGraphicsConfiguration().getBounds();
         vConfig.setLocation((rct.width - vConfig.getWidth()) / 2, (rct.height - vConfig.getHeight()) / 2);
         vConfig.setVisible(true);
+                
+
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
@@ -168,6 +194,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMPJugadores1;
     private javax.swing.JButton btnMPJugadores2;
     private javax.swing.JButton btnMPJugarPartida;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
     // End of variables declaration//GEN-END:variables
 }

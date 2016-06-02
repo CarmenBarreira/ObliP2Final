@@ -1,22 +1,49 @@
 package Interfaz;
 
 import Dominio.Sistema;
+import Dominio.Tablero;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class VentanaConfiguracion extends javax.swing.JFrame {
 
     private JButton[][] botones;
-    private int[] tamanioTab = new int[2];
+    private int[] subtableroSelected = {0, 0};
+    private int posHueco;
+    private int opcionTablero;
 
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
         sis = unSis;
+        opcionTablero = sis.getConfPartida()[0];
+        posHueco = sis.getConfPartida()[1];
         panelJuegoConfig.setVisible(true);
-        mostrarTableroConSubTableros(3, 3);
+        panelJuegoConfig.setPreferredSize(new Dimension(447, 396));
+        panelJuegoConfig.setMinimumSize(new Dimension(447, 396));
+        panelJuegoConfig.setMaximumSize(new Dimension(447, 396));
+        Tablero tab = new Tablero(sis.getConfPartida()[0], sis.getConfPartida()[1]);
+        mostrarTableroConSubTableros((tab.getTablero().length / 2), (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
+        int tablero = sis.getConfPartida()[0];
+        switch (tablero) {
+            case 1:
+                rb6x6.setSelected(true);
+                break;
+            case 2:
+                rb4x6.setSelected(true);
+                break;
+            case 3:
+                rb6x4.setSelected(true);
+                break;
+            case 4:
+                rb8x8.setSelected(true);
+                break;
 
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -31,10 +58,13 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         rb4x6 = new javax.swing.JRadioButton();
         rb8x8 = new javax.swing.JRadioButton();
         rb6x4 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("4enCuadrado - Configuracion de Partida");
         setPreferredSize(new java.awt.Dimension(702, 544));
         setResizable(false);
         setSize(new java.awt.Dimension(900, 658));
@@ -51,6 +81,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         );
 
         btnGuardarConfig.setBackground(new java.awt.Color(204, 255, 204));
+        btnGuardarConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_16.png"))); // NOI18N
         btnGuardarConfig.setText("Guardar configuracion");
         btnGuardarConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +89,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             }
         });
 
-        jPanelTamTablero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanelTamTablero.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanelTamTablero.setForeground(new java.awt.Color(255, 255, 255));
         jPanelTamTablero.setToolTipText("Tamaño tablero: ");
 
@@ -123,51 +154,65 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Cargar Partida");
-
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Seleccionar la posicion del hueco");
+
+        jLabel2.setText("Dimensiones de Tablero");
+
+        jButton1.setText("Si");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
+        jLabel3.setText("Musica en Partida");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(186, 186, 186))
+                .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(173, 173, 173)
-                        .addComponent(jButton1))
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addGap(56, 56, 56)
-                        .addComponent(jLabel1)
-                        .addGap(28, 28, 28)
-                        .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50)
-                .addComponent(btnGuardarConfig)
-                .addContainerGap(75, Short.MAX_VALUE))
+                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,36 +220,54 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
     private void btnGuardarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfigActionPerformed
 
+        int[] confActual = new int[2];
+        confActual[0] = opcionTablero;
+        confActual[1] = posHueco;
+        sis.setConfPartida(confActual);
+        JOptionPane.showMessageDialog(this, "Configuracion guardada con exito!", "Configuracion Guardada", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
 
     }//GEN-LAST:event_btnGuardarConfigActionPerformed
 
     private void rb6x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x6ActionPerformed
         // TODO add your handling code here:
-
-        tamanioTab[0] = 6;
-        tamanioTab[1] = 6;
+        panelJuegoConfig.removeAll();
+        mostrarTableroConSubTableros(3, 3, 5);
+        opcionTablero = 1;
+        panelJuegoConfig.repaint();
+        panelJuegoConfig.revalidate();
 
 
     }//GEN-LAST:event_rb6x6ActionPerformed
 
     private void rb4x6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb4x6ActionPerformed
         // TODO add your handling code here:
-        mostrarTableroConSubTableros(4, 6);
-        tamanioTab[0] = 4;
-        tamanioTab[1] = 6;
+        panelJuegoConfig.removeAll();
+        mostrarTableroConSubTableros(2, 3, 2);
+
+        panelJuegoConfig.repaint();
+        panelJuegoConfig.revalidate();
+        opcionTablero = 2;
+
     }//GEN-LAST:event_rb4x6ActionPerformed
 
     private void rb6x4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x4ActionPerformed
-        mostrarTableroConSubTableros(6, 4);
-        tamanioTab[0] = 6;
-        tamanioTab[1] = 4;
+        panelJuegoConfig.removeAll();
+        mostrarTableroConSubTableros(3, 2, 2);
+        panelJuegoConfig.repaint();
+        panelJuegoConfig.revalidate();
+        opcionTablero = 3;
     }//GEN-LAST:event_rb6x4ActionPerformed
 
     private void rb8x8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb8x8ActionPerformed
         // TODO add your handling code here:
-        mostrarTableroConSubTableros(8, 8);
-        tamanioTab[0] = 8;
-        tamanioTab[1] = 8;
+        panelJuegoConfig.removeAll();
+        mostrarTableroConSubTableros(4, 4, 7);
+        panelJuegoConfig.repaint();
+        panelJuegoConfig.revalidate();
+        opcionTablero = 4;
+
     }//GEN-LAST:event_rb8x8ActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -249,6 +312,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
             // en el constructor se almacena la fila y columna que se presionó
             x = i;
+            y = j;
 
         }
 
@@ -266,12 +330,25 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 // En fila y columna se reciben las coordenas donde presionó el usuario, relativas al comienzo de la grilla
 // fila 1 y columna 1 corresponden a la posición de arriba a la izquierda.
 // Debe indicarse cómo responder al click de ese botón.
+        botones[fila][columna].setSelected(true);
+
+        if (subtableroSelected[0] == 0 && subtableroSelected[1] == 0) {
+            botones[fila][columna].setBackground(Color.LIGHT_GRAY);
+            subtableroSelected[0] = fila;
+            subtableroSelected[1] = columna;
+        } else {
+            botones[subtableroSelected[0]][subtableroSelected[1]].setBackground(null);
+            botones[fila][columna].setBackground(Color.LIGHT_GRAY);
+            subtableroSelected[0] = fila;
+            subtableroSelected[1] = columna;
+        }
+        posHueco = (int) Integer.parseInt(botones[fila][columna].getText());
+
     }
 
-    public void mostrarTableroConSubTableros(int dimensionF, int dimensionC) {
-
+    public void mostrarTableroConSubTableros(int dimensionF, int dimensionC, int hueco) {
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
-
+        int cont = 1;
         botones = new JButton[dimensionF + 2][dimensionC + 2];
 
         for (int i = 1; i <= dimensionF; i++) {
@@ -281,8 +358,17 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 JButton jButton = new JButton();
 
                 jButton.addActionListener(new ListenerBoton(i, j));
-
+                jButton.setText("" + cont);
                 panelJuegoConfig.add(jButton);
+                botones[i][j] = jButton;
+                cont++;
+
+                if (Integer.parseInt(botones[i][j].getText()) == hueco) {
+                    botones[i][j].setSelected(true);
+                    botones[i][j].setBackground(Color.LIGHT_GRAY);
+                    subtableroSelected[0] = i;
+                    subtableroSelected[1] = j;
+                }
 
             }
 
@@ -296,6 +382,8 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarConfig;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelTamTablero;
     private javax.swing.JPanel panelJuegoConfig;
     private javax.swing.JRadioButton rb4x6;

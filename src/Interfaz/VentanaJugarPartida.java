@@ -63,7 +63,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         btnRendirse = new javax.swing.JButton();
         lblMoverHueco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnElegirJugadores = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -164,15 +163,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(540, 50, 360, 70);
 
-        btnElegirJugadores.setText("Elegir Jugadores");
-        btnElegirJugadores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnElegirJugadoresActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnElegirJugadores);
-        btnElegirJugadores.setBounds(260, 220, 170, 40);
-
         jMenuBar1.setMinimumSize(new java.awt.Dimension(66, 40));
         jMenuBar1.setName(""); // NOI18N
         jMenuBar1.setPreferredSize(new java.awt.Dimension(181, 40));
@@ -205,15 +195,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnRendirseActionPerformed
-
-    private void btnElegirJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirJugadoresActionPerformed
-        VentanaJugadores vJugadores = new VentanaJugadores(sis);
-        Rectangle rct = vJugadores.getGraphicsConfiguration().getBounds();
-        vJugadores.setLocation((rct.width - vJugadores.getWidth()) / 2, (rct.height - vJugadores.getHeight()) / 2);
-        vJugadores.setVisible(true);
-        
-    
-    }//GEN-LAST:event_btnElegirJugadoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,7 +269,6 @@ public class VentanaJugarPartida extends javax.swing.JFrame {
 
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnElegirJugadores;
     private javax.swing.JButton btnMoverHuecoAbajo;
     private javax.swing.JButton btnMoverHuecoArriba;
     private javax.swing.JButton btnMoverHuecoDerecha;

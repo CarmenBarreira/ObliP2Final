@@ -8,7 +8,6 @@ public class Jugador implements Comparable<Jugador> {
     private int edad;
     private int cantidadPartidasGanadas;
     private int cantidadPartidasPerdidas;
-    private int cantidadPartidasJugadas;
     private int cantidadPartidasEmpatadas;
 
     //Constructores
@@ -18,7 +17,6 @@ public class Jugador implements Comparable<Jugador> {
         this.edad = -1;
         this.cantidadPartidasGanadas = 0;
         this.cantidadPartidasEmpatadas = 0;
-        this.cantidadPartidasJugadas = 0;
         this.cantidadPartidasPerdidas = 0;
     }
 
@@ -28,7 +26,6 @@ public class Jugador implements Comparable<Jugador> {
         this.edad = laEdad;
         this.cantidadPartidasGanadas = 0;
         this.cantidadPartidasEmpatadas = 0;
-        this.cantidadPartidasJugadas = 0;
         this.cantidadPartidasPerdidas = 0;
     }
 
@@ -38,7 +35,6 @@ public class Jugador implements Comparable<Jugador> {
         this.edad = laEdad;
         this.cantidadPartidasGanadas = pGan;
         this.cantidadPartidasEmpatadas = pEmpa;
-        this.cantidadPartidasJugadas = pGan + pEmpa + pPer;
         this.cantidadPartidasPerdidas = pPer;
     }
 
@@ -57,10 +53,6 @@ public class Jugador implements Comparable<Jugador> {
 
     public int getCantidadPartidasGanadas() {
         return this.cantidadPartidasGanadas;
-    }
-
-    public int getCantidadPartidasJugadas() {
-        return cantidadPartidasJugadas;
     }
 
     public int getCantidadPartidasEmpatadas() {
@@ -89,10 +81,6 @@ public class Jugador implements Comparable<Jugador> {
 
     public void setCantidadPartidasPerdidas(int laCantidadPartidasPerdidas) {
         this.cantidadPartidasPerdidas = laCantidadPartidasPerdidas;
-    }
-
-    public void setCantidadPartidasJugadas(int laCantidadPartidasJugadas) {
-        this.cantidadPartidasJugadas = laCantidadPartidasJugadas;
     }
 
     public void setCantidadPartidasEmpatadas(int laCantidadPartidasEmpatadas) {

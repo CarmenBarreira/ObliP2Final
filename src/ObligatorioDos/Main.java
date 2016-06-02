@@ -564,9 +564,6 @@ public class Main {
                 + " juega con fichas color NEGRO." + ANSI_RESET + "\n \n");
         System.out.println("El tablero para comenzar a jugar es el siguiente: \n");
         imprimirTablero(p.getTablero());
-        p.getJugadorBlanco().setCantidadPartidasJugadas(p.getJugadorBlanco().getCantidadPartidasJugadas() + 1);
-        p.getJugadorNegro().setCantidadPartidasJugadas(p.getJugadorNegro().getCantidadPartidasJugadas() + 1);
-
         while (p.getTablero().encontroGanador() == 'E'
                 && cantFichasTotal > 0 && !abandono) {
             //Mientras No encontro ganador, Hay fichas y no abandono nadie

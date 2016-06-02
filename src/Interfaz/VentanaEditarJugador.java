@@ -15,7 +15,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  * @author Juan
  */
 public class VentanaEditarJugador extends javax.swing.JFrame {
-    
+
     boolean esNuevo = true;
     Jugador j;
 
@@ -25,9 +25,9 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
     public VentanaEditarJugador(Sistema unSis) {
         initComponents();
         sis = unSis;
-        
+
     }
-    
+
     public VentanaEditarJugador(Sistema unSis, Jugador juga) {
         initComponents();
         sis = unSis;
@@ -116,6 +116,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         int edad = 0;
         alias = jTxtAlias.getText();
         nombre = jTxtNombre.getText();
+        Jugador tempJugador;
         try {
             edad = Integer.parseInt(jTxtEdad.getText());
         } catch (Exception e) {
@@ -123,23 +124,15 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             jTxtEdad.selectAll();
             jTxtEdad.requestFocusInWindow();
         }
-        
-        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 80))) {
-            if (esNuevo) {
-                Jugador tempJug = new Jugador(alias, nombre, edad);
-                sis.agregarJugador(tempJug);
-                JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            } else {
-                Jugador tempJug = new Jugador(alias, nombre, edad, j.getCantidadPartidasPerdidas(), j.getCantidadPartidasGanadas(), j.getCantidadPartidasEmpatadas());
-                sis.getListaJugadores().add(tempJug);
-                sis.eliminarJugador(j);
-                JOptionPane.showMessageDialog(this, "Jugador editado correctamente", "Jugador editado exitosamente", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-                
-            }
-            
+        if (esNuevo) {
+            tempJugador = new Jugador(alias, nombre, edad);
+
+        } else {
+            tempJugador = new Jugador(alias, nombre, edad, j.getCantidadPartidasPerdidas(), j.getCantidadPartidasGanadas(), j.getCantidadPartidasEmpatadas());
+
         }
+        
+        
         if (!(stringCorrecto(alias, "alias"))) {
             JOptionPane.showMessageDialog(this, "El Alias es Incorrecto", "Alias Incorrecto", ERROR_MESSAGE);
             jTxtAlias.selectAll();
@@ -149,6 +142,27 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El nombre es Incorrecto", "Nombre Incorrecto", ERROR_MESSAGE);
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
+        }
+        if (sis.getListaJugadores().indexOf(tempJugador) != -1) {
+            JOptionPane.showMessageDialog(this, "Ya Existe un jugador con el Alias: " + tempJugador.getAlias(), "Jugador Duplicado", ERROR_MESSAGE);
+            jTxtNombre.selectAll();
+            jTxtNombre.requestFocusInWindow();
+        }
+        
+        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 80)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
+            if (esNuevo) {
+                sis.agregarJugador(tempJugador);
+                JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+
+                sis.getListaJugadores().add(tempJugador);
+                sis.eliminarJugador(j);
+                JOptionPane.showMessageDialog(this, "Jugador editado correctamente", "Jugador editado exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+
+            }
+
         }
 
     }//GEN-LAST:event_btnAgregarJugadorActionPerformed
@@ -187,7 +201,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
 //            }
 //        });
     }
-    
+
     public boolean stringCorrecto(String s, String tipo) {
         /*Esta funcion valida si el string que se pasa por parametro segun el tipo
         es o no valido. Y retorna un booleano segun sea o no valido*/
@@ -196,7 +210,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         if (!s.isEmpty()) {
             if (s.charAt(0) == ' ' || s.isEmpty()) {
                 espaciosVacios = true;
-                
+
             }
             if (s.equals("") || espaciosVacios) {
                 //el string esta vacio o empieza con espacio
@@ -207,9 +221,9 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             } else {
                 esCorrecto = true;
             }
-            
+
         }
-        
+
         return esCorrecto;
     }
     Sistema sis = new Sistema();

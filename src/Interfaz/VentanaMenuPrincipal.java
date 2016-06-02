@@ -25,6 +25,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         btnMPJugadores1 = new javax.swing.JButton();
         btnMPConfiguraciones = new javax.swing.JButton();
         btnMPJugarPartida = new javax.swing.JButton();
+        btnMPJugadores2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -58,6 +59,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnMPJugadores2.setText("Salir");
+        btnMPJugadores2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMPJugadores2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,11 +73,12 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(143, Short.MAX_VALUE))
+                    .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,11 +87,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -97,7 +108,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     private void btnMPJugarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugarPartidaActionPerformed
         if(elSis.getListaJugadores().size()>=2){
-            VentanaJugarPartida vJugar = new VentanaJugarPartida(elSis);
+            VentanaPreJugar vJugar = new VentanaPreJugar(elSis);
             Rectangle rct = vJugar.getGraphicsConfiguration().getBounds();
             vJugar.setLocation((rct.width - vJugar.getWidth()) / 2, (rct.height - vJugar.getHeight()) / 2);
             vJugar.setVisible(true);
@@ -114,6 +125,10 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         vConfig.setLocation((rct.width - vConfig.getWidth()) / 2, (rct.height - vConfig.getHeight()) / 2);
         vConfig.setVisible(true);
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
+
+    private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 
     public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
@@ -151,6 +166,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMPConfiguraciones;
     private javax.swing.JButton btnMPJugadores1;
+    private javax.swing.JButton btnMPJugadores2;
     private javax.swing.JButton btnMPJugarPartida;
     private javax.swing.JLabel lblBienvenida;
     // End of variables declaration//GEN-END:variables

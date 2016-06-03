@@ -131,16 +131,22 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMPJugadores1ActionPerformed
 
     private void btnMPJugarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugarPartidaActionPerformed
-        if(elSis.getListaJugadores().size()>=2){
+        if (elSis.getListaJugadores().size() >= 2) {
             VentanaPreJugar vJugar = new VentanaPreJugar(elSis);
             Rectangle rct = vJugar.getGraphicsConfiguration().getBounds();
             vJugar.setLocation((rct.width - vJugar.getWidth()) / 2, (rct.height - vJugar.getHeight()) / 2);
             vJugar.setVisible(true);
+        } else {
+            int resp = JOptionPane.showConfirmDialog(this, "No hay jugadores, desea ingresar al menu jugador para ingresarlos?", "4enCuadrado - Faltan Jugadores", ERROR_MESSAGE);
+            if (resp == 0) {
+                VentanaJugadores vJugadores = new VentanaJugadores(elSis);
+                Rectangle rct = vJugadores.getGraphicsConfiguration().getBounds();
+                vJugadores.setLocation((rct.width - vJugadores.getWidth()) / 2, (rct.height - vJugadores.getHeight()) / 2);
+                vJugadores.setVisible(true);
+            }
+
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Deben existir al menos 2 jugadores para jugar!", "ERROR", ERROR_MESSAGE);
-        }
-        
+
     }//GEN-LAST:event_btnMPJugarPartidaActionPerformed
 
     private void btnMPConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPConfiguracionesActionPerformed
@@ -148,12 +154,12 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         Rectangle rct = vConfig.getGraphicsConfiguration().getBounds();
         vConfig.setLocation((rct.width - vConfig.getWidth()) / 2, (rct.height - vConfig.getHeight()) / 2);
         vConfig.setVisible(true);
-                
+
 
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 
     public static void main(String args[]) {

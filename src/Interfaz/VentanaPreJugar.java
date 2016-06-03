@@ -291,6 +291,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             p.setJugadorNegro(jNegro);
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
+            this.dispose();
         } else {
             
             JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);

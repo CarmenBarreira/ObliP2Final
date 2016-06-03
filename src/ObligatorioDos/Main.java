@@ -117,8 +117,8 @@ public class Main {
 //            cantFichasTotal--;
 //            while (abandono == true && !confirmoSalida) {
 //                if (seguroAbandonaPartida()) {
-//                    confirmoSalida = true;
-//                    hayGanador = determinarGanador('N', p);
+//                confirmoSalida = true;
+//                 hayGanador = determinarGanador('N', p);
 //
 //                } // Si Abandono entonces determino ganador a Jugador Negro
 //                else {
@@ -253,41 +253,8 @@ public class Main {
 //        return partidaAbandonada;
 //    }
 //
-//    public static int letraAnum(String letra) {
-//        //convierte la letra a numero, se utiliza para el ingreso de ubicación de la ficha.
-//
-//        letra = letra.toUpperCase();
-//        char let = letra.charAt(0);
-//        int coordRetorno = 0;
-//        switch (let) {
-//            case 'A':
-//                coordRetorno = 0;
-//                break;
-//            case 'B':
-//                coordRetorno = 1;
-//                break;
-//            case 'C':
-//                coordRetorno = 2;
-//                break;
-//            case 'D':
-//                coordRetorno = 3;
-//                break;
-//            case 'E':
-//                coordRetorno = 4;
-//                break;
-//            case 'F':
-//                coordRetorno = 5;
-//                break;
-//            case 'G':
-//                coordRetorno = 6;
-//                break;
-//            case 'H':
-//                coordRetorno = 7;
-//                break;
-//        }
-//        return coordRetorno;
-//    }
-//
+//  
+
 //    public static void imprimirRankingJugadores(Sistema miSistema) {
 //        //ordena los jugadores de manera creciente según la cantidad de partidas ganadas
 //        ArrayList<Jugador> listaJugadores;

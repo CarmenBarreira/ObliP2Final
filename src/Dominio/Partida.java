@@ -30,6 +30,7 @@ public class Partida {
         this.posicionHuecoActual = configuracion[1];
         this.cantidadFichas = 0;
         this.tablero = tab;
+        this.deshacerMovPosHueco=-1;
     }
 
     //get's y set's 

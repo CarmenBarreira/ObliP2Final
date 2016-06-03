@@ -107,7 +107,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
 
         lblRanking.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblRanking.setForeground(new java.awt.Color(0, 204, 102));
-        lblRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Podium_icon_-_Noun_Project_3834.svg.png"))); // NOI18N
+        lblRanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/podium.png"))); // NOI18N
         lblRanking.setText("RANKING");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

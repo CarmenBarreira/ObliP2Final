@@ -345,13 +345,13 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
 
                 }
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'B') {
-                    botones[i][j].setBackground(Color.WHITE);
+
                     botones[i][j].setIcon(fichaBlancaIcono);
                     botones[i][j].setEnabled(true);
 
                 }
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'N') {
-                    botones[i][j].setBackground(Color.WHITE);
+
                     botones[i][j].setIcon(fichaNegraIcono);
                     botones[i][j].setEnabled(true);
 
@@ -481,6 +481,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
                 if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
                     hayGanador = true;
                     String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
+                    
+                    
+                    // HACER UN IF GANADOR ES LO QUE HICISTE EN DETERMINADOR GANADOR
                     JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
@@ -507,6 +510,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
             hayGanador = true;
             escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
+         /* AGREGAR METODO QUE SI ES A, DOY PARTIDAS DE EMPATE A AMBOS, ESCRIBO LINEAS DE QUE EMPATARON, Y HAY GANADOR TRUE*/
         return ganador;
     }
 
@@ -549,6 +553,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
             String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
             JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+        //VER EMPATE
+        
         }
         fichaPuesta = false;
 
@@ -587,6 +593,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
 
                 if (cont == p.getPosicionHuecoActual()) { // EN CASO DE SER HUECO PINTO DE ROJO
                     botones[i][j].setSelected(true);
+                    botones[i][j].setIcon(hueco);
                     botones[i][j].setBackground(Color.PINK);
 
                 }

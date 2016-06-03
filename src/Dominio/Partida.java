@@ -27,17 +27,16 @@ public class Partida {
 
     }
 
-    public Partida(int[] configuracion) { // constructor con configuracion 
-        Jugador aux = new Jugador();
+    public Partida(int[] configuracion, Jugador jBlanco, Jugador jNegro, Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
         Tablero tab = new Tablero(configuracion[0], configuracion[1]);
-        Jugador aux2 = new Jugador();
-        this.jugadorBlanco = aux;
-        this.jugadorNegro = aux2;
+        this.jugadorBlanco = jBlanco;
+        this.jugadorNegro = jNegro;
         this.posicionHuecoActual = configuracion[1];
-
         this.tablero = tab;
         this.deshacerMovPosHueco = -1;
-
+        this.fichaJBlanco = jBlancoImg;
+        this.fichaHueco = huecoImg;
+        this.fichaJNegro = jNegroImg;
     }
 
     //get's y set's 

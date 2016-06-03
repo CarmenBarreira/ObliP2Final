@@ -57,7 +57,6 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         jButtonFichaNegra.setIcon(cargarImagenIconoDefault("fichaNegra.png"));
         jButtonFichaBlanca.setIcon(cargarImagenIconoDefault("fichaBlanca.png"));
         jButtonCambiarHueco.setIcon(iconoHueco);
-        System.out.print(tab.getTablero().length);
         mostrarTableroConSubTableros(tab.getTablero().length, tab.getTablero()[0].length, tab);
         cargarLista();
 
@@ -359,17 +358,11 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
     private void jButtonJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugarActionPerformed
         if (hayJBlanco && hayJNegro) {
-            Partida p = new Partida(miSistema.getConfPartida());
-            p.setJugadorBlanco(jBlanco);
-            p.setJugadorNegro(jNegro);
-            p.setFichaJBlanco(jBlancoFicha);
-            p.setFichaJNegro(jNegroFicha);
-            p.setFichaHueco(huecoFicha);
+            Partida p = new Partida(miSistema.getConfPartida(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
             this.dispose();
         } else {
-
             JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);
         }
         {
@@ -437,7 +430,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
             }
         } else {
-            System.out.println("File access cancelled by user.");
+            System.out.println("El usuario no cargo imagen");
         }
 
 
@@ -471,7 +464,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
             }
         } else {
-            System.out.println("File access cancelled by user.");
+            System.out.println("El usuario no cargo imagen");
         }
 
     }//GEN-LAST:event_jButtonCambiarHuecoActionPerformed

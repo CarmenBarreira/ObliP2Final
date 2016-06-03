@@ -6,15 +6,19 @@
 package Interfaz;
 
 import Dominio.Sistema;
+import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import javax.swing.border.LineBorder;
 
 public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     public VentanaMenuPrincipal(Sistema sis) {
         initComponents();
         elSis = sis;
+        
+       
 
     }
 
@@ -26,7 +30,6 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         btnMPConfiguraciones = new javax.swing.JButton();
         btnMPJugarPartida = new javax.swing.JButton();
         btnMPJugadores2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -36,20 +39,21 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(594, 420));
 
-        btnMPJugadores1.setText("Jugadores");
+        btnMPJugadores1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/jugadoresIcono.png"))); // NOI18N
         btnMPJugadores1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMPJugadores1ActionPerformed(evt);
             }
         });
 
-        btnMPConfiguraciones.setText("Configuraciones");
+        btnMPConfiguraciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonConfiguracionPrincipal.png"))); // NOI18N
         btnMPConfiguraciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMPConfiguracionesActionPerformed(evt);
             }
         });
 
+        btnMPJugarPartida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDeJugarPartida.png"))); // NOI18N
         btnMPJugarPartida.setText("Jugar Partida");
         btnMPJugarPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,23 +61,12 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnMPJugadores2.setText("Salir");
+        btnMPJugadores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salirIcono.png"))); // NOI18N
         btnMPJugadores2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMPJugadores2ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoJuego.png"))); // NOI18N
 
@@ -82,32 +75,23 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnMPJugadores1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(btnMPJugadores2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 169, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(btnMPJugarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMPConfiguraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,6 +183,5 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMPJugadores2;
     private javax.swing.JButton btnMPJugarPartida;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

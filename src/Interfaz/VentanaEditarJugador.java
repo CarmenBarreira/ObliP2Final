@@ -44,7 +44,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         j = juga;
         lblTexto.setText("Edicion de Jugador");
         btnAgregarJugador.setText("Editar Jugador");
-     this.setTitle("4enCuadrado - Edicion de Jugador");
+        this.setTitle("4enCuadrado - Edicion de Jugador");
     }
 
     /**
@@ -172,13 +172,18 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
         }
+        if (!((edad > 0) && (edad < 80))) {
+            JOptionPane.showMessageDialog(this, "Edad Incorrecta", "Edad Incorrecto", ERROR_MESSAGE);
+            jTxtNombre.selectAll();
+            jTxtNombre.requestFocusInWindow();
+        }
         if (sis.getListaJugadores().indexOf(tempJugador) != -1) {
             JOptionPane.showMessageDialog(this, "Ya Existe un jugador con el Alias: " + tempJugador.getAlias(), "Jugador Duplicado", ERROR_MESSAGE);
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
         }
 
-        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 80)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
+        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 100)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
             if (esNuevo) {
                 sis.agregarJugador(tempJugador);
                 JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);

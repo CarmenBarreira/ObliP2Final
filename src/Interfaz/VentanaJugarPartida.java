@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -35,12 +36,20 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     SimpleAttributeSet formatoMovimientoTablero = new SimpleAttributeSet(); // DECLARACION DE FORMATO PARA LOS COLORES DEL TEXT PANE
     SimpleAttributeSet formatoTurnoNuevo = new SimpleAttributeSet(); // DECLARACION DE FORMATO PARA LOS COLORES DEL TEXT PANE
     int cantFichasTotal;
+    Icon fichaBlancaIcono;
+    Icon fichaNegraIcono;
+    Image fichaNegraImagen;
+    Image fichaBlancaImagen;
+    Icon hueco;
+    Image imagenHueco;
 
     public VentanaJugarPartida(Sistema elSis, Partida p) {
+
         partidaActual = p;
         sis = elSis;
 
         sis.setPartidaActual(p);
+
         posHuecoAnt = partidaActual.getPosicionHuecoActual();
         StyleConstants.setForeground(formatoMovimientoFicha, Color.RED); //DECLARACION DE ESTILOS
         StyleConstants.setForeground(formatoMovimientoTablero, Color.MAGENTA);//DECLARACION DE ESTILOS
@@ -48,18 +57,22 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         StyleConstants.setBold(formatoMovimientoFicha, true);
         StyleConstants.setBold(formatoMovimientoTablero, true);
         StyleConstants.setBold(formatoTurnoNuevo, true);
-        boolean abandono = false;
-
-        boolean confirmoSalida = false;
 
         j1 = partidaActual.getJugadorBlanco();
         j2 = partidaActual.getJugadorNegro();
         boolean noHayGanador = false;
         initComponents();
+
         doc = txtAreaDescrip.getStyledDocument();
         panelSubtablero.setVisible(false);
-
+        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        fichaBlancaIcono = new ImageIcon(fichaBlancaImagen);
+        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        fichaNegraIcono = new ImageIcon(fichaNegraImagen);
+        imagenHueco = partidaActual.getFichaHueco().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        hueco = new ImageIcon(imagenHueco);
         lblNumeroTurno.setText("Turno: " + turno);
+        cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
         mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
 
@@ -71,7 +84,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         mostrarColumnas(p);
         panelLetras.setVisible(true);
         panelNumeros.setVisible(true);
-        cantFichasTotal = (p.getTablero().getTablero().length) * (p.getTablero().getTablero()[0].length) - 4;
+
         //hago invisible la parte de mover hueco hasta que no ingrese ficha
         lblMoverHueco.setVisible(false);
         mostrarTableroJuego(p);
@@ -272,13 +285,17 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     }
 
     public void mostrarTableroJuego(Partida p) {
+        int contFila = 0;
 
+        LineBorder border = new LineBorder(Color.lightGray, 1);
+
+        Dimension dim = new Dimension(55, 55);
         panelJuego.setLayout(new GridLayout(dimensionF, dimensionC));
 
         botones = new JButton[dimensionF + 2][dimensionC + 2];
 
         for (int i = 1; i <= dimensionF; i++) {
-
+            int contCol = 0;
             for (int j = 1; j <= dimensionC; j++) {
 
                 JButton jButton = new JButton();
@@ -287,24 +304,65 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
 
                 panelJuego.add(jButton);
                 botones[i][j] = jButton;
+                botones[i][j].setBorder(border);
+                botones[i][j].setPreferredSize(dim);
+                if (contFila <= 1) {
+                    if (contCol <= 2) {
+                        botones[i][j].setBackground(new Color(162, 250, 203));
+                        contCol++;
+                    }
+                    if (contCol > 2) {
+                        botones[i][j].setBackground(new Color(125, 189, 154));
+                        contCol++;
+                        if (contCol == 5) {
+                            contCol = 0;
+                        }
+                    }
+
+                }
+
+                if (contFila > 1) {
+
+                    if (contCol <= 2) {
+                        botones[i][j].setBackground(new Color(125, 189, 154));
+                        contCol++;
+
+                    }
+                    if (contCol > 2) {
+                        botones[i][j].setBackground(new Color(162, 250, 203));
+                        contCol++;
+                        if (contCol == 5) {
+                            contCol = 0;
+                        }
+
+                    }
+
+                }
+
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'X') {
                     botones[i][j].setBackground(Color.PINK);
-                    botones[i][j].setEnabled(false);
+                    botones[i][j].setIcon(hueco);
 
                 }
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'B') {
                     botones[i][j].setBackground(Color.WHITE);
-                    botones[i][j].setEnabled(false);
+                    botones[i][j].setIcon(fichaBlancaIcono);
+                    botones[i][j].setEnabled(true);
 
                 }
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'N') {
-                    botones[i][j].setBackground(Color.BLACK);
-                    botones[i][j].setEnabled(false);
+                    botones[i][j].setBackground(Color.WHITE);
+                    botones[i][j].setIcon(fichaNegraIcono);
+                    botones[i][j].setEnabled(true);
 
                 }
 
             }
 
+            contFila++;
+            if (contFila == 4) {
+                contFila = 0;
+            }
         }
     }
 

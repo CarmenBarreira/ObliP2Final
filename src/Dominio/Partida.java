@@ -1,5 +1,7 @@
 package Dominio;
 
+import java.awt.Image;
+
 public class Partida {
 
     //atributos
@@ -9,6 +11,9 @@ public class Partida {
     private int posicionHuecoActual;
     private int cantidadFichas;
     private int deshacerMovPosHueco;
+    private Image fichaJBlanco;
+    private Image fichaJNegro;
+    private Image fichaHueco;
     //Variable que guarda el anterior movimiento para no deshacer movimientos
 
     //constructor
@@ -19,6 +24,7 @@ public class Partida {
         this.jugadorNegro = aux2;
         this.posicionHuecoActual = -1;
         this.cantidadFichas = 0;
+
     }
 
     public Partida(int[] configuracion) { // constructor con configuracion 
@@ -28,9 +34,10 @@ public class Partida {
         this.jugadorBlanco = aux;
         this.jugadorNegro = aux2;
         this.posicionHuecoActual = configuracion[1];
-        this.cantidadFichas = 0;
+
         this.tablero = tab;
-        this.deshacerMovPosHueco=-1;
+        this.deshacerMovPosHueco = -1;
+
     }
 
     //get's y set's 
@@ -84,5 +91,41 @@ public class Partida {
 
     public boolean isEmpty() {
         return this.getPosicionHuecoActual() == -1;
+    }
+
+    public Image getFichaJBlanco() {
+        return fichaJBlanco;
+    }
+
+    public void setFichaJBlanco(Image fichaJBlanco) {
+        this.fichaJBlanco = fichaJBlanco;
+    }
+
+    /**
+     * @return the fichaJNegro
+     */
+    public Image getFichaJNegro() {
+        return fichaJNegro;
+    }
+
+    /**
+     * @param fichaJNegro the fichaJNegro to set
+     */
+    public void setFichaJNegro(Image fichaJNegro) {
+        this.fichaJNegro = fichaJNegro;
+    }
+
+    /**
+     * @return the fichaHueco
+     */
+    public Image getFichaHueco() {
+        return fichaHueco;
+    }
+
+    /**
+     * @param fichaHueco the fichaHueco to set
+     */
+    public void setFichaHueco(Image fichaHueco) {
+        this.fichaHueco = fichaHueco;
     }
 }

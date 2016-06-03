@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JFileChooser" name="fileChooser">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="4enCuadrado - Pre Jugada"/>
@@ -29,14 +33,14 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBlancolbl" min="-2" max="-2" attributes="0"/>
+                          <Component id="jNegrolbl" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jNombreBLanco" min="-2" pref="218" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jButtonFichaNegra" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jlabelNombreJNegro" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jlabelNombreNegro" alignment="0" max="32767" attributes="0"/>
                               <Component id="jButtonFichaBlanca" alignment="0" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jLabelNombreBlanco" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -45,23 +49,25 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBlancolbl1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblJBlanco" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jButtonJugadorBlanco" min="-2" pref="125" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButtonJugadorNegro" min="-2" pref="129" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jScrollPane1" pref="380" max="32767" attributes="0"/>
-                      <Component id="jButtonJugar" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButtonCambiarHueco" min="-2" pref="173" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jCargarPartida" min="-2" pref="181" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jCargarPartida" min="-2" pref="214" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButtonJugadorBlanco" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButtonJugadorNegro" min="-2" pref="129" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" alignment="0" pref="380" max="32767" attributes="0"/>
+                  <Component id="jButtonJugar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,15 +77,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jBlancolbl1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblJBlanco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jNombreBLanco" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="jLabelNombreBlanco" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonFichaBlanca" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jBlancolbl" min="-2" max="-2" attributes="0"/>
+                      <Component id="jNegrolbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jlabelNombreJNegro" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlabelNombreNegro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonFichaNegra" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -89,7 +95,10 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="jCargarPartida" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonCambiarHueco" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jCargarPartida" alignment="3" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="252" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -165,7 +174,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonJugadorNegroActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jBlancolbl">
+    <Component class="javax.swing.JLabel" name="jNegrolbl">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
@@ -173,7 +182,7 @@
         <Property name="text" type="java.lang.String" value="Jugador Negro"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlabelNombreJNegro">
+    <Component class="javax.swing.JLabel" name="jlabelNombreNegro">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="24" style="3"/>
@@ -181,7 +190,7 @@
         <Property name="text" type="java.lang.String" value="No seleccionado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jNombreBLanco">
+    <Component class="javax.swing.JLabel" name="jLabelNombreBlanco">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="24" style="3"/>
@@ -195,10 +204,13 @@
     <Component class="javax.swing.JButton" name="jButtonFichaBlanca">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/cargarFicha.png"/>
+          <Image iconType="3" name="/imagenes/editIcono.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Imagen Ficha"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFichaBlancaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonFichaNegra">
       <Properties>
@@ -207,6 +219,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Imagen Ficha"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFichaNegraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jCargarPartida">
       <Properties>
@@ -215,6 +230,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Partida"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCargarPartidaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonJugar">
       <Properties>
@@ -255,13 +273,21 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="jBlancolbl1">
+    <Component class="javax.swing.JLabel" name="lblJBlanco">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Jugador Blanco"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonCambiarHueco">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Dise&#xf1;o Hueco"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCambiarHuecoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

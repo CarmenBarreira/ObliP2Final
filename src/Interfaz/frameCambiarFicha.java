@@ -7,6 +7,8 @@ package Interfaz;
 
 import Dominio.Sistema;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
@@ -29,15 +31,22 @@ public class frameCambiarFicha extends javax.swing.JFrame {
     /**
      * Creates new form frameCambiarFicha
      */
-    public frameCambiarFicha(Sistema sis) {
+    public frameCambiarFicha(Sistema sis, VentanaJugarPartida ventana) {
 
         unSistema = sis;
         initComponents();
         ImageIcon blanco = new ImageIcon(unSistema.getPartidaActual().getFichaJBlanco().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
         ImageIcon negro = new ImageIcon(unSistema.getPartidaActual().getFichaJNegro().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
 
-        jLabel1.setIcon(blanco);
-        jLabel1.setIcon(negro);
+        lblFichaBlanca.setIcon(blanco);
+        lblFichaBlanca.setIcon(negro);
+
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventana.update(null, null);
+            }
+        });
 
     }
 
@@ -53,31 +62,36 @@ public class frameCambiarFicha extends javax.swing.JFrame {
         fileChooser = new javax.swing.JFileChooser();
         btnBlanco = new javax.swing.JButton();
         btnNegro = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblFichaBlanca = new javax.swing.JLabel();
+        lblFichaNegra = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnBlanco.setText("Blkanco");
+        btnBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaBlanca.png"))); // NOI18N
+        btnBlanco.setText("Cambiar Ficha Blanca");
         btnBlanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBlancoActionPerformed(evt);
             }
         });
 
-        btnNegro.setText("Negro");
+        btnNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaNegra.png"))); // NOI18N
+        btnNegro.setText("Cambiar Ficha Negra");
         btnNegro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNegroActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
+        lblFichaBlanca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblFichaBlanca.setText("Ficha Jugador Blanco");
 
-        jLabel2.setText("jLabel2");
+        lblFichaNegra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblFichaNegra.setText("Ficha Jugador Negro");
 
-        jButton1.setText("jButton1");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_16.png"))); // NOI18N
+        jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -89,37 +103,36 @@ public class frameCambiarFicha extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNegro)
-                    .addComponent(jLabel2))
-                .addGap(81, 81, 81))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(btnBlanco)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblFichaBlanca)
+                        .addGap(60, 60, 60)
+                        .addComponent(lblFichaNegra))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btnBlanco)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(btnBlanco)
-                .addGap(1, 1, 1)
-                .addComponent(btnNegro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(8, 8, 8))
+                    .addComponent(lblFichaBlanca)
+                    .addComponent(lblFichaNegra))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -137,8 +150,9 @@ public class frameCambiarFicha extends javax.swing.JFrame {
 
                 ImageIcon blanco = new ImageIcon(img);
 
-                jLabel1.setIcon(blanco);
+                lblFichaBlanca.setIcon(blanco);
                 esCorrecta = true;
+
             } catch (Exception a) {
 
                 JOptionPane.showMessageDialog(this, "Formato no permitido", "Formato Incorrecto", ERROR_MESSAGE);
@@ -147,7 +161,7 @@ public class frameCambiarFicha extends javax.swing.JFrame {
             if (esCorrecta) {
 
                 fichaBlanca = img;
-
+                cambioBlanca = true;
             }
         } else {
             System.out.println("El usuario no cargo imagen");
@@ -166,8 +180,9 @@ public class frameCambiarFicha extends javax.swing.JFrame {
 
                 ImageIcon negro = new ImageIcon(imgNegra);
 
-                jLabel2.setIcon(negro);
+                lblFichaNegra.setIcon(negro);
                 esCorrecta = true;
+
             } catch (Exception a) {
 
                 JOptionPane.showMessageDialog(this, "Formato no permitido", "Formato Incorrecto", ERROR_MESSAGE);
@@ -175,7 +190,7 @@ public class frameCambiarFicha extends javax.swing.JFrame {
             }
             if (esCorrecta) {
                 fichaNegra = imgNegra;
-
+                cambioNegra = true;
             }
         } else {
             System.out.println("El usuario no cargo imagen");
@@ -183,67 +198,70 @@ public class frameCambiarFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNegroActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
-        if (resp == 1) {
+        int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea cambiar la ficha?");
+        if (resp == 0) {
 
             if (cambioBlanca && cambioNegra) {
                 unSistema.getPartidaActual().setFichaJBlanco(fichaBlanca);
                 unSistema.getPartidaActual().setFichaJNegro(fichaNegra);
                 this.dispose();
-            }
-            if (!cambioBlanca && cambioNegra) {
 
-                unSistema.getPartidaActual().setFichaJNegro(fichaNegra);
+                if (!cambioBlanca && cambioNegra) {
 
-            }
-            if (cambioBlanca && !cambioNegra) {
-                unSistema.getPartidaActual().setFichaJBlanco(fichaBlanca);
-                unSistema.getPartidaActual().setFichaJNegro(fichaNegra);
+                    unSistema.getPartidaActual().setFichaJNegro(fichaNegra);
+                    this.dispose();
+                }
+                if (cambioBlanca && !cambioNegra) {
+                    unSistema.getPartidaActual().setFichaJBlanco(fichaBlanca);
+                    this.dispose();
+                }
+                if (!cambioBlanca && !cambioNegra) {
+
+                    this.dispose();
+                }
+
+            } else {
                 this.dispose();
             }
-            if (!cambioBlanca && !cambioNegra) {
 
+            if (resp == 1) {
                 this.dispose();
             }
-
-        } else {
-            this.dispose();
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new frameCambiarFicha().setVisible(true);
-//            }
-//        });
+        /**
+         * @param args the command line arguments
+         */
+//    public static void main(String args[]) {
+////        /* Set the Nimbus look and feel */
+////        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+////        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+////         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+////         */
+////        try {
+////            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+////                if ("Nimbus".equals(info.getName())) {
+////                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+////                    break;
+////                }
+////            }
+////        } catch (ClassNotFoundException ex) {
+////            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (InstantiationException ex) {
+////            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (IllegalAccessException ex) {
+////            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+////            java.util.logging.Logger.getLogger(frameCambiarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        }
+////        //</editor-fold>
+////
+////        /* Create and display the form */
+////        java.awt.EventQueue.invokeLater(new Runnable() {
+////            public void run() {
+////                new frameCambiarFicha().setVisible(true);
+////            }
+////        });
     }
     Sistema unSistema = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,7 +269,7 @@ public class frameCambiarFicha extends javax.swing.JFrame {
     private javax.swing.JButton btnNegro;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblFichaBlanca;
+    private javax.swing.JLabel lblFichaNegra;
     // End of variables declaration//GEN-END:variables
 }

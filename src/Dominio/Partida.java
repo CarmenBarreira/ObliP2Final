@@ -1,8 +1,10 @@
 package Dominio;
 
 import java.awt.Image;
+import java.util.Observable;
 
-public class Partida {
+
+public class Partida extends Observable {
 
     //atributos
     private Jugador jugadorBlanco;
@@ -98,6 +100,7 @@ public class Partida {
 
     public void setFichaJBlanco(Image fichaJBlanco) {
         this.fichaJBlanco = fichaJBlanco;
+         updateObserver();
     }
 
     /**
@@ -112,6 +115,7 @@ public class Partida {
      */
     public void setFichaJNegro(Image fichaJNegro) {
         this.fichaJNegro = fichaJNegro;
+        updateObserver();
     }
 
     /**
@@ -126,5 +130,10 @@ public class Partida {
      */
     public void setFichaHueco(Image fichaHueco) {
         this.fichaHueco = fichaHueco;
+    }
+    
+        public void updateObserver() {
+        setChanged();
+        notifyObservers();
     }
 }

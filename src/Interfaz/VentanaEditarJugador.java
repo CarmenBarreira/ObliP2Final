@@ -172,7 +172,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
         }
-        if (!((edad > 0) && (edad < 80))) {
+        if (!((edad > 0) && (edad < 100))) {
             JOptionPane.showMessageDialog(this, "Edad Incorrecta", "Edad Incorrecto", ERROR_MESSAGE);
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();

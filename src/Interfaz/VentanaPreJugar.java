@@ -148,7 +148,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         jLabelNombreBlanco.setForeground(new java.awt.Color(153, 153, 153));
         jLabelNombreBlanco.setText("No seleccionado");
 
-        jButtonFichaBlanca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editIcono.png"))); // NOI18N
+        jButtonFichaBlanca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaBlanca.png"))); // NOI18N
         jButtonFichaBlanca.setText("Cargar Imagen Ficha");
         jButtonFichaBlanca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +156,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             }
         });
 
-        jButtonFichaNegra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarFicha.png"))); // NOI18N
+        jButtonFichaNegra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaNegra.png"))); // NOI18N
         jButtonFichaNegra.setText("Cargar Imagen Ficha");
         jButtonFichaNegra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,28 +303,34 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
     private ImageIcon cargarImagenIconoDefault(String imagen) {
         File f1 = new File("src\\imagenes\\" + imagen);
-        Image img;
+        Image blanca;
+        Image negra;
+        Image hueco;
         ImageIcon icono = null;
 
         try {
 
-            img = ImageIO.read(f1);
-            img = img.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-
-            icono = new ImageIcon(img);
-
             // si es la ficha blanca la cargo en la imagen de jugador blanco, asi cuando empiezo la partida si el user no selecciono nada
             // se carga esta imagen por defecto
             if (imagen.equals("fichaBlanca.png")) {
+
+                blanca = ImageIO.read(f1);
+                blanca = blanca.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+
+                icono = new ImageIcon(blanca);
                 jBlancoFicha = ImageIO.read(f1);
 
             }
             if (imagen.equals("fichaNegra.png")) {
-
+                negra = ImageIO.read(f1);
+                negra = negra.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+                icono = new ImageIcon(negra);
                 jNegroFicha = ImageIO.read(f1);
             }
             if (imagen.equals("hueco.png")) {
-
+                hueco = ImageIO.read(f1);
+                hueco = hueco.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+                icono = new ImageIcon(hueco);
                 huecoFicha = ImageIO.read(f1);
             }
 

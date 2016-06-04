@@ -6,6 +6,8 @@ import Dominio.Sistema;
 import Dominio.Tablero;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -15,7 +17,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public final class VentanaJugarPartida extends javax.swing.JFrame {
+public final class VentanaJugarPartida extends javax.swing.JFrame implements Observer {
 
     int turno = 1;
     private JButton[][] botones;
@@ -94,6 +96,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         escribirLineaPane("BIENVENIDO A 4 en CUADRADO", formatoTurnoNuevo, doc);
         escribirLineaPane("\nEs el turno del Jugador Blanco", formatoMovimientoTablero, doc);
         lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase() + " fichas blancas");
+        partidaActual.addObserver(this);
+        update(p, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -115,8 +119,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         lblFichaBlanca = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("4enCuadrado - Partida en Curso");
@@ -138,7 +143,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(panelJuego);
         panelJuego.setBounds(480, 120, 420, 370);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("MUSICA");
         getContentPane().add(jButton1);
         jButton1.setBounds(480, 510, 440, 60);
 
@@ -153,7 +158,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         btnRendirse.setBounds(10, 540, 110, 30);
 
         lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTurno.setForeground(new java.awt.Color(0, 153, 153));
+        lblTurno.setForeground(new java.awt.Color(51, 51, 51));
         lblTurno.setText("TURNO DE JUGADOR CACHO Fichas Blancas");
         getContentPane().add(lblTurno);
         lblTurno.setBounds(420, 10, 520, 70);
@@ -225,17 +230,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(lblFichaBlanca);
         lblFichaBlanca.setBounds(190, 20, 160, 60);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/partidaIconito.png"))); // NOI18N
         jMenu1.setText("Partida");
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
-        jMenuItem1.setText("Rendirse");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaMenuJuego.png"))); // NOI18N
@@ -246,6 +242,26 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
+        jMenuItem3.setText("Musica");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
+        jMenuItem1.setText("Rendirse");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -456,9 +472,13 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-     frameCambiarFicha fcf = new frameCambiarFicha(sis);
-     fcf.setVisible(true);
+        frameCambiarFicha fcf = new frameCambiarFicha(sis, this);
+        fcf.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -672,6 +692,19 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
 
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+        fichaBlancaIcono = new ImageIcon(partidaActual.getFichaJBlanco());
+        fichaNegraIcono = new ImageIcon(partidaActual.getFichaJNegro());
+        lblFichaBlanca.setIcon(fichaBlancaIcono);
+        lblFichaNegra.setIcon(fichaNegraIcono);
+        panelJuego.removeAll();
+        mostrarTableroJuego(partidaActual);
+        panelJuego.revalidate();
+        panelJuego.repaint();
+    }
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRendirse;
@@ -680,6 +713,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantFichas;
     private javax.swing.JLabel lblFichaBlanca;

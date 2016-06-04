@@ -100,7 +100,7 @@ public class Sistema extends Observable implements Serializable{
         BufferedOutputStream b = new BufferedOutputStream(f);
         ObjectOutputStream s = new ObjectOutputStream(b);
         try {
-            System.out.println(sis.getListaJugadores().get(0).getAlias() + " ");
+           // System.out.println(sis.getListaJugadores().get(0).getAlias() + " ");
             s.writeObject(sis);
             s.close();
         } catch (FileNotFoundException e) {

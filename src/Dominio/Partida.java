@@ -1,10 +1,11 @@
 package Dominio;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Observable;
 
 
-public class Partida extends Observable {
+public class Partida extends Observable implements Serializable{
 
     //atributos
     private Jugador jugadorBlanco;

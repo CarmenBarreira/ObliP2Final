@@ -11,7 +11,14 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public VentanaMenuPrincipal(Sistema sis) {
         initComponents();
         elSis = sis;
-        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+ 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                close();
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -133,16 +140,15 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
-        System.out.println("Entro aca");
         try {
             elSis.PersistirGuardar(elSis);
         } catch (IOException ex) {
-            System.out.println("No lo cargo!");
         }
         
         System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 
+    
     public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -174,8 +180,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             }
         });
     }
-
-    private Sistema elSis;
+   private void close(){
+        if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro/a que desea salir?",
+                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            System.exit(0);
+    } 
+   
+   private Sistema elSis;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMPConfiguraciones;
     private javax.swing.JButton btnMPJugadores1;

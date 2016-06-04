@@ -89,7 +89,6 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             .addGap(0, 396, Short.MAX_VALUE)
         );
 
-        btnGuardarConfig.setBackground(new java.awt.Color(204, 255, 204));
         btnGuardarConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_16.png"))); // NOI18N
         btnGuardarConfig.setText("Guardar configuracion");
         btnGuardarConfig.addActionListener(new java.awt.event.ActionListener() {

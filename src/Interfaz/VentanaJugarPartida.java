@@ -97,6 +97,16 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase() + " fichas blancas");
         partidaActual.addObserver(this);
         update(p, null);
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+ 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                    rendirse();           
+            }
+        });
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -425,6 +435,11 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
     }
     private void btnRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendirseActionPerformed
+        rendirse();
+
+    }//GEN-LAST:event_btnRendirseActionPerformed
+    
+    private void rendirse (){
         int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
         /*
         0 - selecciono SI
@@ -444,9 +459,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             JOptionPane.showMessageDialog(this, "\nFELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
-
-    }//GEN-LAST:event_btnRendirseActionPerformed
-
+    }
+    
+      
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
         /*

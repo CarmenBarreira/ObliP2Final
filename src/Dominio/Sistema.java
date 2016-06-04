@@ -117,9 +117,17 @@ public class Sistema extends Observable implements Serializable{
         FileInputStream ff = new FileInputStream ("archivo");
         BufferedInputStream bb = new BufferedInputStream(ff);
         ObjectInputStream ss = new ObjectInputStream(bb);
+        Sistema sisRetorno = new Sistema();
+        try {
+            sisRetorno= (Sistema)ss.readObject();
+            ss.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("1-" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("2"
+                    + "-" + e.getMessage());
+        }
         
-        Sistema sisRetorno = (Sistema)ss.readObject();
-        ss.close();
         return sisRetorno;
     }
     

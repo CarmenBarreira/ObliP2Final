@@ -2,13 +2,9 @@ package Interfaz;
 
 import Dominio.Jugador;
 import Dominio.Sistema;
-import java.awt.Image;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +25,9 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
     public void cargarLista() {
         borrarCacheTabla();
         DefaultTableModel modelo = (DefaultTableModel) tablaJugadores.getModel();
-        for (int i = 0; i < miSistema.getListaJugadores().size(); i++) {
-            Jugador jug = miSistema.getListaJugadores().get(i);
+        ArrayList<Jugador> jugadoresOrdenadosRanking = miSistema.ordenarCrecienteJugador();
+        for (int i = 0; i < jugadoresOrdenadosRanking.size(); i++) {
+            Jugador jug = jugadoresOrdenadosRanking.get(i);
             modelo.addRow(new Object[][]{{null, null, null, null, null, null}});
             tablaJugadores.setValueAt(jug.getNombre(), i, 0);
             tablaJugadores.setValueAt(jug.getAlias(), i, 1);

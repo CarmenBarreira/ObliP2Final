@@ -1,10 +1,19 @@
 package Dominio;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
 
-public class Sistema extends Observable {
+public class Sistema extends Observable implements Serializable{
 
     //atributos
     private ArrayList<Jugador> listaJugadores;
@@ -86,4 +95,32 @@ public class Sistema extends Observable {
         notifyObservers();
     }
 
+     public void PersistirGuardar(Sistema sis) throws IOException {
+        FileOutputStream f = new FileOutputStream("archivo.bin");
+        BufferedOutputStream b = new BufferedOutputStream(f);
+        ObjectOutputStream s = new ObjectOutputStream(b);
+        try {
+            System.out.println(sis.getListaJugadores().get(0).getAlias() + " ");
+            s.writeObject(sis);
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("1-" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("2"
+                    + "-" + e.getMessage());
+        }
+        
+    }
+    
+    
+    public Sistema PersistirLeer() throws IOException, ClassNotFoundException {
+        FileInputStream ff = new FileInputStream ("archivo");
+        BufferedInputStream bb = new BufferedInputStream(ff);
+        ObjectInputStream ss = new ObjectInputStream(bb);
+        
+        Sistema sisRetorno = (Sistema)ss.readObject();
+        ss.close();
+        return sisRetorno;
+    }
+    
 }

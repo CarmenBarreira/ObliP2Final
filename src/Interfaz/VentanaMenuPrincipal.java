@@ -8,6 +8,9 @@ package Interfaz;
 import Dominio.Sistema;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.border.LineBorder;
@@ -141,6 +144,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
+        System.out.println("Entro aca");
+        try {
+            elSis.PersistirGuardar(elSis);
+        } catch (IOException ex) {
+            System.out.println("No lo cargo!");
+        }
+        
         System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 

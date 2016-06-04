@@ -3,7 +3,6 @@ package Interfaz;
 import Dominio.Jugador;
 import Dominio.Partida;
 import Dominio.Sistema;
-import Dominio.Tablero;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.Observable;
@@ -529,14 +528,12 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         private int y;
 
         public ListenerBoton(int i, int j) {
-
             // en el constructor se almacena la fila y columna que se presionó
             x = i;
             y = j;
         }
 
         public void actionPerformed(ActionEvent e) {
-
             // cuando se presiona un botón, se ejecutará este método
             clickBoton(x, y);
 
@@ -563,10 +560,19 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
                     hayGanador = true;
                     String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
-
-                    // HACER UN IF GANADOR ES LO QUE HICISTE EN DETERMINADOR GANADOR
-                    JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                    
+                    if (partidaActual.getTablero().encontroGanador() == 'A' ){ // empate
+                       JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " empataron la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                    }
                     this.dispose();
+                }
+                else{
+                    if (cantFichasTotal==0){
+                         JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
 
@@ -592,7 +598,15 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             hayGanador = true;
             escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
-        /* AGREGAR METODO QUE SI ES A, DOY PARTIDAS DE EMPATE A AMBOS, ESCRIBO LINEAS DE QUE EMPATARON, Y HAY GANADOR TRUE*/
+        
+        if (jugador == 'A' || (cantFichasTotal==0) ) { //ganaron los 2 = empate
+            ganador = " " + partidaActual.getJugadorNegro().getAlias().toUpperCase() + " y " +
+                    partidaActual.getJugadorBlanco().getAlias().toUpperCase() + " ";
+            partidaActual.getJugadorNegro().setCantidadPartidasEmpatadas(partidaActual.getJugadorNegro().getCantidadPartidasEmpatadas()+ 1);
+            partidaActual.getJugadorBlanco().setCantidadPartidasEmpatadas(partidaActual.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
+            hayGanador = true;
+            escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " EMPATARON LA PARTIDA!", formatoTurnoNuevo, doc);
+        }
         return ganador;
     }
 
@@ -634,11 +648,23 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         panelJuego.repaint();
         if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
             String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
-            JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            hayGanador = true;
+            if (partidaActual.getTablero().encontroGanador() == 'A' || cantFichasTotal==0 ){ // empate
+               JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " empataron la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            }
             this.dispose();
             //VER EMPATE
 
         }
+         else{
+            if (cantFichasTotal==0){
+                 JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        
         fichaPuesta = false;
 
         if (jugadorAhora.equals(j1)) {

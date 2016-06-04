@@ -148,6 +148,7 @@ public class Tablero {
             siHayGanador='A';
         }
         
+        
         return siHayGanador;
     }
 
@@ -249,9 +250,7 @@ public class Tablero {
         this.setSubtablero(this.posHueco, aux);
         this.posHueco = coordSubtablero.clone();
     }
-    
-    
-    
+        
     public boolean validarPosicionHueco(int posHuecoAnt,
             int posHuecoNueva, int posDeshacerMov) {
         /* posHuecoAnt = posicion donde se encuentra el hueco, 
@@ -295,8 +294,6 @@ public class Tablero {
         return esValido;
 
     }
-    
-    
     
     public static int calculaFila(int subTablero, int tamanio) {
         //dada la posicion de subtablero que se pasa y el tamañio de tablero

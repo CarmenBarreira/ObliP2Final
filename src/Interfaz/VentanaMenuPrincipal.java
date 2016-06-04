@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaz;
 
 import Dominio.Sistema;
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import javax.swing.border.LineBorder;
 
 public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
@@ -21,8 +12,6 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         elSis = sis;
         
-       
-
     }
 
     @SuppressWarnings("unchecked")

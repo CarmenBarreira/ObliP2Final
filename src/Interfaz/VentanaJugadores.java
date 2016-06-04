@@ -23,6 +23,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         miSistema = sis;
         miSistema.addObserver(this);
         update(null, null);
+       sis.setListaJugadores(sis.ordenarCrecienteJugador()); 
     }
 
     public void cargarLista() {

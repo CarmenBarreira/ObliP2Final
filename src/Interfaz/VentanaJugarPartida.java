@@ -75,7 +75,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
         mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
-
+        lblFichaBlanca.setIcon(fichaBlancaIcono);
+        lblFichaNegra.setIcon(fichaNegraIcono);
         // crear botones y agregarlos al panel
         sis = elSis;
         dimensionF = p.getTablero().getTablero().length;
@@ -86,7 +87,6 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         panelNumeros.setVisible(true);
 
         //hago invisible la parte de mover hueco hasta que no ingrese ficha
-        lblMoverHueco.setVisible(false);
         mostrarTableroJuego(p);
         txtAreaDescrip.setBackground(Color.WHITE);
         jugadorAhora = j1;
@@ -100,11 +100,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu3 = new javax.swing.JMenu();
         panelJuego = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnRendirse = new javax.swing.JButton();
-        lblMoverHueco = new javax.swing.JLabel();
         lblTurno = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaDescrip = new javax.swing.JTextPane();
@@ -113,8 +111,12 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         panelLetras = new javax.swing.JPanel();
         lblCantFichas = new javax.swing.JLabel();
         lblNumeroTurno = new javax.swing.JLabel();
-
-        jMenu3.setText("jMenu3");
+        lblFichaNegra = new javax.swing.JLabel();
+        lblFichaBlanca = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("4enCuadrado - Partida en Curso");
@@ -150,12 +152,6 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(btnRendirse);
         btnRendirse.setBounds(10, 540, 110, 30);
 
-        lblMoverHueco.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblMoverHueco.setForeground(new java.awt.Color(0, 204, 102));
-        lblMoverHueco.setText("MOVER SUBTABLERO");
-        getContentPane().add(lblMoverHueco);
-        lblMoverHueco.setBounds(90, 40, 260, 60);
-
         lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTurno.setForeground(new java.awt.Color(0, 153, 153));
         lblTurno.setText("TURNO DE JUGADOR CACHO Fichas Blancas");
@@ -179,7 +175,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelSubtablero);
-        panelSubtablero.setBounds(90, 90, 240, 220);
+        panelSubtablero.setBounds(90, 100, 240, 220);
 
         javax.swing.GroupLayout panelNumerosLayout = new javax.swing.GroupLayout(panelNumeros);
         panelNumeros.setLayout(panelNumerosLayout);
@@ -219,6 +215,42 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         getContentPane().add(lblNumeroTurno);
         lblNumeroTurno.setBounds(40, 470, 110, 40);
 
+        lblFichaNegra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblFichaNegra.setText("Fichas Negras");
+        getContentPane().add(lblFichaNegra);
+        lblFichaNegra.setBounds(30, 20, 140, 60);
+
+        lblFichaBlanca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblFichaBlanca.setText("Fichas Blancas");
+        getContentPane().add(lblFichaBlanca);
+        lblFichaBlanca.setBounds(190, 20, 160, 60);
+
+        jMenu1.setText("Partida");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
+        jMenuItem1.setText("Rendirse");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaMenuJuego.png"))); // NOI18N
+        jMenuItem2.setText("Cambiar Diseño de Fichas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,6 +264,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
             filas[i] = jButton;
             filas[i].setText("" + numALetra(contador));
             filas[i].setEnabled(false);
+            filas[i].setFont((new Font("Arial", Font.BOLD, 25)));
             contador++;
         }
     }
@@ -245,6 +278,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
             panelNumeros.add(jButton);
             columnas[i] = jButton;
             columnas[i].setText("" + contador);
+            columnas[i].setFont((new Font("Arial", Font.BOLD, 25)));
             columnas[i].setEnabled(false);
             contador++;
         }
@@ -392,11 +426,39 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
                 ganador = determinarGanador('B');
                 hayGanador = true;
             }
-            JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "\nFELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
 
     }//GEN-LAST:event_btnRendirseActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
+        /*
+        0 - selecciono SI
+        1 - selecciono NO
+        2- selecciono Cancelar
+         */
+        if (resp == 0) { //abandona la partida
+            String ganador;
+            if (jugadorAhora.equals(j1)) {
+                ganador = determinarGanador('N');
+                hayGanador = true;
+
+            } else {
+                ganador = determinarGanador('B');
+                hayGanador = true;
+            }
+            JOptionPane.showMessageDialog(this, "\nFELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+     frameCambiarFicha fcf = new frameCambiarFicha(sis);
+     fcf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -481,10 +543,10 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
                 if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
                     hayGanador = true;
                     String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
-                    
-                    
+
                     // HACER UN IF GANADOR ES LO QUE HICISTE EN DETERMINADOR GANADOR
                     JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 }
             }
 
@@ -510,7 +572,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
             hayGanador = true;
             escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
-         /* AGREGAR METODO QUE SI ES A, DOY PARTIDAS DE EMPATE A AMBOS, ESCRIBO LINEAS DE QUE EMPATARON, Y HAY GANADOR TRUE*/
+        /* AGREGAR METODO QUE SI ES A, DOY PARTIDAS DE EMPATE A AMBOS, ESCRIBO LINEAS DE QUE EMPATARON, Y HAY GANADOR TRUE*/
         return ganador;
     }
 
@@ -553,8 +615,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
         if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
             String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
             JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
-        //VER EMPATE
-        
+            this.dispose();
+            //VER EMPATE
+
         }
         fichaPuesta = false;
 
@@ -613,10 +676,14 @@ public final class VentanaJugarPartida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantFichas;
-    private javax.swing.JLabel lblMoverHueco;
+    private javax.swing.JLabel lblFichaBlanca;
+    private javax.swing.JLabel lblFichaNegra;
     private javax.swing.JLabel lblNumeroTurno;
     private javax.swing.JLabel lblTurno;
     private javax.swing.JPanel panelJuego;

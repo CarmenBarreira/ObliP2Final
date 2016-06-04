@@ -138,7 +138,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             }
         });
 
-        jNegrolbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jNegrolbl.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jNegrolbl.setText("Jugador Negro");
 
         jlabelNombreNegro.setFont(new java.awt.Font("Calibri", 3, 24)); // NOI18N
@@ -196,7 +196,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        lblJBlanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblJBlanco.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblJBlanco.setText("Jugador Blanco");
 
         jButtonCambiarHueco.setText("Diseño Hueco");

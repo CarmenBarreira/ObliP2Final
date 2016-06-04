@@ -2,21 +2,38 @@ package Interfaz;
 
 import Dominio.Sistema;
 import java.awt.Rectangle;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
-    public VentanaMenuPrincipal(Sistema sis) {
+    public VentanaMenuPrincipal(Sistema sis) throws ClassNotFoundException {
         initComponents();
-        elSis = sis;
+//        elSis = sis;
+        
+         try {
+            elSis = sis.PersistirLeer();
+           } catch (FileNotFoundException e) {
+            System.out.println("1" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("2" + e.getMessage());
+        }
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
  
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                close();
+                try {
+            elSis.PersistirGuardar(elSis);
+        } catch (IOException ex) {
+        }
+        
+        System.exit(0);
             }
         });
     }
@@ -176,7 +193,11 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMenuPrincipal(sis).setVisible(true);
+                try {
+                    new VentanaMenuPrincipal(sis).setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VentanaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

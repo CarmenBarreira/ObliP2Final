@@ -96,7 +96,7 @@ public class Sistema extends Observable implements Serializable{
     }
 
      public void PersistirGuardar(Sistema sis) throws IOException {
-        FileOutputStream f = new FileOutputStream("archivo.bin");
+        FileOutputStream f = new FileOutputStream("archivo");
         BufferedOutputStream b = new BufferedOutputStream(f);
         ObjectOutputStream s = new ObjectOutputStream(b);
         try {

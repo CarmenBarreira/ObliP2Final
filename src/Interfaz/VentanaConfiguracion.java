@@ -169,7 +169,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        lblTituloSeleccionar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTituloSeleccionar.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         lblTituloSeleccionar.setText("Seleccionar la posicion del hueco");
 
         lblDimensiones.setText("Dimensiones de Tablero");
@@ -214,7 +214,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addComponent(lblDimensiones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloSeleccionar)
-                .addGap(134, 134, 134))
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +230,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))
+                        .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

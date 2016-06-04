@@ -4,11 +4,18 @@ import Dominio.Sistema;
 import Dominio.Tablero;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
-
+import javax.swing.border.Border;
 
 public class VentanaConfiguracion extends javax.swing.JFrame {
 
@@ -16,6 +23,8 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private int[] subtableroSelected = {0, 0};
     private int posHueco;
     private int opcionTablero;
+    Border bor;
+
 
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
@@ -27,7 +36,11 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         panelJuegoConfig.setMinimumSize(new Dimension(447, 396));
         panelJuegoConfig.setMaximumSize(new Dimension(447, 396));
         Tablero tab = new Tablero(sis.getConfPartida()[0], sis.getConfPartida()[1]);
+        bor = BorderFactory.createLineBorder(Color.white);
+        bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder());
+
         mostrarTableroConSubTableros((tab.getTablero().length / 2), (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
+     
         int tablero = sis.getConfPartida()[0];
         switch (tablero) {
             case 1:
@@ -58,10 +71,12 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         rb4x6 = new javax.swing.JRadioButton();
         rb8x8 = new javax.swing.JRadioButton();
         rb6x4 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTituloSeleccionar = new javax.swing.JLabel();
+        lblDimensiones = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblMusica = new javax.swing.JLabel();
+        txtlblSub = new javax.swing.JLabel();
+        subtableroElegidolbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("4enCuadrado - Configuracion de Partida");
@@ -154,15 +169,20 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Seleccionar la posicion del hueco");
+        lblTituloSeleccionar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTituloSeleccionar.setText("Seleccionar la posicion del hueco");
 
-        jLabel2.setText("Dimensiones de Tablero");
+        lblDimensiones.setText("Dimensiones de Tablero");
 
         jButton1.setText("Si");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
-        jLabel3.setText("Musica en Partida");
+        lblMusica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
+        lblMusica.setText("Musica en Partida");
+
+        txtlblSub.setText("Subtablero Elegido");
+
+        subtableroElegidolbl.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        subtableroElegidolbl.setText("5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,25 +190,30 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(53, 53, 53)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblMusica)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtlblSub, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90)
+                        .addComponent(subtableroElegidolbl)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(jLabel2)
+                .addComponent(lblDimensiones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lblTituloSeleccionar)
                 .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
@@ -197,22 +222,28 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel1))
+                        .addComponent(lblTituloSeleccionar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)))
+                        .addComponent(lblDimensiones)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(23, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
+                        .addComponent(lblMusica)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtlblSub)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(subtableroElegidolbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))))
         );
 
         pack();
@@ -235,6 +266,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(3, 3, 5);
         opcionTablero = 1;
+           subtableroElegidolbl.setText("5");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
 
@@ -245,7 +277,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(2, 3, 2);
-
+ subtableroElegidolbl.setText("2");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 2;
@@ -255,6 +287,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private void rb6x4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x4ActionPerformed
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(3, 2, 2);
+         subtableroElegidolbl.setText("2");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 3;
@@ -264,6 +297,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(4, 4, 7);
+         subtableroElegidolbl.setText("7");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 4;
@@ -326,46 +360,85 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
     private void clickBoton(int fila, int columna) {
 
-// Método a completar!.
-// En fila y columna se reciben las coordenas donde presionó el usuario, relativas al comienzo de la grilla
-// fila 1 y columna 1 corresponden a la posición de arriba a la izquierda.
-// Debe indicarse cómo responder al click de ese botón.
         botones[fila][columna].setSelected(true);
 
         if (subtableroSelected[0] == 0 && subtableroSelected[1] == 0) {
-            botones[fila][columna].setBackground(Color.LIGHT_GRAY);
+
+            botones[fila][columna].setEnabled(false);
             subtableroSelected[0] = fila;
             subtableroSelected[1] = columna;
         } else {
-            botones[subtableroSelected[0]][subtableroSelected[1]].setBackground(null);
-            botones[fila][columna].setBackground(Color.LIGHT_GRAY);
+            botones[subtableroSelected[0]][subtableroSelected[1]].setEnabled(true);
+
+            botones[fila][columna].setEnabled(false);
             subtableroSelected[0] = fila;
             subtableroSelected[1] = columna;
         }
         posHueco = (int) Integer.parseInt(botones[fila][columna].getText());
+        subtableroElegidolbl.setText(""+posHueco);
 
     }
 
     public void mostrarTableroConSubTableros(int dimensionF, int dimensionC, int hueco) {
+        Color par = new Color(162, 250, 203);
+        Color impar = new Color(125, 189, 154);
+
+        
+        
+        
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
         int cont = 1;
+        int contFila = 0;
+
         botones = new JButton[dimensionF + 2][dimensionC + 2];
 
         for (int i = 1; i <= dimensionF; i++) {
-
+            contFila++;
             for (int j = 1; j <= dimensionC; j++) {
 
                 JButton jButton = new JButton();
 
                 jButton.addActionListener(new ListenerBoton(i, j));
                 jButton.setText("" + cont);
+                jButton.setBorder(bor);
+
+                if (dimensionC == 2 || dimensionC == 4) {
+                    if (contFila == 1) {
+
+                        if (cont % 2 == 0) {
+
+                            jButton.setBackground(par);
+                        } else {
+                            jButton.setBackground(impar);
+
+                        }
+                    } else {
+                        contFila = 0;
+
+                        if (cont % 2 == 0) {
+
+                            jButton.setBackground(impar);
+                        } else {
+                            jButton.setBackground(par);
+
+                        }
+                    }
+                } else if (cont % 2 == 0) {
+
+                    jButton.setBackground(par);
+                } else {
+                    jButton.setBackground(impar);
+
+                }
                 panelJuegoConfig.add(jButton);
                 botones[i][j] = jButton;
+                botones[i][j].setFont((new Font("Arial", Font.BOLD, 40)));
+                botones[i][j].setForeground(new Color (0, 89, 28));
                 cont++;
 
                 if (Integer.parseInt(botones[i][j].getText()) == hueco) {
                     botones[i][j].setSelected(true);
-                    botones[i][j].setBackground(Color.LIGHT_GRAY);
+                    botones[i][j].setEnabled(false);
                     subtableroSelected[0] = i;
                     subtableroSelected[1] = j;
                 }
@@ -373,7 +446,6 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             }
 
         }
-
     }
 
     Sistema sis = new Sistema();
@@ -381,14 +453,16 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgroupTamTablero;
     private javax.swing.JButton btnGuardarConfig;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelTamTablero;
+    private javax.swing.JLabel lblDimensiones;
+    private javax.swing.JLabel lblMusica;
+    private javax.swing.JLabel lblTituloSeleccionar;
     private javax.swing.JPanel panelJuegoConfig;
     private javax.swing.JRadioButton rb4x6;
     private javax.swing.JRadioButton rb6x4;
     private javax.swing.JRadioButton rb6x6;
     private javax.swing.JRadioButton rb8x8;
+    private javax.swing.JLabel subtableroElegidolbl;
+    private javax.swing.JLabel txtlblSub;
     // End of variables declaration//GEN-END:variables
 }

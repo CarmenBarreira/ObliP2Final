@@ -1,14 +1,9 @@
 package ObligatorioDos;
 
-import Dominio.Jugador;
 import Dominio.Partida;
 import Dominio.Sistema;
-import Dominio.Tablero;
 import Interfaz.VentanaMenuPrincipal;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -25,7 +20,7 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         Sistema miSistema = new Sistema();
         int[] config = new int[2];
         VentanaMenuPrincipal menu = new VentanaMenuPrincipal(miSistema);

@@ -14,9 +14,9 @@ public class Partida extends Observable implements Serializable{
     private int posicionHuecoActual;
     private int cantidadFichas;
     private int deshacerMovPosHueco;
-    private Image fichaJBlanco;
-    private Image fichaJNegro;
-    private Image fichaHueco;
+    private transient Image fichaJBlanco;
+    private transient Image fichaJNegro;
+    private transient Image fichaHueco;
     //Variable que guarda el anterior movimiento para no deshacer movimientos
 
     //constructor
@@ -99,38 +99,26 @@ public class Partida extends Observable implements Serializable{
         return fichaJBlanco;
     }
 
-    public void setFichaJBlanco(Image fichaJBlanco) {
-        this.fichaJBlanco = fichaJBlanco;
+    public void setFichaJBlanco(Image laFichaJBlanco) {
+        this.fichaJBlanco = laFichaJBlanco;
          updateObserver();
     }
 
-    /**
-     * @return the fichaJNegro
-     */
     public Image getFichaJNegro() {
-        return fichaJNegro;
+        return this.fichaJNegro;
     }
 
-    /**
-     * @param fichaJNegro the fichaJNegro to set
-     */
-    public void setFichaJNegro(Image fichaJNegro) {
-        this.fichaJNegro = fichaJNegro;
+    public void setFichaJNegro(Image laFichaJNegro) {
+        this.fichaJNegro = laFichaJNegro;
         updateObserver();
     }
 
-    /**
-     * @return the fichaHueco
-     */
     public Image getFichaHueco() {
-        return fichaHueco;
+        return this.fichaHueco;
     }
 
-    /**
-     * @param fichaHueco the fichaHueco to set
-     */
-    public void setFichaHueco(Image fichaHueco) {
-        this.fichaHueco = fichaHueco;
+    public void setFichaHueco(Image laFichaHueco) {
+        this.fichaHueco = laFichaHueco;
     }
     
         public void updateObserver() {

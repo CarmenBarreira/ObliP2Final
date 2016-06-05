@@ -113,6 +113,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("4enCuadrado - Pre Jugada");
+        setResizable(false);
 
         tablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -13,10 +13,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     public VentanaMenuPrincipal(Sistema sis) throws ClassNotFoundException {
         initComponents();
-//        elSis = sis;
-        
+        elSis = sis;
+//        
          try {
-            elSis = sis.PersistirLeer();
+//            if(elSis!=null){
+                elSis = sis.PersistirLeer();
+//            } 
+            
            } catch (FileNotFoundException e) {
             System.out.println("1" + e.getMessage());
         } catch (IOException e) {
@@ -161,7 +164,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             elSis.PersistirGuardar(elSis);
         } catch (IOException ex) {
         }
-        
+//        
         System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 

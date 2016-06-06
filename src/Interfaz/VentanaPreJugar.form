@@ -54,21 +54,21 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButtonCambiarHueco" min="-2" pref="173" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jCargarPartida" min="-2" pref="181" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButtonJugadorBlanco" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="jButtonJugadorBlanco" min="-2" pref="156" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButtonJugadorNegro" min="-2" pref="129" max="-2" attributes="0"/>
+                      <Component id="jButtonJugadorNegro" min="-2" pref="156" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" pref="380" max="32767" attributes="0"/>
                   <Component id="jButtonJugar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,6 +161,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonJugadorBlanco">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/fichitaBlanca.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Jugador Blanco"/>
       </Properties>
       <Events>
@@ -169,6 +172,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonJugadorNegro">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/fichitaNegra.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Jugador Negro"/>
       </Properties>
       <Events>
@@ -205,7 +211,7 @@
     <Component class="javax.swing.JButton" name="jButtonFichaBlanca">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/fichitaBlanca.png"/>
+          <Image iconType="3" name="/imagenes/cargarFichaBlanca.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Imagen Ficha"/>
       </Properties>
@@ -216,7 +222,7 @@
     <Component class="javax.swing.JButton" name="jButtonFichaNegra">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagenes/fichitaNegra.png"/>
+          <Image iconType="3" name="/imagenes/cargarFichanegra.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cargar Imagen Ficha"/>
       </Properties>

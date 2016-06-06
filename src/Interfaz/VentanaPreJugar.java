@@ -54,8 +54,8 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         tab = new Tablero(miSistema.getConfPartida()[0], miSistema.getConfPartida()[1]);
         initComponents();
         iconoHueco = cargarImagenIconoDefault("hueco.png");
-        jButtonFichaNegra.setIcon(cargarImagenIconoDefault("fichaNegra.png"));
-        jButtonFichaBlanca.setIcon(cargarImagenIconoDefault("fichaBlanca.png"));
+        cargarImagenIconoDefault("fichaBlanca.png");
+        cargarImagenIconoDefault("fichaNegra.png");
         jButtonCambiarHueco.setIcon(iconoHueco);
         mostrarTableroConSubTableros(tab.getTablero().length, tab.getTablero()[0].length, tab);
         cargarLista();
@@ -125,6 +125,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaJugadores);
 
+        jButtonJugadorBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaBlanca.png"))); // NOI18N
         jButtonJugadorBlanco.setText("Jugador Blanco");
         jButtonJugadorBlanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +133,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             }
         });
 
+        jButtonJugadorNegro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaNegra.png"))); // NOI18N
         jButtonJugadorNegro.setText("Jugador Negro");
         jButtonJugadorNegro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +151,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         jLabelNombreBlanco.setForeground(new java.awt.Color(153, 153, 153));
         jLabelNombreBlanco.setText("No seleccionado");
 
-        jButtonFichaBlanca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaBlanca.png"))); // NOI18N
+        jButtonFichaBlanca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarFichaBlanca.png"))); // NOI18N
         jButtonFichaBlanca.setText("Cargar Imagen Ficha");
         jButtonFichaBlanca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +159,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             }
         });
 
-        jButtonFichaNegra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaNegra.png"))); // NOI18N
+        jButtonFichaNegra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargarFichanegra.png"))); // NOI18N
         jButtonFichaNegra.setText("Cargar Imagen Ficha");
         jButtonFichaNegra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,18 +232,18 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblJBlanco)))
                 .addGap(116, 116, 116)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonCambiarHueco, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCargarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButtonJugadorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonJugadorBlanco, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonJugadorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonJugadorNegro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(jButtonJugar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

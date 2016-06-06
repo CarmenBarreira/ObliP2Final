@@ -5,10 +5,13 @@ import Dominio.Partida;
 import Dominio.Sistema;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -41,12 +44,15 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     Icon fichaBlancaIcono;
     Border bor;
     Icon fichaNegraIcono;
-
+    Icon copa;
+    Icon copaIcon = cargarImagenIconoDefault("cup.png");
+    Icon rendirseIcon = cargarImagenIconoDefault("rendirseIconoMessage.png");
     Image fichaNegraImagen;
     Image fichaBlancaImagen;
     Icon hueco;
     Image imagenHueco;
-
+    Timer t;
+  String tiempolbl;
     public VentanaJugarPartida(Sistema elSis, Partida p) {
 
         partidaActual = p;
@@ -65,10 +71,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         StyleConstants.setBold(formatoMovimientoFicha, true);
         StyleConstants.setBold(formatoMovimientoTablero, true);
         StyleConstants.setBold(formatoTurnoNuevo, true);
-
         j1 = partidaActual.getJugadorBlanco();
         j2 = partidaActual.getJugadorNegro();
-        boolean noHayGanador = false;
         initComponents();
         lblFichaBlanca.setIcon(fichaBlancaIcono);
         lblFichaNegra.setIcon(fichaNegraIcono);
@@ -80,7 +84,33 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
         mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
+   
+        t = new Timer(1000, new ActionListener() {
+            int segundos = 0;
+            int minutos = 0;
+       
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                segundos++;
+
+                time.repaint();
+                tiempolbl = "" + minutos + ":" + segundos;
+                if (segundos > 59) {
+                    segundos = segundos - 60;
+                    minutos++;
+                    tiempolbl = "" + minutos + ":" + segundos;
+                }
+                if (segundos < 10) {
+                    tiempolbl = "" + minutos + ":0" + segundos;
+                }
+                time.setText("Tiempo de Partida: " + tiempolbl);
+            }
+
+        });
+
+        t.start();
         // crear botones y agregarlos al panel
         dimensionF = p.getTablero().getTablero().length;
         dimensionC = p.getTablero().getTablero()[0].length;
@@ -100,7 +130,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         partidaActual.addObserver(this);
         update(null, null);
         lblTurno.setIcon(fichaBlancaIcono);
-        lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase());
+        lblTurno.setText("Turno de " + j1.getAlias().toUpperCase());
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -129,15 +159,18 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblNumeroTurno = new javax.swing.JLabel();
         lblFichaNegra = new javax.swing.JLabel();
         lblFichaBlanca = new javax.swing.JLabel();
+        time = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        cambiarFichaMenuItem = new javax.swing.JMenuItem();
+        musicaMenuItem = new javax.swing.JMenuItem();
+        rendirseMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("4enCuadrado - Partida en Curso");
         setPreferredSize(new java.awt.Dimension(942, 658));
+        setResizable(false);
         setSize(new java.awt.Dimension(942, 658));
         getContentPane().setLayout(null);
 
@@ -171,9 +204,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
         lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTurno.setForeground(new java.awt.Color(51, 51, 51));
-        lblTurno.setText("TURNO DE  CACHO Fichas Blancas");
+        lblTurno.setText("TURNO DE  CACHO");
         getContentPane().add(lblTurno);
-        lblTurno.setBounds(500, 10, 430, 50);
+        lblTurno.setBounds(530, 20, 340, 50);
 
         jScrollPane1.setViewportView(txtAreaDescrip);
 
@@ -235,45 +268,55 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblFichaNegra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblFichaNegra.setText("Fichas Negras");
         getContentPane().add(lblFichaNegra);
-        lblFichaNegra.setBounds(30, 20, 140, 60);
+        lblFichaNegra.setBounds(60, 20, 140, 60);
 
         lblFichaBlanca.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblFichaBlanca.setText("Fichas Blancas");
         getContentPane().add(lblFichaBlanca);
-        lblFichaBlanca.setBounds(190, 20, 160, 60);
+        lblFichaBlanca.setBounds(220, 20, 160, 60);
+
+        time.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        time.setForeground(new java.awt.Color(0, 102, 102));
+        time.setText("Tiempo de Partida:");
+        getContentPane().add(time);
+        time.setBounds(150, 540, 220, 30);
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoTemp.png"))); // NOI18N
+        getContentPane().add(lblLogo);
+        lblLogo.setBounds(90, 90, 10, 10);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/partidaIconito.png"))); // NOI18N
         jMenu1.setText("Partida");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaMenuJuego.png"))); // NOI18N
-        jMenuItem2.setText("Cambiar Diseño de Fichas");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        cambiarFichaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        cambiarFichaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fichitaMenuJuego.png"))); // NOI18N
+        cambiarFichaMenuItem.setText("Cambiar Diseño de Fichas");
+        cambiarFichaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                cambiarFichaMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(cambiarFichaMenuItem);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
-        jMenuItem3.setText("Musica");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        musicaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        musicaMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
+        musicaMenuItem.setText("Musica");
+        musicaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                musicaMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(musicaMenuItem);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
-        jMenuItem1.setText("Rendirse");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        rendirseMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        rendirseMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
+        rendirseMenuItem.setText("Rendirse");
+        rendirseMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                rendirseMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(rendirseMenuItem);
 
         jMenuBar1.add(jMenu1);
 
@@ -281,6 +324,39 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private ImageIcon cargarImagenIconoDefault(String imagen) {
+        File f1 = new File("src\\imagenes\\" + imagen);
+        Image copaImg;
+        Image rendirse;
+
+        ImageIcon icono = null;
+
+        try {
+
+            // si es la ficha blanca la cargo en la imagen de jugador blanco, asi cuando empiezo la partida si el user no selecciono nada
+            // se carga esta imagen por defecto
+            if (imagen.equals("cup.png")) {
+
+                copaImg = ImageIO.read(f1);
+                copaImg = copaImg.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+
+                icono = new ImageIcon(copaImg);
+
+            }
+            if (imagen.equals("rendirseIconoMessage.png")) {
+                rendirse = ImageIO.read(f1);
+                rendirse = rendirse.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+                icono = new ImageIcon(rendirse);
+
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return icono;
+    }
 
     public void mostrarFilas(Partida p) {
         panelLetras.setLayout(new GridLayout(dimensionF, 1));
@@ -452,6 +528,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
          */
         if (resp == 0) { //abandona la partida
             String ganador;
+            t.stop();
             if (jugadorAhora.equals(j1)) {
                 ganador = determinarGanador('N');
                 hayGanador = true;
@@ -459,44 +536,28 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             } else {
                 ganador = determinarGanador('B');
                 hayGanador = true;
+
             }
-            JOptionPane.showMessageDialog(this, "\nFELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, rendirseIcon);
+
             this.dispose();
         }
     }
 
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
-        /*
-        0 - selecciono SI
-        1 - selecciono NO
-        2- selecciono Cancelar
-         */
-        if (resp == 0) { //abandona la partida
-            String ganador;
-            if (jugadorAhora.equals(j1)) {
-                ganador = determinarGanador('N');
-                hayGanador = true;
+    private void rendirseMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rendirseMenuItemActionPerformed
+        rendirse();
 
-            } else {
-                ganador = determinarGanador('B');
-                hayGanador = true;
-            }
-            JOptionPane.showMessageDialog(this, "\nFELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        }
+    }//GEN-LAST:event_rendirseMenuItemActionPerformed
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void cambiarFichaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarFichaMenuItemActionPerformed
         frameCambiarFicha fcf = new frameCambiarFicha(sis, this);
         fcf.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_cambiarFichaMenuItemActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void musicaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_musicaMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -578,7 +639,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 }
 
                 fichaPuesta = true;
-                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + numALetra(posFicha[0]) + "" +posAFila(( posFicha[1]),dimensionF), formatoMovimientoFicha, doc);
+                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + numALetra(posFicha[0]) + "" + (posAFila((posFicha[1]), dimensionF)+1), formatoMovimientoFicha, doc);
                 panelSubtablero.setVisible(true);
                 cantFichasTotal--;
                 lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
@@ -588,9 +649,11 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                     String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
 
                     if (partidaActual.getTablero().encontroGanador() == 'A') { // empate
-                        JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " empataron la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " empataron la partida!", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
+                        t.stop();
                     } else {
-                        JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
+                        t.stop();
                     }
                     this.dispose();
                 }
@@ -610,14 +673,16 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             partidaActual.getJugadorBlanco().setCantidadPartidasGanadas(partidaActual.getJugadorBlanco().getCantidadPartidasGanadas() + 1);
             partidaActual.getJugadorNegro().setCantidadPartidasPerdidas(partidaActual.getJugadorNegro().getCantidadPartidasPerdidas() + 1);
             hayGanador = true;
-            escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
+            t.stop();
+            escribirLineaPane("\nFELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
         if (jugador == 'N') {
             ganador = "" + partidaActual.getJugadorNegro().getAlias().toUpperCase();
             partidaActual.getJugadorNegro().setCantidadPartidasGanadas(partidaActual.getJugadorNegro().getCantidadPartidasGanadas() + 1);
             partidaActual.getJugadorBlanco().setCantidadPartidasPerdidas(partidaActual.getJugadorBlanco().getCantidadPartidasPerdidas() + 1);
             hayGanador = true;
-            escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
+               t.stop();
+            escribirLineaPane("\nFELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
 
         if (jugador == 'A') { //ganaron los 2 = empate
@@ -626,7 +691,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             partidaActual.getJugadorNegro().setCantidadPartidasEmpatadas(partidaActual.getJugadorNegro().getCantidadPartidasEmpatadas() + 1);
             partidaActual.getJugadorBlanco().setCantidadPartidasEmpatadas(partidaActual.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
             hayGanador = true;
-            escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " EMPATARON LA PARTIDA!", formatoTurnoNuevo, doc);
+               t.stop();
+            escribirLineaPane("\nFELICIDADES " + ganador.toUpperCase() + " EMPATARON LA PARTIDA!", formatoTurnoNuevo, doc);
         }
         return ganador;
     }
@@ -662,6 +728,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         panelSubtablero.repaint();
         escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias().toUpperCase() + " movio el hueco al subtablero " + Subtablero, formatoMovimientoTablero, doc);
         panelSubtablero.setVisible(false);
+        lblLogo.setSize(panelSubtablero.getSize());
 
         panelJuego.removeAll();
         mostrarTableroJuego(partidaActual);
@@ -670,14 +737,18 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
             String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
             hayGanador = true;
+            t.stop();
             if (partidaActual.getTablero().encontroGanador() == 'A') { // empate
                 JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+
             } else {
-                JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
+
             }
             this.dispose();
 
         } else if (cantFichasTotal == 0) {
+            t.stop();
             this.determinarGanador('A');
             JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
@@ -689,7 +760,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             jugadorAhora = j2;
             jugadorAhoraChar = 'N';
             lblTurno.setIcon(fichaNegraIcono);
-            lblTurno.setText("Turno de Jugador " + j2.getAlias().toUpperCase());
+            lblTurno.setText("Turno de " + j2.getAlias().toUpperCase());
             escribirLineaPane("\nEs el turno del Jugador Negro, Alias: " + j2.getAlias().toUpperCase(), formatoTurnoNuevo, doc);
 
         } else {
@@ -746,22 +817,22 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         }
 
     }
-public int posAFila(int nroDeFila, int dimension){
 
-   if(nroDeFila > dimension){
-   
-   while (nroDeFila>dimension){
-   
-       nroDeFila= nroDeFila-dimension;
-   
-   
-   }
-       
-   }
+    public int posAFila(int nroDeFila, int dimension) {
 
+        if (nroDeFila > dimension) {
 
-return nroDeFila;
-}
+            while (nroDeFila > dimension) {
+
+                nroDeFila = nroDeFila - dimension;
+
+            }
+
+        }
+
+        return nroDeFila;
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
@@ -779,22 +850,24 @@ return nroDeFila;
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRendirse;
+    private javax.swing.JMenuItem cambiarFichaMenuItem;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantFichas;
     private javax.swing.JLabel lblFichaBlanca;
     private javax.swing.JLabel lblFichaNegra;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNumeroTurno;
     private javax.swing.JLabel lblTurno;
+    private javax.swing.JMenuItem musicaMenuItem;
     private javax.swing.JPanel panelJuego;
     private javax.swing.JPanel panelLetras;
     private javax.swing.JPanel panelNumeros;
     private javax.swing.JPanel panelSubtablero;
+    private javax.swing.JMenuItem rendirseMenuItem;
+    private javax.swing.JLabel time;
     private javax.swing.JTextPane txtAreaDescrip;
     // End of variables declaration//GEN-END:variables
 }

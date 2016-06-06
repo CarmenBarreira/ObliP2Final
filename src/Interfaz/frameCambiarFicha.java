@@ -90,8 +90,8 @@ public class frameCambiarFicha extends javax.swing.JFrame {
         lblFichaNegra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblFichaNegra.setText("Ficha Jugador Negro");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_16.png"))); // NOI18N
-        jButton1.setText("Guardar");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reload-icon.png"))); // NOI18N
+        jButton1.setText("Cambiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

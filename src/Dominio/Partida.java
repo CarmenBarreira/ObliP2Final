@@ -4,16 +4,15 @@ import java.awt.Image;
 import java.io.Serializable;
 import java.util.Observable;
 
-
-public class Partida extends Observable implements Serializable{
+public class Partida extends Observable implements Serializable {
 
     //atributos
-    private Jugador jugadorBlanco;
-    private Jugador jugadorNegro;
-    private Tablero tablero;
-    private int posicionHuecoActual;
-    private int cantidadFichas;
-    private int deshacerMovPosHueco;
+    private transient Jugador jugadorBlanco;
+    private transient Jugador jugadorNegro;
+    private transient Tablero tablero;
+    private transient int posicionHuecoActual;
+    private transient int cantidadFichas;
+    private transient int deshacerMovPosHueco;
     private transient Image fichaJBlanco;
     private transient Image fichaJNegro;
     private transient Image fichaHueco;
@@ -101,7 +100,7 @@ public class Partida extends Observable implements Serializable{
 
     public void setFichaJBlanco(Image laFichaJBlanco) {
         this.fichaJBlanco = laFichaJBlanco;
-         updateObserver();
+        updateObserver();
     }
 
     public Image getFichaJNegro() {
@@ -120,8 +119,8 @@ public class Partida extends Observable implements Serializable{
     public void setFichaHueco(Image laFichaHueco) {
         this.fichaHueco = laFichaHueco;
     }
-    
-        public void updateObserver() {
+
+    public void updateObserver() {
         setChanged();
         notifyObservers();
     }

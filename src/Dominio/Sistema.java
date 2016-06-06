@@ -131,8 +131,11 @@ public class Sistema extends Observable implements Serializable{
         return sisRetorno;
     }
     
-    public void leerTXT (String nombreArchivo){
-    
+    public void leerTXT (String nombreArchivo) throws IOException{
+        String aliasJB, aliasJN, configTablero;
+        archivo.ArchivoLectura.leerArchivo(nombreArchivo);
+        
+        archivo.ArchivoLectura.cerrar();
     }
     
     public void guardarTXT(){

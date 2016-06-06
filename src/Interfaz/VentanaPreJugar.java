@@ -13,7 +13,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -386,17 +389,15 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         int returnVal = fileChooserCargarPartida.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooserCargarPartida.getSelectedFile();
+           
+                          
             try {
-                 archivo.ArchivoLectura.leerArchivo(file.getName());
-                 
-                 //EStoy en esto!!!
-               
+                miSistema.leerTXT("Prueba.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
             }
-             catch (Exception a) {
-
-                 System.out.println(a.getMessage());
-
-            }
+            
+            
         }
     }//GEN-LAST:event_jCargarPartidaActionPerformed
 

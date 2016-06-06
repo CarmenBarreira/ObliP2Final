@@ -6,7 +6,9 @@ import Dominio.Sistema;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -19,6 +21,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public final class VentanaJugarPartida extends javax.swing.JFrame implements Observer {
 
@@ -52,7 +58,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     Icon hueco;
     Image imagenHueco;
     Timer t;
-  String tiempolbl;
+    String tiempolbl;
+
     public VentanaJugarPartida(Sistema elSis, Partida p) {
 
         partidaActual = p;
@@ -84,11 +91,10 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
         mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
-   
+
         t = new Timer(1000, new ActionListener() {
             int segundos = 0;
             int minutos = 0;
-       
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,9 +194,14 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         getContentPane().add(panelJuego);
         panelJuego.setBounds(480, 120, 420, 370);
 
-        jButton1.setText("MUSICA");
+        jButton1.setText("ESCUCHAR MUSICA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
-        jButton1.setBounds(480, 510, 440, 60);
+        jButton1.setBounds(540, 500, 210, 60);
 
         btnRendirse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
         btnRendirse.setText("Rendirse");
@@ -538,7 +549,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 hayGanador = true;
 
             }
-            JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, rendirseIcon);
+            JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en " + tiempolbl + " minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, rendirseIcon);
 
             this.dispose();
         }
@@ -558,6 +569,10 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     private void musicaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_musicaMenuItemActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        musica();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -639,7 +654,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 }
 
                 fichaPuesta = true;
-                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + numALetra(posFicha[0]) + "" + (posAFila((posFicha[1]), dimensionF)+1), formatoMovimientoFicha, doc);
+                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + numALetra(posFicha[0]) + "" + (posAFila((posFicha[1]), dimensionF) + 1), formatoMovimientoFicha, doc);
                 panelSubtablero.setVisible(true);
                 cantFichasTotal--;
                 lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
@@ -652,7 +667,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                         JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " empataron la partida!", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
                         t.stop();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
+                        JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en " + tiempolbl + " minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
                         t.stop();
                     }
                     this.dispose();
@@ -664,6 +679,25 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 JOptionPane.showMessageDialog(this, "Posicion Incorrecta!", "Posicion incorrecta", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void musica() {
+
+        AudioPlayer audioPlayer = AudioPlayer.player;
+        AudioStream musicaFondo;
+        AudioData musicaData;
+        ContinuousAudioDataStream loop = null;
+        File f1 = new File("src\\imagenes\\cuatro.wav");
+
+            try {
+                InputStream f = new FileInputStream(f1);
+                musicaFondo = new AudioStream(f);
+                AudioPlayer.player.start(musicaFondo);
+            } catch (Exception e) {
+                System.err.println("No se encontro");
+            }
+        
+
     }
 
     public String determinarGanador(char jugador) {
@@ -681,7 +715,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             partidaActual.getJugadorNegro().setCantidadPartidasGanadas(partidaActual.getJugadorNegro().getCantidadPartidasGanadas() + 1);
             partidaActual.getJugadorBlanco().setCantidadPartidasPerdidas(partidaActual.getJugadorBlanco().getCantidadPartidasPerdidas() + 1);
             hayGanador = true;
-               t.stop();
+            t.stop();
             escribirLineaPane("\nFELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
 
@@ -691,7 +725,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             partidaActual.getJugadorNegro().setCantidadPartidasEmpatadas(partidaActual.getJugadorNegro().getCantidadPartidasEmpatadas() + 1);
             partidaActual.getJugadorBlanco().setCantidadPartidasEmpatadas(partidaActual.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
             hayGanador = true;
-               t.stop();
+            t.stop();
             escribirLineaPane("\nFELICIDADES " + ganador.toUpperCase() + " EMPATARON LA PARTIDA!", formatoTurnoNuevo, doc);
         }
         return ganador;
@@ -742,7 +776,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-                JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en "+tiempolbl+" minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
+                JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en " + tiempolbl + " minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, copaIcon);
 
             }
             this.dispose();

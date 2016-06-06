@@ -382,7 +382,22 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
 
     private void jCargarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargarPartidaActionPerformed
+        JFileChooser fileChooserCargarPartida = new JFileChooser();
+        int returnVal = fileChooserCargarPartida.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooserCargarPartida.getSelectedFile();
+            try {
+                 archivo.ArchivoLectura.leerArchivo(file.getName());
+                 
+                 //EStoy en esto!!!
+               
+            }
+             catch (Exception a) {
 
+                 System.out.println(a.getMessage());
+
+            }
+        }
     }//GEN-LAST:event_jCargarPartidaActionPerformed
 
     private void jButtonFichaBlancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFichaBlancaActionPerformed

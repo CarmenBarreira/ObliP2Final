@@ -17,7 +17,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 //        
          try {
 //            if(elSis!=null){
-                elSis = sis.PersistirLeer();
+                elSis = sis.persistirLeer();
 //            } 
             
            } catch (FileNotFoundException e) {
@@ -32,7 +32,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 try {
-            elSis.PersistirGuardar(elSis);
+            elSis.persistirGuardar(elSis);
         } catch (IOException ex) {
         }
         
@@ -161,7 +161,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
         try {
-            elSis.PersistirGuardar(elSis);
+            elSis.persistirGuardar(elSis);
         } catch (IOException ex) {
         }
 //        

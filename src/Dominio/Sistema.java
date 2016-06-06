@@ -95,7 +95,8 @@ public class Sistema extends Observable implements Serializable{
         notifyObservers();
     }
 
-     public void PersistirGuardar(Sistema sis) throws IOException {
+     public void persistirGuardar(Sistema sis) throws IOException {
+         
         FileOutputStream f = new FileOutputStream("archivo");
         BufferedOutputStream b = new BufferedOutputStream(f);
         ObjectOutputStream s = new ObjectOutputStream(b);
@@ -112,7 +113,7 @@ public class Sistema extends Observable implements Serializable{
     }
     
     
-    public Sistema PersistirLeer() throws IOException, ClassNotFoundException {
+    public Sistema persistirLeer() throws IOException, ClassNotFoundException {
         FileInputStream ff = new FileInputStream ("archivo");
         BufferedInputStream bb = new BufferedInputStream(ff);
         ObjectInputStream ss = new ObjectInputStream(bb);
@@ -130,4 +131,11 @@ public class Sistema extends Observable implements Serializable{
         return sisRetorno;
     }
     
+    public void leerTXT (String nombreArchivo){
+    
+    }
+    
+    public void guardarTXT(){
+    
+    }
 }

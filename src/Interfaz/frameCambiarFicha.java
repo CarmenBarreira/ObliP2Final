@@ -39,7 +39,7 @@ public class frameCambiarFicha extends javax.swing.JFrame {
         ImageIcon negro = new ImageIcon(unSistema.getPartidaActual().getFichaJNegro().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
 
         lblFichaBlanca.setIcon(blanco);
-        lblFichaBlanca.setIcon(negro);
+        lblFichaNegra.setIcon(negro);
 
         jButton1.addActionListener(new ActionListener() {
             @Override

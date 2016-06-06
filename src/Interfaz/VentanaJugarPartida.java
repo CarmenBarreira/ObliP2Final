@@ -10,6 +10,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -38,7 +39,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     SimpleAttributeSet formatoTurnoNuevo = new SimpleAttributeSet(); // DECLARACION DE FORMATO PARA LOS COLORES DEL TEXT PANE
     int cantFichasTotal;
     Icon fichaBlancaIcono;
+    Border bor;
     Icon fichaNegraIcono;
+
     Image fichaNegraImagen;
     Image fichaBlancaImagen;
     Icon hueco;
@@ -48,7 +51,11 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
         partidaActual = p;
         sis = elSis;
-
+        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);
+        fichaBlancaIcono = new ImageIcon(fichaBlancaImagen);
+        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);
+        fichaNegraIcono = new ImageIcon(fichaNegraImagen);
+        imagenHueco = partidaActual.getFichaHueco().getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH);
         sis.setPartidaActual(p);
 
         posHuecoAnt = partidaActual.getPosicionHuecoActual();
@@ -63,23 +70,18 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         j2 = partidaActual.getJugadorNegro();
         boolean noHayGanador = false;
         initComponents();
-
+        lblFichaBlanca.setIcon(fichaBlancaIcono);
+        lblFichaNegra.setIcon(fichaNegraIcono);
         doc = txtAreaDescrip.getStyledDocument();
         panelSubtablero.setVisible(false);
-        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        fichaBlancaIcono = new ImageIcon(fichaBlancaImagen);
-        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        fichaNegraIcono = new ImageIcon(fichaNegraImagen);
-        imagenHueco = partidaActual.getFichaHueco().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+
         hueco = new ImageIcon(imagenHueco);
         lblNumeroTurno.setText("Turno: " + turno);
         cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
         mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
-        lblFichaBlanca.setIcon(fichaBlancaIcono);
-        lblFichaNegra.setIcon(fichaNegraIcono);
+
         // crear botones y agregarlos al panel
-        sis = elSis;
         dimensionF = p.getTablero().getTablero().length;
         dimensionC = p.getTablero().getTablero()[0].length;
         mostrarFilas(p);
@@ -94,19 +96,20 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         jugadorAhoraChar = 'B';
         escribirLineaPane("BIENVENIDO A 4 en CUADRADO", formatoTurnoNuevo, doc);
         escribirLineaPane("\nEs el turno del Jugador Blanco", formatoMovimientoTablero, doc);
-        lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase() + " fichas blancas");
+
         partidaActual.addObserver(this);
-        update(p, null);
-        
+        update(null, null);
+        lblTurno.setIcon(fichaBlancaIcono);
+        lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase());
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
- 
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                    rendirse();           
+                rendirse();
             }
         });
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -168,9 +171,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
         lblTurno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTurno.setForeground(new java.awt.Color(51, 51, 51));
-        lblTurno.setText("TURNO DE JUGADOR CACHO Fichas Blancas");
+        lblTurno.setText("TURNO DE  CACHO Fichas Blancas");
         getContentPane().add(lblTurno);
-        lblTurno.setBounds(420, 10, 520, 70);
+        lblTurno.setBounds(500, 10, 430, 50);
 
         jScrollPane1.setViewportView(txtAreaDescrip);
 
@@ -406,6 +409,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 if (p.getTablero().getTablero()[i - 1][j - 1] == 'B') {
 
                     botones[i][j].setIcon(fichaBlancaIcono);
+
                     botones[i][j].setEnabled(true);
 
                 }
@@ -438,8 +442,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         rendirse();
 
     }//GEN-LAST:event_btnRendirseActionPerformed
-    
-    private void rendirse (){
+
+    private void rendirse() {
         int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
         /*
         0 - selecciono SI
@@ -460,8 +464,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             this.dispose();
         }
     }
-    
-      
+
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int resp = JOptionPane.showConfirmDialog(this, "¿Seguro desea abandonar la partida?");
         /*
@@ -565,9 +569,16 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             boolean posCorrecta = sis.getPartidaActual().getTablero().setFicha(posFicha, jugadorAhoraChar);
             if (posCorrecta && !fichaPuesta && !hayGanador) {
 
-                botones[fila][columna].setBackground(Color.BLUE);
+                if (jugadorAhoraChar == 'B') {
+                    botones[fila][columna].setIcon(fichaBlancaIcono);
+                    botones[fila][columna].setFocusPainted(false);
+                } else {
+                    botones[fila][columna].setIcon(fichaNegraIcono);
+                    botones[fila][columna].setFocusPainted(false);
+                }
+
                 fichaPuesta = true;
-                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + posFicha[0] + " " + posFicha[1], formatoMovimientoFicha, doc);
+                escribirLineaPane("\nEl Jugador " + jugadorAhora.getAlias() + " puso ficha en " + numALetra(posFicha[0]) + "" +posAFila(( posFicha[1]),dimensionF), formatoMovimientoFicha, doc);
                 panelSubtablero.setVisible(true);
                 cantFichasTotal--;
                 lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
@@ -575,16 +586,15 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
                     hayGanador = true;
                     String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
-                    
-                    if (partidaActual.getTablero().encontroGanador() == 'A' ){ // empate
-                       JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " empataron la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else {
+
+                    if (partidaActual.getTablero().encontroGanador() == 'A') { // empate
+                        JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " empataron la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+                    } else {
                         JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
                     }
                     this.dispose();
                 }
-                
+
             }
 
             if (!posCorrecta) {
@@ -609,11 +619,11 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             hayGanador = true;
             escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " GANASTE LA PARTIDA!", formatoTurnoNuevo, doc);
         }
-        
+
         if (jugador == 'A') { //ganaron los 2 = empate
-            ganador = " " + partidaActual.getJugadorNegro().getAlias().toUpperCase() + " y " +
-                    partidaActual.getJugadorBlanco().getAlias().toUpperCase() + " ";
-            partidaActual.getJugadorNegro().setCantidadPartidasEmpatadas(partidaActual.getJugadorNegro().getCantidadPartidasEmpatadas()+ 1);
+            ganador = " " + partidaActual.getJugadorNegro().getAlias().toUpperCase() + " y "
+                    + partidaActual.getJugadorBlanco().getAlias().toUpperCase() + " ";
+            partidaActual.getJugadorNegro().setCantidadPartidasEmpatadas(partidaActual.getJugadorNegro().getCantidadPartidasEmpatadas() + 1);
             partidaActual.getJugadorBlanco().setCantidadPartidasEmpatadas(partidaActual.getJugadorBlanco().getCantidadPartidasEmpatadas() + 1);
             hayGanador = true;
             escribirLineaPane("FELICIDADES " + ganador.toUpperCase() + " EMPATARON LA PARTIDA!", formatoTurnoNuevo, doc);
@@ -660,34 +670,32 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         if (!(partidaActual.getTablero().encontroGanador() == 'E')) {
             String ganador = determinarGanador(partidaActual.getTablero().encontroGanador());
             hayGanador = true;
-            if (partidaActual.getTablero().encontroGanador() == 'A' ){ // empate
-               JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
+            if (partidaActual.getTablero().encontroGanador() == 'A') { // empate
+                JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(this, "FELICITACIONES " + ganador + " ganaste la partida!", "Felicitaciones " + ganador.toLowerCase(), JOptionPane.INFORMATION_MESSAGE);
             }
             this.dispose();
 
+        } else if (cantFichasTotal == 0) {
+            this.determinarGanador('A');
+            JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
-         else{
-            if (cantFichasTotal==0){
-                this.determinarGanador('A');
-                JOptionPane.showMessageDialog(this, "Empataron la partida!", "EMPATE", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            }
-        }
-        
+
         fichaPuesta = false;
 
         if (jugadorAhora.equals(j1)) {
             jugadorAhora = j2;
             jugadorAhoraChar = 'N';
-            lblTurno.setText("Turno de Jugador " + j2.getAlias().toUpperCase() + " fichas negras");
+            lblTurno.setIcon(fichaNegraIcono);
+            lblTurno.setText("Turno de Jugador " + j2.getAlias().toUpperCase());
             escribirLineaPane("\nEs el turno del Jugador Negro, Alias: " + j2.getAlias().toUpperCase(), formatoTurnoNuevo, doc);
 
         } else {
             jugadorAhora = j1;
-            lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase() + " fichas blancas");
+            lblTurno.setIcon(fichaBlancaIcono);
+            lblTurno.setText("Turno de Jugador " + j1.getAlias().toUpperCase());
             escribirLineaPane("\nEs el turno del Jugador Blanco, Alias: " + j1.getAlias().toUpperCase(), formatoTurnoNuevo, doc);
             jugadorAhoraChar = 'B';
             turno++;
@@ -700,8 +708,10 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     public void mostrarTableroConSubTableros(int dimensionF, int dimensionC, Partida p) {
         panelSubtablero.setLayout(new GridLayout(dimensionF, dimensionC));
         int cont = 0;
-        botones = new JButton[dimensionF + 2][dimensionC + 2];
 
+        botones = new JButton[dimensionF + 2][dimensionC + 2];
+        bor = BorderFactory.createLineBorder(Color.white);
+        bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder());
         for (int i = 1; i <= dimensionF; i++) {
 
             for (int j = 1; j <= dimensionC; j++) {
@@ -711,6 +721,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 jButton.addActionListener(new ListenerBotonSubtableros(cont)); // PASO NUMERO DE SUBTABLERO
                 panelSubtablero.add(jButton);
                 botones[i][j] = jButton;
+                jButton.setBorder(bor);
 
                 if (cont == p.getPosicionHuecoActual()) { // EN CASO DE SER HUECO PINTO DE ROJO
                     botones[i][j].setSelected(true);
@@ -719,9 +730,15 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
                 }
 
-                if (!p.getTablero().validarPosicionHueco(p.getPosicionHuecoActual(), cont, p.getDeshacerMovPosHueco())) { // EN CASO DE NO SER VALIDO HAGO DISABLED EL BOTON
-                    botones[i][j].setEnabled(false);
+                if (p.getTablero().validarPosicionHueco(p.getPosicionHuecoActual(), cont, p.getDeshacerMovPosHueco())) { // EN CASO DE NO SER VALIDO HAGO DISABLED EL BOTON
+                    botones[i][j].setEnabled(true);
+                    botones[i][j].setText("" + cont);
+                    botones[i][j].setForeground(new Color(125, 189, 154));
+                    botones[i][j].setFont((new Font("Arial", Font.BOLD, 25)));
+                    botones[i][j].setBackground(new Color(162, 250, 203));
+                } else {
 
+                    botones[i][j].setEnabled(false);
                 }
 
             }
@@ -729,15 +746,31 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         }
 
     }
+public int posAFila(int nroDeFila, int dimension){
 
+   if(nroDeFila > dimension){
+   
+   while (nroDeFila>dimension){
+   
+       nroDeFila= nroDeFila-dimension;
+   
+   
+   }
+       
+   }
+
+
+return nroDeFila;
+}
     @Override
     public void update(Observable o, Object arg) {
-        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        fichaBlancaIcono = new ImageIcon(partidaActual.getFichaJBlanco());
-        fichaNegraIcono = new ImageIcon(partidaActual.getFichaJNegro());
+        fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+        fichaBlancaIcono = new ImageIcon(fichaBlancaImagen);
+        fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+        fichaNegraIcono = new ImageIcon(fichaNegraImagen);
         lblFichaBlanca.setIcon(fichaBlancaIcono);
         lblFichaNegra.setIcon(fichaNegraIcono);
+
         panelJuego.removeAll();
         mostrarTableroJuego(partidaActual);
         panelJuego.revalidate();

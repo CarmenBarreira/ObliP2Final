@@ -298,7 +298,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
         }
         if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hay un jugador seleccionado!", "No hay Jugadores", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonJugadorBlancoActionPerformed
 

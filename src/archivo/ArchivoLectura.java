@@ -12,8 +12,8 @@ public class ArchivoLectura {
     private static File archivo;
     private static FileReader fr;
     
-    public static void leerArchivo(String nombreArchivo) throws IOException, FileNotFoundException {
-        archivo = new File(nombreArchivo);
+    public static void leerArchivo(File nombreArchivo) throws IOException, FileNotFoundException {
+        archivo = nombreArchivo;
         fr = new FileReader(archivo);
         br = new BufferedReader(fr);
     }

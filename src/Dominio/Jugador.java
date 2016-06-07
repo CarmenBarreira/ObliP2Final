@@ -22,6 +22,15 @@ public class Jugador implements Comparable<Jugador>, Serializable{
         this.cantidadPartidasPerdidas = 0;
     }
 
+    public Jugador(String alias) {
+        this.alias = alias;
+        this.nombre = "Sin nombre ";
+        this.edad = -1;
+        this.cantidadPartidasGanadas = 0;
+        this.cantidadPartidasEmpatadas = 0;
+        this.cantidadPartidasPerdidas = 0;
+    }
+    
     public Jugador(String elAlias, String elNombre, int laEdad) {
         this.alias = elAlias;
         this.nombre = elNombre;

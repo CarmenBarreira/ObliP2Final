@@ -2,6 +2,7 @@ package Dominio;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -131,10 +132,9 @@ public class Sistema extends Observable implements Serializable{
         return sisRetorno;
     }
     
-    public void leerTXT (String nombreArchivo) throws IOException{
+    public void leerTXT (File nombreArchivo) throws IOException{
         String aliasJB, aliasJN, configTablero;
         archivo.ArchivoLectura.leerArchivo(nombreArchivo);
-        
         archivo.ArchivoLectura.cerrar();
     }
     

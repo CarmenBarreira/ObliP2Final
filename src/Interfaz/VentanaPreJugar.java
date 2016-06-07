@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -389,10 +390,33 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         int returnVal = fileChooserCargarPartida.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooserCargarPartida.getSelectedFile();
-           
-                          
+            String jBlanco, jNegro, tamTablero;          
+            Jugador blanco, negro;
             try {
-                miSistema.leerTXT("Prueba.txt");
+                miSistema.leerTXT(file);
+                archivo.ArchivoLectura.leerArchivo(file);
+                jBlanco = archivo.ArchivoLectura.linea();
+                blanco = new Jugador(jBlanco);
+                jNegro = archivo.ArchivoLectura.linea();
+                negro = new Jugador (jNegro);
+                int tamTab [] = new int[2];
+                if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
+                        && (miSistema.getListaJugadores().indexOf(negro) != -1)){
+                //los jugadores estan en el sistema
+                    tamTablero = archivo.ArchivoLectura.linea();
+                    tamTab= convertirTamTab(tamTablero);
+                    
+                    for (int i =0; i< tamTab[0]; i++){
+                        
+                    }
+                    
+                }
+                else{ // no estan los jugadores en el sistema
+                    JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
+
+                }
+                archivo.ArchivoLectura.cerrar();
+                
             } catch (IOException ex) {
                 Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -555,6 +579,33 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 //        });
     }
 
+    public int [] convertirTamTab (String tamanio){
+        int [] retorno = new int[2];
+        
+        if (tamanio.equalsIgnoreCase("6*6")){ 
+            retorno[0]=6;
+            retorno[1]=6;
+        }
+        else{
+            if (tamanio.equalsIgnoreCase("4*6")){
+                retorno[0]=4;
+                retorno[1]=6;
+            }
+            else{
+                if (tamanio.equalsIgnoreCase("6*4")){
+                    retorno[0]=6;
+                    retorno[1]=4;
+                }
+                else{
+                    retorno[0]=8;
+                    retorno[1]=8;
+                }
+            }
+        }
+        
+        return retorno;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButtonCambiarHueco;

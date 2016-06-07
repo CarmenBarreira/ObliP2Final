@@ -399,17 +399,43 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                 blanco = new Jugador(jBlanco);
                 jNegro = archivo.ArchivoLectura.linea();
                 negro = new Jugador (jNegro);
-                int tamTab [] = new int[2];
+                int tamTab ;
                 if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
                         && (miSistema.getListaJugadores().indexOf(negro) != -1)){
-                //los jugadores estan en el sistema
+                    //los jugadores estan en el sistema
+                    int aux [] = new int [2];
                     tamTablero = archivo.ArchivoLectura.linea();
                     tamTab= convertirTamTab(tamTablero);
+                    Tablero tabAux = new Tablero(tamTab, 1);
                     
-                    for (int i =0; i< tamTab[0]; i++){
-                        
-                    }
-                    
+                    aux = tabAux.setTamanioTablero(tamTab);
+                    int filas =aux [0], col = aux[1]; 
+                    char[][] tablero= new char[filas][col];
+                    for (int i =0; i< filas; i++){
+                        //leo fila 1
+                        String filaLectura = archivo.ArchivoLectura.linea();
+                        int a =0;
+                        for (int j=0; j<col; j++){
+                           // for (int a =0; i<filaLectura.length(); a++){
+                                if (filaLectura.charAt(a)=='B'){ //si leo B, pongo ficha blanca
+                                   tablero[i][j]='B';
+                                }
+                                else{
+                                    if (filaLectura.charAt(a)=='V'){//pongo hueco
+                                        tablero[i][j]='X';
+                                    }
+                                    else{//pongo ficha negra
+                                        tablero[i][j]='N';
+                                    }
+                                }
+                                a++;
+                            //}
+                        }
+                    } //termino de llenar el tablero
+                    Partida pAux = new Partida ();
+                    tabAux.setTablero(tablero);
+                    pAux.setTablero(tabAux);
+                    miSistema.setPartidaActual(pAux);
                 }
                 else{ // no estan los jugadores en el sistema
                     JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
@@ -579,26 +605,22 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 //        });
     }
 
-    public int [] convertirTamTab (String tamanio){
-        int [] retorno = new int[2];
+    public int convertirTamTab (String tamanio){
+        int retorno = 0;
         
         if (tamanio.equalsIgnoreCase("6*6")){ 
-            retorno[0]=6;
-            retorno[1]=6;
+            retorno=1;
         }
         else{
             if (tamanio.equalsIgnoreCase("4*6")){
-                retorno[0]=4;
-                retorno[1]=6;
+                retorno=2;
             }
             else{
                 if (tamanio.equalsIgnoreCase("6*4")){
-                    retorno[0]=6;
-                    retorno[1]=4;
+                    retorno=3;
                 }
                 else{
-                    retorno[0]=8;
-                    retorno[1]=8;
+                    retorno=4;
                 }
             }
         }

@@ -344,7 +344,6 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         ImageIcon icono = null;
 
         try {
-
             // si es la ficha blanca la cargo en la imagen de jugador blanco, asi cuando empiezo la partida si el user no selecciono nada
             // se carga esta imagen por defecto
             if (imagen.equals("cup.png")) {

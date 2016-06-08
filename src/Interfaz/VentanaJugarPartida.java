@@ -6,9 +6,7 @@ import Dominio.Sistema;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -21,10 +19,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
+import javax.sound.sampled.*;
+import java.net.URL;
 
 public final class VentanaJugarPartida extends javax.swing.JFrame implements Observer {
 
@@ -59,6 +55,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     Image imagenHueco;
     Timer t;
     String tiempolbl;
+    Clip clip;
 
     public VentanaJugarPartida(Sistema elSis, Partida p) {
 
@@ -167,6 +164,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblFichaBlanca = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
+        btnStopMusic = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cambiarFichaMenuItem = new javax.swing.JMenuItem();
@@ -295,6 +293,15 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoTemp.png"))); // NOI18N
         getContentPane().add(lblLogo);
         lblLogo.setBounds(90, 90, 10, 10);
+
+        btnStopMusic.setText("Stop Music");
+        btnStopMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopMusicActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnStopMusic);
+        btnStopMusic.setBounds(340, 570, 130, 23);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/partidaIconito.png"))); // NOI18N
         jMenu1.setText("Partida");
@@ -570,8 +577,23 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     }//GEN-LAST:event_musicaMenuItemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        musica();
+               
+        try {
+            musica("play", clip);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(VentanaJugarPartida.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Problem en play");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnStopMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopMusicActionPerformed
+        try {
+            // TODO add your handling code here:
+            musica("stop", clip);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(VentanaJugarPartida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnStopMusicActionPerformed
 
     /**
      * @param args the command line arguments
@@ -680,22 +702,37 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         }
     }
 
-    private void musica() {
-
-        AudioPlayer audioPlayer = AudioPlayer.player;
-        AudioStream musicaFondo;
-        AudioData musicaData;
-        ContinuousAudioDataStream loop = null;
-        File f1 = new File("src\\imagenes\\cuatro.wav");
-
+    private void musica(String word, Clip clipAux) throws LineUnavailableException {
+        String temp = word;
+        File f1; 
+        AudioInputStream audioIn;
+        if (temp.equals("play")){
             try {
-                InputStream f = new FileInputStream(f1);
-                musicaFondo = new AudioStream(f);
-                AudioPlayer.player.start(musicaFondo);
-            } catch (Exception e) {
-                System.err.println("No se encontro");
+             
+                f1 = new File("src\\imagenes\\cuatro.wav");
+            audioIn = AudioSystem.getAudioInputStream(f1);
+
+            clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+            
+            } catch (UnsupportedAudioFileException e) {
+             e.printStackTrace();
+            } catch (IOException e) {
+               e.printStackTrace();
+            } catch (LineUnavailableException e) {
+               e.printStackTrace();
             }
+            
+            
+
+        }else{
+            if (clipAux.isRunning()) 
+                clipAux.stop();
+        }
         
+       
+      
 
     }
 
@@ -883,6 +920,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     Sistema sis = new Sistema();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRendirse;
+    private javax.swing.JButton btnStopMusic;
     private javax.swing.JMenuItem cambiarFichaMenuItem;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;

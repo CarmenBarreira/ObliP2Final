@@ -122,43 +122,54 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         alias = jTxtAlias.getText();
         nombre = jTxtNombre.getText();
         Jugador tempJugador;
-        try {
-            edad = Integer.parseInt(jTxtEdad.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La edad es incorrecta, ingrese un numero valido", "Edad Incorrecta", ERROR_MESSAGE);
-            jTxtEdad.selectAll();
-            jTxtEdad.requestFocusInWindow();
+        boolean edadOK = true;
+        
+        if (!(stringCorrecto(alias, "alias")) && !(stringCorrecto(nombre, "nombre"))){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un Alias y Nombre correctos (los mismos no pueden ser vacios ni mayor a 10 caracteres)", "Datos Incorrectos", ERROR_MESSAGE);
+            jTxtAlias.selectAll();
+            jTxtAlias.requestFocusInWindow();
+        }else{
+            if (!(stringCorrecto(alias, "alias"))) {
+                JOptionPane.showMessageDialog(this, "El Alias es Incorrecto (el mismo no puede ser vacio ni mayor a 10 caracteres)", "Alias Incorrecto", ERROR_MESSAGE);
+                jTxtAlias.selectAll();
+                jTxtAlias.requestFocusInWindow();
+            }
+            if (!(stringCorrecto(nombre, "nombre"))) {
+                JOptionPane.showMessageDialog(this, "El nombre es Incorrecto (el mismo no puede ser vacio ni mayor a 10 caracteres)", "Nombre Incorrecto", ERROR_MESSAGE);
+                jTxtNombre.selectAll();
+                jTxtNombre.requestFocusInWindow();
+            }
+            try {
+                edad = Integer.parseInt(jTxtEdad.getText());
+            } catch (Exception e) {
+                edadOK=false;    
+                JOptionPane.showMessageDialog(this, "La edad es incorrecta, ingrese un numero valido", "Edad Incorrecta", ERROR_MESSAGE);
+                jTxtEdad.selectAll();
+                jTxtEdad.requestFocusInWindow();
+            }
+            
+            if (!((edad > 7) && (edad < 101)) && edadOK) {
+                JOptionPane.showMessageDialog(this, "Edad Incorrecta (la misma debe ser > 7 y menor a 100)", "Edad Incorrecto", ERROR_MESSAGE);
+                jTxtEdad.selectAll();
+                jTxtEdad.requestFocusInWindow();
+            }
+        
         }
         if (esNuevo) {
             tempJugador = new Jugador(alias, nombre, edad);
 
         } else {
             tempJugador = new Jugador(alias, nombre, edad, j.getCantidadPartidasPerdidas(), j.getCantidadPartidasGanadas(), j.getCantidadPartidasEmpatadas());
-
         }
-
-        if (!(stringCorrecto(alias, "alias"))) {
-            JOptionPane.showMessageDialog(this, "El Alias es Incorrecto ()", "Alias Incorrecto", ERROR_MESSAGE);
-            jTxtAlias.selectAll();
-            jTxtAlias.requestFocusInWindow();
-        }
-        if (!(stringCorrecto(nombre, "nombre"))) {
-            JOptionPane.showMessageDialog(this, "El nombre es Incorrecto", "Nombre Incorrecto", ERROR_MESSAGE);
-            jTxtNombre.selectAll();
-            jTxtNombre.requestFocusInWindow();
-        }
-        if (!((edad > 0) && (edad < 100))) {
-            JOptionPane.showMessageDialog(this, "Edad Incorrecta", "Edad Incorrecto", ERROR_MESSAGE);
-            jTxtNombre.selectAll();
-            jTxtNombre.requestFocusInWindow();
-        }
+        
+        
         if (sis.getListaJugadores().indexOf(tempJugador) != -1) {
             JOptionPane.showMessageDialog(this, "Ya Existe un jugador con el Alias: " + tempJugador.getAlias(), "Jugador Duplicado", ERROR_MESSAGE);
             jTxtNombre.selectAll();
             jTxtNombre.requestFocusInWindow();
         }
 
-        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 0) && (edad < 100)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
+        if ((stringCorrecto(alias, "alias")) && (stringCorrecto(nombre, "nombre")) && ((edad > 7) && (edad < 101)) && sis.getListaJugadores().indexOf(tempJugador) == -1) {
             if (esNuevo) {
                 sis.agregarJugador(tempJugador);
                 JOptionPane.showMessageDialog(this, "Jugador creado correctamente", "Jugador creado exitosamente", JOptionPane.INFORMATION_MESSAGE);

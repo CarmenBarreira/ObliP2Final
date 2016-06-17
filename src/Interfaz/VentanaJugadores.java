@@ -214,7 +214,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
 
     private void jBtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBorrarActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
-         int filas = tablaJugadores.getRowCount();
+         int filas = tablaJugadores.getSelectedRowCount();
         
         if (filas>1){
             JOptionPane.showMessageDialog(this, "Debe seleccionar de a 1 Jugador", "Mas de 1 Jugador seleccionado", ERROR_MESSAGE);
@@ -234,7 +234,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
-        int filas = tablaJugadores.getRowCount();
+        int filas = tablaJugadores.getSelectedRowCount();
         if (filas>1){
             JOptionPane.showMessageDialog(this, "Debe seleccionar de a 1 Jugador", "Mas de 1 Jugador seleccionado", ERROR_MESSAGE);
         }else{

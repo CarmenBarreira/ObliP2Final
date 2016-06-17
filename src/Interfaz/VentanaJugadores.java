@@ -214,28 +214,37 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
 
     private void jBtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBorrarActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
-        if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-             if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro/a que desea borrar el/la jugador/a?",
-                "Borrar Jugador/a", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-             miSistema.eliminarJugador(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
-           
-//            model.removeRow(tabla.getSelectedRow());
-        }else{
-            if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
-            }
-        }
+         int filas = tablaJugadores.getRowCount();
         
+        if (filas>1){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar de a 1 Jugador", "Mas de 1 Jugador seleccionado", ERROR_MESSAGE);
+        }else{
+             if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+                if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro/a que desea borrar el/la jugador/a?",
+                   "Borrar Jugador/a", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                    miSistema.eliminarJugador(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
+           
+            }else{
+                if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+                    JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
+                }
+            }
+        }        
     }//GEN-LAST:event_jBtnBorrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         DefaultTableModel model = (DefaultTableModel) tablaJugadores.getModel();
-        if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            VentanaEditarJugador editarJugador = new VentanaEditarJugador(miSistema, miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
-            editarJugador.setVisible(true);
-        }
-        if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
-            JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
+        int filas = tablaJugadores.getRowCount();
+        if (filas>1){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar de a 1 Jugador", "Mas de 1 Jugador seleccionado", ERROR_MESSAGE);
+        }else{
+            if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+                VentanaEditarJugador editarJugador = new VentanaEditarJugador(miSistema, miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
+                editarJugador.setVisible(true);
+            }
+            if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+                JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

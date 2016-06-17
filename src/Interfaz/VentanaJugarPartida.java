@@ -709,7 +709,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         if (temp.equals("play")){
             try {
              
-                f1 = new File("src\\imagenes\\cuatro.wav");
+           f1 = new File("src\\imagenes\\cuatro.wav");
             audioIn = AudioSystem.getAudioInputStream(f1);
 
             clip = AudioSystem.getClip();

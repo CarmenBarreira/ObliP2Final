@@ -138,7 +138,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         }
 
         if (!(stringCorrecto(alias, "alias"))) {
-            JOptionPane.showMessageDialog(this, "El Alias es Incorrecto", "Alias Incorrecto", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El Alias es Incorrecto ()", "Alias Incorrecto", ERROR_MESSAGE);
             jTxtAlias.selectAll();
             jTxtAlias.requestFocusInWindow();
         }

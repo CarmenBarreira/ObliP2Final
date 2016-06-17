@@ -317,4 +317,100 @@ public class Tablero implements Serializable{
         }
         return fila;
     }
+    
+    
+    public int getSubtablero(int tamañoTablero, int[] comienzoSubtablero ){
+        //comienzoSubtablero es la primer posicion de donde arranca el subtablero
+        
+        int subtablero =0;
+        
+        if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==0){
+             subtablero=1;
+        }
+        else{
+            if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==2){
+                subtablero =2;
+            }
+            else{
+                if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==4){
+                    subtablero =3;
+                }
+                else{
+                    if ((comienzoSubtablero[0]==0 && comienzoSubtablero[1]==6 && tamañoTablero ==4)
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero==3)
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero ==1)
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && tamañoTablero == 2)){
+                        subtablero =4;
+                    }
+                    else{
+                        if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero==4)
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && (tamañoTablero ==1 || tamañoTablero==3))){
+                            subtablero = 5;
+                        }
+                        else{
+                            if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && tamañoTablero==4)
+                                    || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==4 && 
+                                    (tamañoTablero==1 || tamañoTablero==3)) ){
+                                 subtablero = 6;
+                            }
+                            else{
+                                if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==4 && tamañoTablero == 4)
+                                    || (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==0 && tamañoTablero==1)){
+                                     subtablero = 7;
+                                }
+                                else{
+                                    if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==6 && tamañoTablero==4)
+                                        || (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==2 && tamañoTablero==1) ){
+                                        subtablero = 8;
+                                    }
+                                    else{
+                                        if ((comienzoSubtablero[0]==4 && comienzoSubtablero[1]==0 && tamañoTablero==4)
+                                          || (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==4 && tamañoTablero==1)){
+                                            subtablero = 9;
+                                            }
+                                            else{
+                                                if ((comienzoSubtablero[0]==4 && comienzoSubtablero[1]==2 && tamañoTablero==4)){
+                                                    subtablero = 10;
+                                                }
+                                                else{
+                                                    if (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==4 && tamañoTablero ==4){
+                                                        subtablero = 11;
+                                                    }
+                                                    else{
+                                                        if (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==6){
+                                                             subtablero=12;
+                                                         }
+                                                         else{
+                                                             if (comienzoSubtablero[0]==6 && comienzoSubtablero[1]==0){
+                                                                subtablero=13;
+                                                            }
+                                                             else{
+                                                                  if (comienzoSubtablero[0]==6 && comienzoSubtablero[1]==2){
+                                                                        subtablero=14;
+                                                                    }
+                                                                  else{
+                                                                      if (comienzoSubtablero[0]==6 && comienzoSubtablero[1]==4){
+                                                                        subtablero=15;
+                                                                     }
+                                                                      else
+                                                                          subtablero=16;
+                                                                  }
+                                                             }
+                                                     }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+                  
+        }   
+       
+        
+        return subtablero;
+    }
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interfaz;
 
 import Dominio.Jugador;
@@ -12,14 +7,8 @@ import Dominio.Tablero;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -27,15 +16,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Juan
- */
 public class VentanaPreJugar extends javax.swing.JFrame {
 
     JFileChooser fc;
@@ -370,11 +354,16 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonJugadorNegroActionPerformed
 
     private void jButtonJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugarActionPerformed
+        Partida p = new Partida();
+        
         if (hayJBlanco && hayJNegro) {
-            Partida p = new Partida(miSistema.getConfPartida(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
+            
+                p = new Partida(miSistema.getConfPartida(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
+             
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
             this.dispose();
+            
         } else {
             JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);
         }
@@ -387,6 +376,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
     private void jCargarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargarPartidaActionPerformed
         JFileChooser fileChooserCargarPartida = new JFileChooser();
+        int posSubTablero;
         int returnVal = fileChooserCargarPartida.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooserCargarPartida.getSelectedFile();
@@ -407,7 +397,8 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                     tamTablero = archivo.ArchivoLectura.linea();
                     tamTab= convertirTamTab(tamTablero);
                     Tablero tabAux = new Tablero(tamTab, 1);
-                    
+                    int[] posHueco = new int[2];
+                    int primeraPosHueco = 0;
                     aux = tabAux.setTamanioTablero(tamTab);
                     int filas =aux [0], col = aux[1]; 
                     char[][] tablero= new char[filas][col];
@@ -421,21 +412,38 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                                    tablero[i][j]='B';
                                 }
                                 else{
-                                    if (filaLectura.charAt(a)=='V'){//pongo hueco
+                                    if (filaLectura.charAt(a)=='H'){//pongo hueco
                                         tablero[i][j]='X';
+                                        if (primeraPosHueco == 0){
+                                            posHueco[0]=i;
+                                            posHueco[1]=j;
+                                           
+                                        }
+                                        primeraPosHueco++;
                                     }
-                                    else{//pongo ficha negra
-                                        tablero[i][j]='N';
+                                    else{
+                                         if (filaLectura.charAt(a)=='N'){
+                                             //pongo ficha negra
+                                             tablero[i][j]='N';
+                                         }
                                     }
                                 }
                                 a++;
                             //}
                         }
                     } //termino de llenar el tablero
+                  
+                    posSubTablero = tabAux.getSubtablero(tamTab, posHueco);
                     Partida pAux = new Partida ();
                     tabAux.setTablero(tablero);
+                    tabAux.setPosHueco(posHueco);
                     pAux.setTablero(tabAux);
                     miSistema.setPartidaActual(pAux);
+                    int [] configPartida = new int [2];
+                    configPartida [0] = tamTab;
+                    configPartida [1] = posSubTablero;
+                    
+                    miSistema.setConfPartida(configPartida);
                 }
                 else{ // no estan los jugadores en el sistema
                     JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);

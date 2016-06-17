@@ -217,10 +217,12 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             miSistema.eliminarJugador(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
 //            model.removeRow(tabla.getSelectedRow());
-        }
-        if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+        }else{
+            if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
             JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
+            }
         }
+        
     }//GEN-LAST:event_jBtnBorrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

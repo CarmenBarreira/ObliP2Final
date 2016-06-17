@@ -14,12 +14,9 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
     public VentanaMenuPrincipal(Sistema sis) throws ClassNotFoundException {
         initComponents();
         elSis = sis;
-//        
          try {
-//            if(elSis!=null){
                 elSis = sis.persistirLeer();
-//            } 
-            
+           
            } catch (FileNotFoundException e) {
             System.out.println("1" + e.getMessage());
         } catch (IOException e) {
@@ -33,11 +30,11 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 try {
             elSis.persistirGuardar(elSis);
+             
         } catch (IOException ex) {
+        }       
+        close();
         }
-        
-        System.exit(0);
-            }
         });
     }
 
@@ -145,9 +142,7 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
                 vJugadores.setLocation((rct.width - vJugadores.getWidth()) / 2, (rct.height - vJugadores.getHeight()) / 2);
                 vJugadores.setVisible(true);
             }
-
         }
-
     }//GEN-LAST:event_btnMPJugarPartidaActionPerformed
 
     private void btnMPConfiguracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPConfiguracionesActionPerformed
@@ -155,13 +150,13 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         Rectangle rct = vConfig.getGraphicsConfiguration().getBounds();
         vConfig.setLocation((rct.width - vConfig.getWidth()) / 2, (rct.height - vConfig.getHeight()) / 2);
         vConfig.setVisible(true);
-
-
     }//GEN-LAST:event_btnMPConfiguracionesActionPerformed
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
         try {
+             
             elSis.persistirGuardar(elSis);
+            close();
         } catch (IOException ex) {
         }
 //        

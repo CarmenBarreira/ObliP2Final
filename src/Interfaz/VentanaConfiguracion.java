@@ -67,8 +67,6 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         rb6x4 = new javax.swing.JRadioButton();
         lblTituloSeleccionar = new javax.swing.JLabel();
         lblDimensiones = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        lblMusica = new javax.swing.JLabel();
         txtlblSub = new javax.swing.JLabel();
         subtableroElegidolbl = new javax.swing.JLabel();
 
@@ -167,11 +165,6 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
         lblDimensiones.setText("Dimensiones de Tablero");
 
-        jButton1.setText("Si");
-
-        lblMusica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/music-icon.png"))); // NOI18N
-        lblMusica.setText("Musica en Partida");
-
         txtlblSub.setText("Subtablero Elegido");
 
         subtableroElegidolbl.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -184,20 +177,16 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(53, 53, 53)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblMusica)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtlblSub, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtlblSub, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(76, 76, 76)
                         .addComponent(subtableroElegidolbl)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,16 +212,12 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelJuegoConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTamTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtlblSub, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMusica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtlblSub)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(subtableroElegidolbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardarConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,10 +430,8 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgroupTamTablero;
     private javax.swing.JButton btnGuardarConfig;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanelTamTablero;
     private javax.swing.JLabel lblDimensiones;
-    private javax.swing.JLabel lblMusica;
     private javax.swing.JLabel lblTituloSeleccionar;
     private javax.swing.JPanel panelJuegoConfig;
     private javax.swing.JRadioButton rb4x6;

@@ -453,6 +453,8 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                         configPartida [1] = posSubTablero;
 
                         miSistema.setConfPartida(configPartida);
+                         JOptionPane.showMessageDialog(this, "Partida cargada correctamente", 
+                                 "Partida cargada exitosamente", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{ // no estan los jugadores en el sistema
                         JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);

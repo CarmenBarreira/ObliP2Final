@@ -192,14 +192,14 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         getContentPane().add(panelJuego);
         panelJuego.setBounds(480, 120, 420, 370);
 
-        jButton1.setText("ESCUCHAR MUSICA");
+        jButton1.setText("PLAY MUSIC");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(540, 500, 210, 60);
+        jButton1.setBounds(540, 500, 140, 40);
 
         btnRendirse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
         btnRendirse.setText("Rendirse");
@@ -294,14 +294,14 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         getContentPane().add(lblLogo);
         lblLogo.setBounds(90, 90, 10, 10);
 
-        btnStopMusic.setText("Stop Music");
+        btnStopMusic.setText("STOP MUSIC");
         btnStopMusic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStopMusicActionPerformed(evt);
             }
         });
         getContentPane().add(btnStopMusic);
-        btnStopMusic.setBounds(340, 570, 130, 23);
+        btnStopMusic.setBounds(690, 500, 140, 40);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/partidaIconito.png"))); // NOI18N
         jMenu1.setText("Partida");

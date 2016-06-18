@@ -293,7 +293,7 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonJugadorBlancoActionPerformed
 
     private ImageIcon cargarImagenIconoDefault(String imagen) {
-        File f1 = new File("src\\imagenes\\" + imagen);
+        Image f1;
         Image blanca;
         Image negra;
         Image hueco;
@@ -305,24 +305,26 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             // se carga esta imagen por defecto
             if (imagen.equals("fichaBlanca.png")) {
 
-                blanca = ImageIO.read(f1);
+                blanca = ImageIO.read(getClass().getResource("/imagenes/fichaBlanca.png"));;
                 blanca = blanca.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
 
                 icono = new ImageIcon(blanca);
-                jBlancoFicha = ImageIO.read(f1);
+                jBlancoFicha = blanca;
 
             }
             if (imagen.equals("fichaNegra.png")) {
-                negra = ImageIO.read(f1);
+    
+                negra = ImageIO.read(getClass().getResource("/imagenes/fichaNegra.png"));
                 negra = negra.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+
                 icono = new ImageIcon(negra);
-                jNegroFicha = ImageIO.read(f1);
+                jNegroFicha = negra;
             }
             if (imagen.equals("hueco.png")) {
-                hueco = ImageIO.read(f1);
+                hueco = ImageIO.read(getClass().getResource("/imagenes/hueco.png"));
                 hueco = hueco.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
                 icono = new ImageIcon(hueco);
-                huecoFicha = ImageIO.read(f1);
+                huecoFicha = hueco;
             }
 
         } catch (IOException ex) {

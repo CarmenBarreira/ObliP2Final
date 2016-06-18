@@ -20,7 +20,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.sound.sampled.*;
-import java.net.URL;
+
 
 public final class VentanaJugarPartida extends javax.swing.JFrame implements Observer {
 
@@ -82,7 +82,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblFichaNegra.setIcon(fichaNegraIcono);
         doc = txtAreaDescrip.getStyledDocument();
         panelSubtablero.setVisible(false);
-
+        btnStopMusic.setEnabled(false);
         hueco = new ImageIcon(imagenHueco);
         lblNumeroTurno.setText("Turno: " + turno);
         cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
@@ -150,7 +150,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     private void initComponents() {
 
         panelJuego = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        playMusicBtn = new javax.swing.JButton();
         btnRendirse = new javax.swing.JButton();
         lblTurno = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -192,14 +192,14 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         getContentPane().add(panelJuego);
         panelJuego.setBounds(480, 120, 420, 370);
 
-        jButton1.setText("PLAY MUSIC");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        playMusicBtn.setText("PLAY MUSIC");
+        playMusicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                playMusicBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(540, 500, 140, 40);
+        getContentPane().add(playMusicBtn);
+        playMusicBtn.setBounds(540, 500, 140, 40);
 
         btnRendirse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rendirseIcono.png"))); // NOI18N
         btnRendirse.setText("Rendirse");
@@ -576,15 +576,19 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         // TODO add your handling code here:
     }//GEN-LAST:event_musicaMenuItemActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               
+    private void playMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMusicBtnActionPerformed
+
         try {
             musica("play", clip);
         } catch (LineUnavailableException ex) {
             Logger.getLogger(VentanaJugarPartida.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Problem en play");
+         
+
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+           playMusicBtn.setEnabled(false);
+         btnStopMusic.setEnabled(true);
+    }//GEN-LAST:event_playMusicBtnActionPerformed
 
     private void btnStopMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopMusicActionPerformed
         try {
@@ -593,6 +597,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         } catch (LineUnavailableException ex) {
             Logger.getLogger(VentanaJugarPartida.class.getName()).log(Level.SEVERE, null, ex);
         }
+        playMusicBtn.setEnabled(true);
     }//GEN-LAST:event_btnStopMusicActionPerformed
 
     /**
@@ -704,35 +709,28 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
     private void musica(String word, Clip clipAux) throws LineUnavailableException {
         String temp = word;
-        File f1; 
+        File f1;
         AudioInputStream audioIn;
-        if (temp.equals("play")){
+        if (temp.equals("play")) {
             try {
-             
-           f1 = new File("src\\imagenes\\cuatro.wav");
-            audioIn = AudioSystem.getAudioInputStream(f1);
 
-            clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-            
+                audioIn = AudioSystem.getAudioInputStream(getClass().getResource("/imagenes/cuatro.wav"));
+
+                clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.start();
+
             } catch (UnsupportedAudioFileException e) {
-             e.printStackTrace();
+                e.printStackTrace();
             } catch (IOException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             } catch (LineUnavailableException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
-            
-            
 
-        }else{
-            if (clipAux.isRunning()) 
-                clipAux.stop();
+        } else if (clipAux.isRunning()) {
+            clipAux.stop();
         }
-        
-       
-      
 
     }
 
@@ -922,7 +920,6 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     private javax.swing.JButton btnRendirse;
     private javax.swing.JButton btnStopMusic;
     private javax.swing.JMenuItem cambiarFichaMenuItem;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -937,6 +934,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
     private javax.swing.JPanel panelLetras;
     private javax.swing.JPanel panelNumeros;
     private javax.swing.JPanel panelSubtablero;
+    private javax.swing.JButton playMusicBtn;
     private javax.swing.JMenuItem rendirseMenuItem;
     private javax.swing.JLabel time;
     private javax.swing.JTextPane txtAreaDescrip;

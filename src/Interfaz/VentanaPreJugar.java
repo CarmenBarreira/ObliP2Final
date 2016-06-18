@@ -380,82 +380,93 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         int returnVal = fileChooserCargarPartida.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooserCargarPartida.getSelectedFile();
-            String jBlanco, jNegro, tamTablero;          
+            String jBlanco, jNegro, tamTablero;   
+            String ruta = file.getAbsolutePath();
+            int largoRuta = ruta.length();
             Jugador blanco, negro;
-            try {
-                miSistema.leerTXT(file);
-                archivo.ArchivoLectura.leerArchivo(file);
-                jBlanco = archivo.ArchivoLectura.linea();
-                blanco = new Jugador(jBlanco);
-                jNegro = archivo.ArchivoLectura.linea();
-                negro = new Jugador (jNegro);
-                int tamTab ;
-                if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
-                        && (miSistema.getListaJugadores().indexOf(negro) != -1)){
-                    //los jugadores estan en el sistema
-                    int aux [] = new int [2];
-                    tamTablero = archivo.ArchivoLectura.linea();
-                    tamTab= convertirTamTab(tamTablero);
-                    Tablero tabAux = new Tablero(tamTab, 1);
-                    int[] posHueco = new int[2];
-                    int primeraPosHueco = 0;
-                    aux = tabAux.setTamanioTablero(tamTab);
-                    int filas =aux [0], col = aux[1]; 
-                    char[][] tablero= new char[filas][col];
-                    for (int i =0; i< filas; i++){
-                        //leo fila 1
-                        String filaLectura = archivo.ArchivoLectura.linea();
-                        int a =0;
-                        for (int j=0; j<col; j++){
-                           // for (int a =0; i<filaLectura.length(); a++){
-                                if (filaLectura.charAt(a)=='B'){ //si leo B, pongo ficha blanca
-                                   tablero[i][j]='B';
-                                }
-                                else{
-                                    if (filaLectura.charAt(a)=='H'){//pongo hueco
-                                        tablero[i][j]='X';
-                                        if (primeraPosHueco == 0){
-                                            posHueco[0]=i;
-                                            posHueco[1]=j;
-                                           
-                                        }
-                                        primeraPosHueco++;
+            if (ruta.charAt(largoRuta-1) != 't' && ruta.charAt(largoRuta-1) != 'T' 
+                    && (ruta.charAt(largoRuta-2) != 'x' && ruta.charAt(largoRuta-1) != 'X')
+                    && (ruta.charAt(largoRuta-3) != 't' && ruta.charAt(largoRuta-1) != 'T')){
+                JOptionPane.showMessageDialog(this, "El formato de archivo debe ser .txt ", 
+                        "Formato de archivo incorrecto", ERROR_MESSAGE);
+            }
+            else{
+                try {
+                    miSistema.leerTXT(file);
+                    archivo.ArchivoLectura.leerArchivo(file);
+                    jBlanco = archivo.ArchivoLectura.linea();
+                    blanco = new Jugador(jBlanco);
+                    jNegro = archivo.ArchivoLectura.linea();
+                    negro = new Jugador (jNegro);
+                    int tamTab ;
+                    if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
+                            && (miSistema.getListaJugadores().indexOf(negro) != -1)){
+                        //los jugadores estan en el sistema
+                        int aux [] = new int [2];
+                        tamTablero = archivo.ArchivoLectura.linea();
+                        tamTab= convertirTamTab(tamTablero);
+                        Tablero tabAux = new Tablero(tamTab, 1);
+                        int[] posHueco = new int[2];
+                        int primeraPosHueco = 0;
+                        aux = tabAux.setTamanioTablero(tamTab);
+                        int filas =aux [0], col = aux[1]; 
+                        char[][] tablero= new char[filas][col];
+                        for (int i =0; i< filas; i++){
+                            //leo fila 1
+                            String filaLectura = archivo.ArchivoLectura.linea();
+                            int a =0;
+                            for (int j=0; j<col; j++){
+                               // for (int a =0; i<filaLectura.length(); a++){
+                                    if (filaLectura.charAt(a)=='B'){ //si leo B, pongo ficha blanca
+                                       tablero[i][j]='B';
                                     }
                                     else{
-                                         if (filaLectura.charAt(a)=='N'){
-                                             //pongo ficha negra
-                                             tablero[i][j]='N';
-                                         }
-                                    }
-                                }
-                                a++;
-                            //}
-                        }
-                    } //termino de llenar el tablero
-                  
-                    posSubTablero = tabAux.getSubtablero(tamTab, posHueco);
-                    Partida pAux = new Partida ();
-                    tabAux.setTablero(tablero);
-                    tabAux.setPosHueco(posHueco);
-                    pAux.setTablero(tabAux);
-                    miSistema.setPartidaActual(pAux);
-                    int [] configPartida = new int [2];
-                    configPartida [0] = tamTab;
-                    configPartida [1] = posSubTablero;
-                    
-                    miSistema.setConfPartida(configPartida);
-                }
-                else{ // no estan los jugadores en el sistema
-                    JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
+                                        if (filaLectura.charAt(a)=='H'){//pongo hueco
+                                            tablero[i][j]='X';
+                                            if (primeraPosHueco == 0){
+                                                posHueco[0]=i;
+                                                posHueco[1]=j;
 
+                                            }
+                                            primeraPosHueco++;
+                                        }
+                                        else{
+                                             if (filaLectura.charAt(a)=='N'){
+                                                 //pongo ficha negra
+                                                 tablero[i][j]='N';
+                                             }
+                                        }
+                                    }
+                                    a++;
+                                //}
+                            }
+                        } //termino de llenar el tablero
+
+                        posSubTablero = tabAux.getSubtablero(tamTab, posHueco);
+                        Partida pAux = new Partida ();
+                        tabAux.setTablero(tablero);
+                        tabAux.setPosHueco(posHueco);
+                        pAux.setTablero(tabAux);
+                        miSistema.setPartidaActual(pAux);
+                        int [] configPartida = new int [2];
+                        configPartida [0] = tamTab;
+                        configPartida [1] = posSubTablero;
+
+                        miSistema.setConfPartida(configPartida);
+                    }
+                    else{ // no estan los jugadores en el sistema
+                        JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
+
+                    }
+                    archivo.ArchivoLectura.cerrar();
+
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                archivo.ArchivoLectura.cerrar();
-                
-            } catch (IOException ex) {
-                Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
+
+
             }
-            
-            
+                        
         }
     }//GEN-LAST:event_jCargarPartidaActionPerformed
 

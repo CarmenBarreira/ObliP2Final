@@ -574,6 +574,17 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
     private void musicaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMenuItemActionPerformed
         // TODO add your handling code here:
+        try {
+            musica("play", clip);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(VentanaJugarPartida.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Problem en play");
+         
+
+        }
+           playMusicBtn.setEnabled(false);
+         btnStopMusic.setEnabled(true);
+        
     }//GEN-LAST:event_musicaMenuItemActionPerformed
 
     private void playMusicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playMusicBtnActionPerformed

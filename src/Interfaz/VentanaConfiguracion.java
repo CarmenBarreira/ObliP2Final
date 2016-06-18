@@ -1,5 +1,6 @@
 package Interfaz;
 
+import Dominio.Partida;
 import Dominio.Sistema;
 import Dominio.Tablero;
 import java.awt.Color;
@@ -32,7 +33,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         Tablero tab = new Tablero(sis.getConfPartida()[0], sis.getConfPartida()[1]);
         bor = BorderFactory.createLineBorder(Color.white);
         bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder());
-
+        
         mostrarTableroConSubTableros((tab.getTablero().length / 2), (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
      
         int tablero = sis.getConfPartida()[0];
@@ -51,6 +52,8 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 break;
 
         }
+        unSis.getPartidaActual().setTablero(tab);
+           
     }
 
     @SuppressWarnings("unchecked")

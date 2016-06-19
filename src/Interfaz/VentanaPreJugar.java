@@ -512,7 +512,8 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                     tamTablero = archivo.ArchivoLectura.linea();
                     tamTab = convertirTamTab(tamTablero);
                     tabAux = new Tablero(tamTab, 1);
-
+                    negro = miSistema.getListaJugadores().get(miSistema.getListaJugadores().indexOf(negro));
+                    blanco = miSistema.getListaJugadores().get(miSistema.getListaJugadores().indexOf(blanco));
                     aux = tabAux.setTamanioTablero(tamTab);
                     int filas = aux[0], col = aux[1];
                     char[][] tablero = new char[filas][col];

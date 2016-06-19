@@ -18,6 +18,7 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         //seteo icono de form
         ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
         Image image = ImageIcon.getImage();
+        image = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         this.setIconImage(image);
         
     }

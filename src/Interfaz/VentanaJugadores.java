@@ -2,9 +2,11 @@ package Interfaz;
 
 import Dominio.Jugador;
 import Dominio.Sistema;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,11 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         miSistema = sis;
         miSistema.addObserver(this);
         update(null, null);
+        
+        //seteo icono de form
+        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
         
     }
 

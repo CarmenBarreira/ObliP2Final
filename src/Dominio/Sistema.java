@@ -99,7 +99,7 @@ public class Sistema extends Observable implements Serializable{
         notifyObservers();
     }
 
-     public void persistirGuardar(Sistema sis) throws IOException {
+    public void persistirGuardar(Sistema sis) throws IOException {
          
         FileOutputStream f = new FileOutputStream("archivo");
         BufferedOutputStream b = new BufferedOutputStream(f);
@@ -115,7 +115,6 @@ public class Sistema extends Observable implements Serializable{
         }
         
     }
-    
     
     public Sistema persistirLeer() throws IOException, ClassNotFoundException {
         FileInputStream ff = new FileInputStream ("archivo");

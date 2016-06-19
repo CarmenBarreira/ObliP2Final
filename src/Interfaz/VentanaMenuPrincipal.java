@@ -1,18 +1,27 @@
 package Interfaz;
 
 import Dominio.Sistema;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     public VentanaMenuPrincipal(Sistema sis) throws ClassNotFoundException {
+        
         initComponents();
+        
+        //seteo icono de form
+        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
+             
         elSis = sis;
          try {
                 elSis = sis.persistirLeer();
@@ -23,8 +32,6 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             System.out.println("2" + e.getMessage());
         }
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
- 
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -51,7 +58,6 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("4enCuadrado - Menu Principal");
         setBackground(new java.awt.Color(255, 255, 255));
-        setIconImages(null);
         setResizable(false);
         setSize(new java.awt.Dimension(594, 420));
 

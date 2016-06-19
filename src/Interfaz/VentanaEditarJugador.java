@@ -2,6 +2,8 @@ package Interfaz;
 
 import Dominio.Jugador;
 import Dominio.Sistema;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -13,6 +15,11 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
     public VentanaEditarJugador(Sistema unSis) {
         initComponents();
         sis = unSis;
+        //seteo icono de form
+        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
+        
     }
 
     public VentanaEditarJugador(Sistema unSis, Jugador juga) {

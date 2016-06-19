@@ -49,6 +49,11 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         cargarLista();
 
         panelJuegoConfig.setVisible(true);
+        
+        //seteo icono de form
+        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
 
     }
 

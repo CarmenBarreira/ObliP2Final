@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -23,6 +24,12 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
+        
+        //seteo icono de form
+        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
+        
         sis = unSis;
         opcionTablero = sis.getConfPartida()[0];
         posHueco = sis.getConfPartida()[1];

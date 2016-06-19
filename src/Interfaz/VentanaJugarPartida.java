@@ -63,10 +63,13 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         sis = elSis;
         
         //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        this.setIconImage(image);        
-        
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         fichaBlancaImagen = partidaActual.getFichaJBlanco().getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);
         fichaBlancaIcono = new ImageIcon(fichaBlancaImagen);
         fichaNegraImagen = partidaActual.getFichaJNegro().getScaledInstance(100, 60, java.awt.Image.SCALE_SMOOTH);

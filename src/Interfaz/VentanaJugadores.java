@@ -3,9 +3,13 @@ package Interfaz;
 import Dominio.Jugador;
 import Dominio.Sistema;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -18,16 +22,19 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
     public VentanaJugadores(Sistema sis) {
 
         initComponents();
+        
+                Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         miSistema = sis;
         miSistema.addObserver(this);
         update(null, null);
         
-        //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        image = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        this.setIconImage(image);
-        
+
     }
 
     public void cargarLista() {

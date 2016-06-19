@@ -5,6 +5,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -28,10 +31,13 @@ public class frameCambiarFicha extends javax.swing.JFrame {
         lblFichaBlanca.setIcon(blanco);
         lblFichaNegra.setIcon(negro);
 
-        //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        this.setIconImage(image);    
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         jButton1.addActionListener(new ActionListener() {
             @Override

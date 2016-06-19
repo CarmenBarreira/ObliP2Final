@@ -3,12 +3,18 @@ package Interfaz;
 import Dominio.Jugador;
 import Dominio.Sistema;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 public class VentanaEditarJugador extends javax.swing.JFrame {
 
+    
+    
     boolean esNuevo = true;
     Jugador j;
 
@@ -16,10 +22,13 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
         initComponents();
         sis = unSis;
         //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        image = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        this.setIconImage(image);
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -27,7 +36,13 @@ public class VentanaEditarJugador extends javax.swing.JFrame {
 
         initComponents();
         sis = unSis;
-
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jTxtAlias.setText(juga.getAlias());
         jTxtNombre.setText(juga.getAlias());
         jTxtEdad.setText("" + juga.getEdad());

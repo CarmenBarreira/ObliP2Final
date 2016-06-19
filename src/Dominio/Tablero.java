@@ -319,7 +319,7 @@ public class Tablero implements Serializable{
     }
     
     
-    public int getSubtablero(int tamañoTablero, int[] comienzoSubtablero ){
+    public int getPosHuecoCargar(int tamañoTablero, int[] comienzoSubtablero ){
         //comienzoSubtablero es la primer posicion de donde arranca el subtablero
                
         int subtablero =0;

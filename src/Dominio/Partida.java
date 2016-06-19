@@ -16,9 +16,8 @@ public class Partida extends Observable implements Serializable {
     private transient Image fichaJBlanco;
     private transient Image fichaJNegro;
     private transient Image fichaHueco;
-    
-    //Variable que guarda el anterior movimiento para no deshacer movimientos
 
+    //Variable que guarda el anterior movimiento para no deshacer movimientos
     //constructor
     public Partida() { // constructor vacio
         Jugador aux = new Jugador();
@@ -41,11 +40,11 @@ public class Partida extends Observable implements Serializable {
         this.fichaHueco = huecoImg;
         this.fichaJNegro = jNegroImg;
     }
-    
-     public Partida(int[] configuracion, Tablero tab, Jugador jBlanco, Jugador jNegro, Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
+
+    public Partida(int posHueco, Tablero tab, Jugador jBlanco, Jugador jNegro, Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
         this.jugadorBlanco = jBlanco;
         this.jugadorNegro = jNegro;
-        this.posicionHuecoActual = configuracion[1];
+        this.posicionHuecoActual = posHueco;
         this.tablero = tab;
         this.deshacerMovPosHueco = -1;
         this.fichaJBlanco = jBlancoImg;

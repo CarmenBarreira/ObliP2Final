@@ -10,6 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -21,16 +25,18 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private int opcionTablero;
     Border bor;
 
-
     public VentanaConfiguracion(Sistema unSis) {
         initComponents();
-        
+
         //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        image = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        this.setIconImage(image);
-        
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         sis = unSis;
         opcionTablero = sis.getConfPartida()[0];
         posHueco = sis.getConfPartida()[1];
@@ -41,9 +47,9 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         Tablero tab = new Tablero(sis.getConfPartida()[0], sis.getConfPartida()[1]);
         bor = BorderFactory.createLineBorder(Color.white);
         bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder());
-        
+
         mostrarTableroConSubTableros((tab.getTablero().length / 2), (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
-     
+
         int tablero = sis.getConfPartida()[0];
         switch (tablero) {
             case 1:
@@ -61,7 +67,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
 
         }
         unSis.getPartidaActual().setTablero(tab);
-           
+
     }
 
     @SuppressWarnings("unchecked")
@@ -255,7 +261,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(3, 3, 5);
         opcionTablero = 1;
-           subtableroElegidolbl.setText("5");
+        subtableroElegidolbl.setText("5");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
 
@@ -266,7 +272,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(2, 3, 2);
- subtableroElegidolbl.setText("2");
+        subtableroElegidolbl.setText("2");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 2;
@@ -276,7 +282,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
     private void rb6x4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb6x4ActionPerformed
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(3, 2, 2);
-         subtableroElegidolbl.setText("2");
+        subtableroElegidolbl.setText("2");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 3;
@@ -286,7 +292,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelJuegoConfig.removeAll();
         mostrarTableroConSubTableros(4, 4, 7);
-         subtableroElegidolbl.setText("7");
+        subtableroElegidolbl.setText("7");
         panelJuegoConfig.repaint();
         panelJuegoConfig.revalidate();
         opcionTablero = 4;
@@ -364,7 +370,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
             subtableroSelected[1] = columna;
         }
         posHueco = (int) Integer.parseInt(botones[fila][columna].getText());
-        subtableroElegidolbl.setText(""+posHueco);
+        subtableroElegidolbl.setText("" + posHueco);
 
     }
 
@@ -372,9 +378,6 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         Color par = new Color(162, 250, 203);
         Color impar = new Color(125, 189, 154);
 
-        
-        
-        
         panelJuegoConfig.setLayout(new GridLayout(dimensionF, dimensionC));
         int cont = 1;
         int contFila = 0;
@@ -422,7 +425,7 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
                 panelJuegoConfig.add(jButton);
                 botones[i][j] = jButton;
                 botones[i][j].setFont((new Font("Arial", Font.BOLD, 40)));
-                botones[i][j].setForeground(new Color (0, 89, 28));
+                botones[i][j].setForeground(new Color(0, 89, 28));
                 cont++;
 
                 if (Integer.parseInt(botones[i][j].getText()) == hueco) {

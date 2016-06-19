@@ -31,10 +31,14 @@ public class VentanaPreJugar extends javax.swing.JFrame {
     Image jBlancoFicha;
     Image jNegroFicha;
     Image huecoFicha;
-    Icon iconoHueco;
+    Icon iconoHueco, jblancoIcon, jNegroIcon;
     boolean hayJNegro = false;
     boolean hayJBlanco = false;
-    Tablero tab;
+    Tablero tab, tabAux;
+    int[] configAux = new int[2];
+    Partida pAux;
+    boolean partidaCargada;
+    int posHuecoCargar;
 
     public VentanaPreJugar(Sistema unSis) {
 
@@ -42,19 +46,20 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         tab = new Tablero(miSistema.getConfPartida()[0], miSistema.getConfPartida()[1]);
         initComponents();
         iconoHueco = cargarImagenIconoDefault("hueco.png");
-        cargarImagenIconoDefault("fichaBlanca.png");
-        cargarImagenIconoDefault("fichaNegra.png");
+        jblancoIcon = cargarImagenIconoDefault("fichaBlanca.png");
+        jNegroIcon = cargarImagenIconoDefault("fichaNegra.png");
         jButtonCambiarHueco.setIcon(iconoHueco);
         mostrarTableroConSubTableros(tab.getTablero().length, tab.getTablero()[0].length, tab);
         cargarLista();
 
         panelJuegoConfig.setVisible(true);
-        
-        //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        this.setIconImage(image);
-
+        Image iconoPrincipal;
+        try {
+            iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void cargarLista() {
@@ -311,24 +316,22 @@ public class VentanaPreJugar extends javax.swing.JFrame {
             if (imagen.equals("fichaBlanca.png")) {
 
                 blanca = ImageIO.read(getClass().getResource("/imagenes/fichaBlanca.png"));;
-                blanca = blanca.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
 
-                icono = new ImageIcon(blanca);
+                icono = new ImageIcon(blanca.getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
                 jBlancoFicha = blanca;
 
             }
             if (imagen.equals("fichaNegra.png")) {
-    
-                negra = ImageIO.read(getClass().getResource("/imagenes/fichaNegra.png"));
-                negra = negra.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
 
-                icono = new ImageIcon(negra);
+                negra = ImageIO.read(getClass().getResource("/imagenes/fichaNegra.png"));
+
+                icono = new ImageIcon(negra.getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
                 jNegroFicha = negra;
             }
             if (imagen.equals("hueco.png")) {
                 hueco = ImageIO.read(getClass().getResource("/imagenes/hueco.png"));
-                hueco = hueco.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-                icono = new ImageIcon(hueco);
+
+                icono = new ImageIcon(hueco.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
                 huecoFicha = hueco;
             }
 
@@ -362,21 +365,17 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
     private void jButtonJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugarActionPerformed
         Partida p = new Partida();
-        
+
         if (hayJBlanco && hayJNegro) {
-            if (miSistema.isPartidaCargadaArchivo()){
-                
-                 p = new Partida(miSistema.getConfPartida(), miSistema.getPartidaActual().getTablero(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
-            }else{
+
+            if (!partidaCargada) {
                 p = new Partida(miSistema.getConfPartida(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
+            } else {
+                p = new Partida(posHuecoCargar, tabAux, jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
             }
-            
-            
-             
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
             this.dispose();
-            
         } else {
             JOptionPane.showMessageDialog(this, "Faltan jugadores por seleccionar", "No hay suficientes jugadores", ERROR_MESSAGE);
         }
@@ -384,93 +383,97 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 
         }
 
+
     }//GEN-LAST:event_jButtonJugarActionPerformed
 
-
+    /*
     private void jCargarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargarPartidaActionPerformed
         JFileChooser fileChooserCargarPartida = new JFileChooser();
         int posSubTablero;
         int returnVal = fileChooserCargarPartida.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooserCargarPartida.getSelectedFile();
-            String jBlanco, jNegro, tamTablero;   
+            String jBlanco, jNegro, tamTablero;
             String ruta = file.getAbsolutePath();
             int largoRuta = ruta.length();
             Jugador blanco, negro;
-            if (ruta.charAt(largoRuta-1) != 't' && ruta.charAt(largoRuta-1) != 'T' 
-                    && (ruta.charAt(largoRuta-2) != 'x' && ruta.charAt(largoRuta-1) != 'X')
-                    && (ruta.charAt(largoRuta-3) != 't' && ruta.charAt(largoRuta-1) != 'T')){
-                JOptionPane.showMessageDialog(this, "El formato de archivo debe ser .txt ", 
+            if (ruta.charAt(largoRuta - 1) != 't' && ruta.charAt(largoRuta - 1) != 'T'
+                    && (ruta.charAt(largoRuta - 2) != 'x' && ruta.charAt(largoRuta - 1) != 'X')
+                    && (ruta.charAt(largoRuta - 3) != 't' && ruta.charAt(largoRuta - 1) != 'T')) {
+                JOptionPane.showMessageDialog(this, "El formato de archivo debe ser .txt ",
                         "Formato de archivo incorrecto", ERROR_MESSAGE);
-            }
-            else{
+            } else {
                 try {
                     miSistema.leerTXT(file);
                     archivo.ArchivoLectura.leerArchivo(file);
                     jBlanco = archivo.ArchivoLectura.linea();
                     blanco = new Jugador(jBlanco);
                     jNegro = archivo.ArchivoLectura.linea();
-                    negro = new Jugador (jNegro);
-                    int tamTab ;
+                    negro = new Jugador(jNegro);
+                    int tamTab;
                     if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
-                            && (miSistema.getListaJugadores().indexOf(negro) != -1)){
+                            && (miSistema.getListaJugadores().indexOf(negro) != -1)) {
                         //los jugadores estan en el sistema
-                        int aux [] = new int [2];
+                        int aux[] = new int[2];
                         tamTablero = archivo.ArchivoLectura.linea();
-                        tamTab= convertirTamTab(tamTablero);
+                        tamTab = convertirTamTab(tamTablero);
                         Tablero tabAux = new Tablero(tamTab, 1);
                         int[] posHueco = new int[2];
                         int primeraPosHueco = 0;
                         aux = tabAux.setTamanioTablero(tamTab);
-                        int filas =aux [0], col = aux[1]; 
-                        char[][] tablero= new char[filas][col];
-                        for (int i =0; i< filas; i++){
+                        int filas = aux[0], col = aux[1];
+                        char[][] tablero = new char[filas][col];
+                        for (int i = 0; i < filas; i++) {
                             //leo fila 1
                             String filaLectura = archivo.ArchivoLectura.linea();
-                            int a =0;
-                            for (int j=0; j<col; j++){
-                               // for (int a =0; i<filaLectura.length(); a++){
-                                    if (filaLectura.charAt(a)=='B'){ //si leo B, pongo ficha blanca
-                                       tablero[i][j]='B';
-                                    }
-                                    else{
-                                        if (filaLectura.charAt(a)=='H'){//pongo hueco
-                                            tablero[i][j]='X';
-                                            if (primeraPosHueco == 0){
-                                                posHueco[0]=i;
-                                                posHueco[1]=j;
+                            int a = 0;
+                            for (int j = 0; j < col; j++) {
+                                // for (int a =0; i<filaLectura.length(); a++){
+                                if (filaLectura.charAt(a) == 'B') { //si leo B, pongo ficha blanca
+                                    tablero[i][j] = 'B';
+                                } else if (filaLectura.charAt(a) == 'H') {//pongo hueco
+                                    tablero[i][j] = 'X';
+                                    if (primeraPosHueco == 0) {
+                                        posHueco[0] = i;
+                                        posHueco[1] = j;
 
-                                            }
-                                            primeraPosHueco++;
-                                        }
-                                        else{
-                                             if (filaLectura.charAt(a)=='N'){
-                                                 //pongo ficha negra
-                                                 tablero[i][j]='N';
-                                             }
-                                        }
                                     }
-                                    a++;
+                                    primeraPosHueco++;
+                                } else if (filaLectura.charAt(a) == 'N') {
+                                    //pongo ficha negra
+                                    tablero[i][j] = 'N';
+                                }
+                                a++;
                                 //}
                             }
                         } //termino de llenar el tablero
 
                         posSubTablero = tabAux.getSubtablero(tamTab, posHueco);
-                        Partida pAux = new Partida ();
+                        Partida pAux = new Partida();
                         tabAux.setTablero(tablero);
                         tabAux.setPosHueco(posHueco);
                         pAux.setTablero(tabAux);
-                        miSistema.setPartidaActual(pAux);
-                        int [] configPartida = new int [2];
-                        configPartida [0] = tamTab;
-                        configPartida [1] = posSubTablero;
+                     
+                        int[] configPartida = new int[2];
+                        configPartida[0] = tamTab;
+                        configPartida[1] = posSubTablero;
                         pAux.setPosicionHuecoActual(posSubTablero);
-                        miSistema.setConfPartida(configPartida);
+               
+
+                        jLabelNombreBlanco.setText(blanco.getAlias());
+                        jlabelNombreNegro.setText(negro.getAlias());
                         miSistema.setPartidaCargadaArchivo(true);
-                         JOptionPane.showMessageDialog(this, "Partida cargada correctamente", 
-                                 "Partida cargada exitosamente", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else{ // no estan los jugadores en el sistema
+                        hayJBlanco = true;
+                        hayJNegro = true;
+                        panelJuegoConfig.removeAll();
+                        mostrarTableroConSubTableros(tabAux.getTablero().length, tabAux.getTablero()[0].length, tabAux);
+                        panelJuegoConfig.revalidate();
+                        panelJuegoConfig.repaint();
+                        pAux.setJugadorBlanco(blanco);
+                        pAux.setJugadorNegro(negro);
+                        JOptionPane.showMessageDialog(this, "Partida cargada correctamente",
+                                "Partida cargada exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                    } else { // no estan los jugadores en el sistema
                         JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
 
                     }
@@ -480,11 +483,101 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                     Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-
             }
-                        
+
         }
     }//GEN-LAST:event_jCargarPartidaActionPerformed
+*/
+    private void jCargarPartidaActionPerformed(java.awt.event.ActionEvent evt) {
+        JFileChooser fileChooserCargarPartida = new JFileChooser();
+        int[] posHueco = new int[2];
+        int returnVal = fileChooserCargarPartida.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooserCargarPartida.getSelectedFile();
+            String jBlanco, jNegro, tamTablero;
+            Jugador blanco, negro;
+
+            try {
+                miSistema.leerTXT(file);
+                archivo.ArchivoLectura.leerArchivo(file);
+                jBlanco = archivo.ArchivoLectura.linea();
+                blanco = new Jugador(jBlanco);
+                jNegro = archivo.ArchivoLectura.linea();
+                negro = new Jugador(jNegro);
+                int tamTab;
+                if ((miSistema.getListaJugadores().indexOf(blanco) != -1)
+                        && (miSistema.getListaJugadores().indexOf(negro) != -1)) {
+                    //los jugadores estan en el sistema
+                    int aux[] = new int[2];
+                    tamTablero = archivo.ArchivoLectura.linea();
+                    tamTab = convertirTamTab(tamTablero);
+                    tabAux = new Tablero(tamTab, 1);
+
+                    aux = tabAux.setTamanioTablero(tamTab);
+                    int filas = aux[0], col = aux[1];
+                    char[][] tablero = new char[filas][col];
+                    int[] primerHueco = new int[2];
+                    boolean esPrimero = true;
+                    for (int i = 0; i < filas; i++) {
+                        //leo fila 1
+                        String filaLectura = archivo.ArchivoLectura.linea();
+                        int a = 0;
+                        for (int j = 0; j < col; j++) {
+                            // for (int a =0; i<filaLectura.length(); a++){
+                            if (filaLectura.charAt(a) == 'B') { //si leo B, pongo ficha blanca
+                                tablero[i][j] = 'B';
+                            } else if (filaLectura.charAt(a) == 'H') {//pongo hueco
+                                if (esPrimero) {
+                                    primerHueco[0] = i;
+                                    primerHueco[1] = j;
+                                    esPrimero = false;
+                                }
+                                tablero[i][j] = 'X';
+                            } else {//pongo ficha negra
+                                tablero[i][j] = 'N';
+                            }
+                            if (filaLectura.charAt(a) == 'V') {
+                                tablero[i][j] = ' ';
+                            }
+                            a++;
+                            //}
+                        }
+                    } //termino de llenar el tablero
+                    this.jBlanco = blanco;
+                    this.jNegro = negro;
+                    jLabelNombreBlanco.setText("" + this.jBlanco.getAlias());
+                    jlabelNombreNegro.setText("" + this.jNegro.getAlias());
+                    tabAux.setPosHueco(primerHueco);
+                    tabAux.setTablero(tablero);
+
+                    panelJuegoConfig.removeAll();
+                    mostrarTableroConSubTableros(tabAux.getTablero().length, tabAux.getTablero()[0].length, tabAux);
+                    panelJuegoConfig.revalidate();
+                    panelJuegoConfig.repaint();
+                    posHuecoCargar = tabAux.getPosHuecoCargar(tabAux.getOpcionDeTablero(), primerHueco);
+                    tabAux.setPosHueco(tabAux.setNumeroSubtablero(posHuecoCargar, tabAux.getOpcionDeTablero()));
+                    tab = tabAux;
+
+                    jButtonJugar.setText("Continuar Partida");
+                    jButtonJugadorBlanco.setEnabled(false);
+                    jButtonJugadorNegro.setEnabled(false);
+                    partidaCargada = true;
+                    hayJBlanco = true;
+                    hayJNegro = true;
+
+                } else { // no estan los jugadores en el sistema
+                    JOptionPane.showMessageDialog(this, "No se encuentran los jugadores (debe darlos de alta previamente)", "Jugadores no se encuentran", ERROR_MESSAGE);
+
+                }
+                archivo.ArchivoLectura.cerrar();
+
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaPreJugar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
 
     private void jButtonFichaBlancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFichaBlancaActionPerformed
         Image img = null;
@@ -592,13 +685,30 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                 JButton jButton = new JButton();
                 panelJuegoConfig.add(jButton);
                 botones[i][j] = jButton;
+                botones[i][j].setBackground(new Color(222, 222, 222));
                 jButton.setEnabled(false);
+
                 if (tab.getTablero()[i - 1][j - 1] == 'X') {
                     botones[i][j].setEnabled(true);
                     botones[i][j].setBackground(Color.PINK);
                     botones[i][j].setIcon(iconoHueco);
+                }
+                if (tab.getTablero()[i - 1][j - 1] == 'B') {
+                    botones[i][j].setEnabled(true);
+
+                    botones[i][j].setIcon(jblancoIcon);
+                }
+
+                if (tab.getTablero()[i - 1][j - 1] == ' ') {
 
                 }
+
+                if (tab.getTablero()[i - 1][j - 1] == 'N') {
+                    botones[i][j].setEnabled(true);
+
+                    botones[i][j].setIcon(jNegroIcon);
+                }
+
             }
 
         }
@@ -640,29 +750,22 @@ public class VentanaPreJugar extends javax.swing.JFrame {
 //        });
     }
 
-    public int convertirTamTab (String tamanio){
+    public int convertirTamTab(String tamanio) {
         int retorno = 0;
-        
-        if (tamanio.equalsIgnoreCase("6*6")){ 
-            retorno=1;
+
+        if (tamanio.equalsIgnoreCase("6*6")) {
+            retorno = 1;
+        } else if (tamanio.equalsIgnoreCase("4*6")) {
+            retorno = 2;
+        } else if (tamanio.equalsIgnoreCase("6*4")) {
+            retorno = 3;
+        } else {
+            retorno = 4;
         }
-        else{
-            if (tamanio.equalsIgnoreCase("4*6")){
-                retorno=2;
-            }
-            else{
-                if (tamanio.equalsIgnoreCase("6*4")){
-                    retorno=3;
-                }
-                else{
-                    retorno=4;
-                }
-            }
-        }
-        
+
         return retorno;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButtonCambiarHueco;

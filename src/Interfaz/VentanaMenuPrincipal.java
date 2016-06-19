@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -14,36 +15,38 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     public VentanaMenuPrincipal(Sistema sis) throws ClassNotFoundException {
-        
-        initComponents();
-        
-        //seteo icono de form
-        ImageIcon ImageIcon = new ImageIcon("src\\imagenes\\4En.png");
-        Image image = ImageIcon.getImage();
-        image = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-        this.setIconImage(image);
-             
-        elSis = sis;
-         try {
+
+        try {
+            initComponents();
+            //seteo icono de form
+
+            Image iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
+
+            this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
+            elSis = sis;
+            try {
                 elSis = sis.persistirLeer();
-           
-           } catch (FileNotFoundException e) {
-            System.out.println("1" + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("2" + e.getMessage());
-        }
-        
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                try {
-            elSis.persistirGuardar(elSis);
-             
+
+            } catch (FileNotFoundException e) {
+                System.out.println("1" + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("2" + e.getMessage());
+            }
+            addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent evt) {
+                    try {
+                        elSis.persistirGuardar(elSis);
+
+                    } catch (IOException ex) {
+                    }
+                    close();
+                }
+            });
+
         } catch (IOException ex) {
-        }       
-        close();
+            Logger.getLogger(VentanaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -161,17 +164,16 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
 
     private void btnMPJugadores2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMPJugadores2ActionPerformed
         try {
-             
+
             elSis.persistirGuardar(elSis);
             close();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-      
+
         System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 
-    
     public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,13 +209,15 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             }
         });
     }
-   private void close(){
+
+    private void close() {
         if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro/a que desea salir?",
-                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
-    } 
-   
-   private Sistema elSis;
+        }
+    }
+
+    private Sistema elSis;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMPConfiguraciones;
     private javax.swing.JButton btnMPJugadores1;

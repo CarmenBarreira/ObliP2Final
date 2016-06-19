@@ -15,7 +15,7 @@ public class Main {
         menu.setLocation((rct.width - menu.getWidth()) / 2, (rct.height - menu.getHeight()) / 2);
         menu.setVisible(true);
 
-        Partida partida = new Partida();
+      //  Partida partida = new Partida();
 
     }
 

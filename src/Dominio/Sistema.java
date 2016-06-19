@@ -18,7 +18,7 @@ public class Sistema extends Observable implements Serializable{
 
     //atributos
     private ArrayList<Jugador> listaJugadores;
-    private transient Partida partidaActual;
+    private Partida partidaActual;
     private int[] confPartida = {1, 5}; 
     // CONFIGURACION POR DEFECTO, PRIMER NUMERO ES OPCION DE TABLERO, SEGUNDO ES OPCION DE HUECO
     private transient boolean partidaCargadaArchivo;

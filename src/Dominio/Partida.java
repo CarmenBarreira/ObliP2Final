@@ -10,7 +10,7 @@ public class Partida extends Observable implements Serializable {
     private transient Jugador jugadorBlanco;
     private transient Jugador jugadorNegro;
     private transient Tablero tablero;
-    private transient int posicionHuecoActual;
+    private int posicionHuecoActual;
     private transient int cantidadFichas;
     private transient int deshacerMovPosHueco;
     private transient Image fichaJBlanco;

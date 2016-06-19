@@ -359,8 +359,14 @@ public class VentanaPreJugar extends javax.swing.JFrame {
         Partida p = new Partida();
         
         if (hayJBlanco && hayJNegro) {
-            
+            if (miSistema.isPartidaCargadaArchivo()){
+                
+                 p = new Partida(miSistema.getConfPartida(), miSistema.getPartidaActual().getTablero(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
+            }else{
                 p = new Partida(miSistema.getConfPartida(), jBlanco, jNegro, jBlancoFicha, jNegroFicha, huecoFicha);
+            }
+            
+            
              
             VentanaJugarPartida nuevaVentana = new VentanaJugarPartida(miSistema, p);
             nuevaVentana.setVisible(true);
@@ -453,8 +459,9 @@ public class VentanaPreJugar extends javax.swing.JFrame {
                         int [] configPartida = new int [2];
                         configPartida [0] = tamTab;
                         configPartida [1] = posSubTablero;
-
+                        pAux.setPosicionHuecoActual(posSubTablero);
                         miSistema.setConfPartida(configPartida);
+                        miSistema.setPartidaCargadaArchivo(true);
                          JOptionPane.showMessageDialog(this, "Partida cargada correctamente", 
                                  "Partida cargada exitosamente", JOptionPane.INFORMATION_MESSAGE);
                     }

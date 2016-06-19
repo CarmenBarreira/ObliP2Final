@@ -158,8 +158,9 @@ public class VentanaMenuPrincipal extends javax.swing.JFrame {
             elSis.persistirGuardar(elSis);
             close();
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
-//        
+      
         System.exit(0);
     }//GEN-LAST:event_btnMPJugadores2ActionPerformed
 

@@ -136,6 +136,10 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         lblTurno.setText("Turno de " + j1.getAlias().toUpperCase());
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+//        if (sis.isPartidaCargadaArchivo()){
+//                mostrarTableroJuego(sis.getPartidaActual());    
+//        }
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -494,7 +498,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
 
                 }
 
-                if (p.getTablero().getTablero()[i - 1][j - 1] == 'X') {
+                if (p.getTablero().getTablero()[i - 1][j - 1] == 'X' || 
+                        (p.getTablero().getTablero()[i - 1][j - 1] == 'H')) {
                     botones[i][j].setBackground(Color.PINK);
                     botones[i][j].setIcon(hueco);
 

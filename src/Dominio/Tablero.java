@@ -321,36 +321,47 @@ public class Tablero implements Serializable{
     
     public int getSubtablero(int tamañoTablero, int[] comienzoSubtablero ){
         //comienzoSubtablero es la primer posicion de donde arranca el subtablero
-        
+               
         int subtablero =0;
         
         if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==0){
+            /*el subtablero 1 siempre esta no importa el tamaño del tablero 
+            y la primer posicion siempre es [0][0]*/
              subtablero=1;
         }
         else{
             if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==2){
+                /*el subtablero 2 siempre esta no importa el tamaño del tablero 
+                y la primer posicion siempre es [0][2]*/
                 subtablero =2;
             }
             else{
-                if (comienzoSubtablero[0]==0 && comienzoSubtablero[1]==4){
+                if ((comienzoSubtablero[0]==0 && comienzoSubtablero[1]==4 && 
+                     (tamañoTablero ==1 || tamañoTablero == 2 || tamañoTablero==4))
+                    || (tamañoTablero ==3 && comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0)){
+                 /*Si es la posicion 04 y tamaño tablero es 1,2,4 O 
+                    posicion 20 y tamaño tablero 3 = 6*4  */   
                     subtablero =3;
                 }
                 else{
                     if ((comienzoSubtablero[0]==0 && comienzoSubtablero[1]==6 && tamañoTablero ==4)
-                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero==3)
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && tamañoTablero==3)
                             || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero ==1)
-                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && tamañoTablero == 2)){
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero == 2)){
                         subtablero =4;
                     }
                     else{
                         if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==0 && tamañoTablero==4)
-                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && (tamañoTablero ==1 || tamañoTablero==3))){
+                            || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && (tamañoTablero ==1
+                            || tamañoTablero == 2))
+                            || (comienzoSubtablero[0]==4 && comienzoSubtablero[1]==4) && tamañoTablero==3 ){
                             subtablero = 5;
                         }
                         else{
                             if ((comienzoSubtablero[0]==2 && comienzoSubtablero[1]==2 && tamañoTablero==4)
-                                    || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==4 && 
-                                    (tamañoTablero==1 || tamañoTablero==3)) ){
+                               || (comienzoSubtablero[0]==2 && comienzoSubtablero[1]==4 && 
+                                    (tamañoTablero==1 || tamañoTablero==2))
+                               || (tamañoTablero ==3 && comienzoSubtablero[0]==4 && comienzoSubtablero[1]==2)){
                                  subtablero = 6;
                             }
                             else{

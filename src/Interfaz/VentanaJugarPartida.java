@@ -94,9 +94,11 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         btnStopMusic.setEnabled(false);
         hueco = new ImageIcon(imagenHueco);
         lblNumeroTurno.setText("Turno: " + turno);
-        cantFichasTotal = partidaActual.getTablero().getTablero().length * partidaActual.getTablero().getTablero()[0].length - 4;
+        cantFichasTotal = partidaActual.getTablero().getTablero().length * 
+                partidaActual.getTablero().getTablero()[0].length - 4;
         lblCantFichas.setText("Cantidad de Fichas Restantes: " + cantFichasTotal);
-        mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, p.getTablero().getTablero()[0].length / 2, p);
+        mostrarTableroConSubTableros(p.getTablero().getTablero().length / 2, 
+                p.getTablero().getTablero()[0].length / 2, p);
 
         t = new Timer(1000, new ActionListener() {
             int segundos = 0;
@@ -364,7 +366,8 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
         ImageIcon icono = null;
 
         try {
-            // si es la ficha blanca la cargo en la imagen de jugador blanco, asi cuando empiezo la partida si el user no selecciono nada
+            // si es la ficha blanca la cargo en la imagen de jugador blanco, 
+            //asi cuando empiezo la partida si el user no selecciono nada
             // se carga esta imagen por defecto
             if (imagen.equals("cup.png")) {
 
@@ -569,7 +572,9 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
                 hayGanador = true;
 
             }
-            JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + " ganaste la partida en " + tiempolbl + " minutos", "FELICITACIONES " + ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, rendirseIcon);
+            JOptionPane.showMessageDialog(this, "Felicitaciones " + ganador + 
+                    " ganaste la partida en " + tiempolbl + " minutos", "FELICITACIONES " +
+                            ganador.toUpperCase(), JOptionPane.INFORMATION_MESSAGE, rendirseIcon);
 
             this.dispose();
         }
@@ -918,9 +923,7 @@ public final class VentanaJugarPartida extends javax.swing.JFrame implements Obs
             while (nroDeFila > dimension) {
 
                 nroDeFila = nroDeFila - dimension;
-
             }
-
         }
 
         return nroDeFila;

@@ -29,7 +29,8 @@ public class Partida extends Observable implements Serializable {
 
     }
 
-    public Partida(int[] configuracion, Jugador jBlanco, Jugador jNegro, Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
+    public Partida(int[] configuracion, Jugador jBlanco, Jugador jNegro, 
+            Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
         Tablero tab = new Tablero(configuracion[0], configuracion[1]);
         this.jugadorBlanco = jBlanco;
         this.jugadorNegro = jNegro;
@@ -41,7 +42,8 @@ public class Partida extends Observable implements Serializable {
         this.fichaJNegro = jNegroImg;
     }
 
-    public Partida(int posHueco, Tablero tab, Jugador jBlanco, Jugador jNegro, Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
+    public Partida(int posHueco, Tablero tab, Jugador jBlanco, Jugador jNegro,
+            Image jBlancoImg, Image jNegroImg, Image huecoImg) { // constructor con configuracion 
         this.jugadorBlanco = jBlanco;
         this.jugadorNegro = jNegro;
         this.posicionHuecoActual = posHueco;

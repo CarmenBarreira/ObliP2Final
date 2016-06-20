@@ -1,6 +1,5 @@
 package Interfaz;
 
-import Dominio.Partida;
 import Dominio.Sistema;
 import Dominio.Tablero;
 import java.awt.Color;
@@ -46,9 +45,11 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         panelJuegoConfig.setMaximumSize(new Dimension(447, 396));
         Tablero tab = new Tablero(sis.getConfPartida()[0], sis.getConfPartida()[1]);
         bor = BorderFactory.createLineBorder(Color.white);
-        bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder());
+        bor = BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), 
+                BorderFactory.createLoweredBevelBorder());
 
-        mostrarTableroConSubTableros((tab.getTablero().length / 2), (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
+        mostrarTableroConSubTableros((tab.getTablero().length / 2), 
+                (tab.getTablero()[0].length / 2), sis.getConfPartida()[1]);
 
         int tablero = sis.getConfPartida()[0];
         switch (tablero) {
@@ -250,7 +251,8 @@ public class VentanaConfiguracion extends javax.swing.JFrame {
         confActual[0] = opcionTablero;
         confActual[1] = posHueco;
         sis.setConfPartida(confActual);
-        JOptionPane.showMessageDialog(this, "Configuracion guardada con exito!", "Configuracion Guardada", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Configuracion guardada con exito!", 
+                "Configuracion Guardada", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
 
 

@@ -10,7 +10,6 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +22,7 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
 
         initComponents();
         
-                Image iconoPrincipal;
+        Image iconoPrincipal;
         try {
             iconoPrincipal = ImageIO.read(getClass().getResource("/imagenes/4En.png"));
             this.setIconImage(iconoPrincipal.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH));
@@ -33,7 +32,6 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         miSistema = sis;
         miSistema.addObserver(this);
         update(null, null);
-        
 
     }
 
@@ -223,8 +221,6 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
     private void jBtnAgregarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarJugadorActionPerformed
         VentanaEditarJugador agregarVentana = new VentanaEditarJugador(miSistema);
         agregarVentana.setVisible(true);
-
-
     }//GEN-LAST:event_jBtnAgregarJugadorActionPerformed
 
     private void jBtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBorrarActionPerformed
@@ -234,11 +230,10 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         if (filas>1){
             JOptionPane.showMessageDialog(this, "Debe seleccionar de a 1 Jugador", "Mas de 1 Jugador seleccionado", ERROR_MESSAGE);
         }else{
-             if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
+            if (tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
                 if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro/a que desea borrar el/la jugador/a?",
                    "Borrar Jugador/a", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                     miSistema.eliminarJugador(miSistema.getListaJugadores().get(tablaJugadores.getSelectedRow()));
-           
             }else{
                 if (tablaJugadores.getRowCount() == 0 || !tablaJugadores.isRowSelected(tablaJugadores.getSelectedRow())) {
                     JOptionPane.showMessageDialog(this, "No hay un jugador selecccionado!", "No hay Jugadores", ERROR_MESSAGE);
@@ -278,17 +273,6 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-//    public static void main(String args[]) {
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new VentanaJugadores().setVisible(true);
-//                
-//            }
-//        });
-//         
-//    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton jBtnAgregarJugador;
@@ -304,7 +288,6 @@ public class VentanaJugadores extends javax.swing.JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         cargarLista();
-//        miSistema.setListaJugadores(miSistema.ordenarCrecienteJugador()); 
     }
 
 }

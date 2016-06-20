@@ -1,6 +1,5 @@
 package ObligatorioDos;
 
-import Dominio.Partida;
 import Dominio.Sistema;
 import Interfaz.VentanaMenuPrincipal;
 import java.awt.Rectangle;
@@ -14,8 +13,6 @@ public class Main {
         Rectangle rct = menu.getGraphicsConfiguration().getBounds();
         menu.setLocation((rct.width - menu.getWidth()) / 2, (rct.height - menu.getHeight()) / 2);
         menu.setVisible(true);
-
-      //  Partida partida = new Partida();
 
     }
 

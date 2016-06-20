@@ -189,7 +189,8 @@ public class Tablero implements Serializable{
     
         while (!encontreSubtablero) { //MIENTRAS NO HAYA ENCONTRADO EL SUBTABLERO
             
-            //SI EL NUMERO DE SUBTABLERO ES <= A LA CANTIDAD DE COLUMNAS DE SUBTABLEROS(equivalen a 2 columnas cada Una)
+            //SI EL NUMERO DE SUBTABLERO ES <= A LA CANTIDAD DE COLUMNAS DE 
+            //SUBTABLEROS(equivalen a 2 columnas cada Una)
             if (numeroSubtablero <= constanteColumna) {
                 coordSubtablero[0] = fila; // seteo fila
                 coordSubtablero[1] = (2 * numeroSubtablero) - 2; //la columna es 2* el numero de subtablero -2 
